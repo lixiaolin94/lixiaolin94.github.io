@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FOV Calculator</title>
+    <style>
+        .grid {
+            display: grid;
+            grid-template-columns: 120px 240px 80px;
+            gap: 10px 10px;
+        }
+
+        .read-only{
+            border: 0;
+            outline: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="grid">
+        <label for="input-fov">FOV</label>
+        <input type="range" id="input-fov" min="0" max="180" step="1" value="60">
+        <input type="number" id="value-fov" min="0" max="180" step="1">
+
+        <label for="input-distance">Distance</label>
+        <div></div>
+        <input type="number" id="input-distance" min="0" max="100" step="0.1" value="8">
+
+        <label for="input-scale-ratio">Scale Ratio</label>
+        <div></div>
+        <input type="number" id="input-scale-ratio" min="0" max="1" step="0.0001" value="0.008">
+
+        <label for="value-size">Size</label>
+        <div></div>
+        <input type="text" id="value-size" readonly class="read-only">
+
+    </div>
+
+    <script>
+        var fov = document.getElementById("input-fov");
+        var fovValue = document.getElementById("value-fov");
+        fovValue.value = fov.value;
+
+        fov.addEventListener("input", function () {
+            fovValue.value = fov.value;
+            fovToSize(fov.value, distance.value);
+        });
+
+        fovValue.addEventListener("input", function () {
+            fov.value = fovValue.value;
+            fovToSize(fov.value, distance.value);
+        });
+
+        var size = document.getElementById("value-size");
+
+        var distance = document.getElementById("input-distance");
+        distance.addEventListener("input", function () {
+            fovToSize(fov.value, distance.value);
+        });
+
+        var scaleRatio = document.getElementById("input-scale-ratio");
+        scaleRatio.addEventListener("input", function () {
+            fovToSize(fov.value, distance.value);
+        });
+
+        function fovToSize(fov, distance){
+            size.value = (2 * Math.tan((fov / 2) * Math.PI / 180) * distance) /  scaleRatio.value;
+        }
+
+        fovToSize(fov.value, distance.value);
+
+    </script>
+</body>
+
+</html>
