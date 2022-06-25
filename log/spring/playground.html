@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Spring Playground</title>
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        #object {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 160px;
+            height: 160px;
+            cursor: pointer;
+            color: white;
+            user-select: none;
+            -webkit-user-select: none;
+            background-color: black;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/dat.gui@0.7.9/build/dat.gui.min.js"></script>
+    <script src="./js/spring.js"></script>
+    <script>
+        var Spring = function (element) {
+            this.element = element;
+            this.current = 1;
+            this.animationIsRunning = false;
+
+            this.mass = 1;
+            this.stiffness = 200;
+            this.damping = 15;
+            this.initialVelocity = 0;
+        };
+
+        Spring.prototype = {
+            scaleTo: function (value) {
+                this.animationIsRunning = true;
+                this.startTime = Date.now() / 1000;
+                this.start = this.current;
+                this.target = value;
+                this.solver = new SpringSolver(this.mass, this.stiffness, this.damping, this.initialVelocity);
+                window.requestAnimationFrame(this.step.bind(this));
+            },
+
+            step: function () {
+                if (!this.animationIsRunning) {
+                    return;
+                }
+
+                let elapsed = Date.now() / 1000 - this.startTime;
+                let proportion = this.solver.solve(elapsed);
+
+                this.current = this.start + (this.target - this.start) * proportion;
+                this.element.style.transform = `scale(${this.current})`;
+
+                // Keep animating for 10 seconds. Too bad if it hasn't finished by then.
+                if (elapsed < 10 * 1000) {
+                    window.requestAnimationFrame(this.step.bind(this));
+                } else {
+                    this.animationIsRunning = false;
+                }
+            }
+        };
+
+        const downEvent = window.ontouchstart !== undefined ? 'touchstart' : 'mousedown';
+        const upEvent = window.ontouchend !== undefined ? 'touchend' : 'mouseup';
+
+        window.addEventListener("load", function () {
+            const obj = document.getElementById("object");
+            let spring = new Spring(obj);
+            let gui = new dat.GUI();
+            gui.add(spring, 'mass', 0, 20);
+            gui.add(spring, 'stiffness', 0, 500);
+            gui.add(spring, 'damping', 0, 50);
+            gui.add(spring, 'initialVelocity', -50, 50);
+
+            obj.addEventListener(downEvent, function (event) {
+                spring.scaleTo(0.9);
+            }, false);
+            obj.addEventListener(upEvent, function (event) {
+                spring.scaleTo(1);
+            }, false);
+        }, false);
+    </script>
+</head>
+
+<body>
+    <div id="object">Press me</div>
+</body>
+
+</html>
