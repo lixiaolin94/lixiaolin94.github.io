@@ -65,8 +65,12 @@ void main() {
 }
       `;
 
-      const texture = "https://lf3-static.bytednsdoc.com/obj/eden-cn/pbeh7upsvhpeps/demo/pico/os/texture-shadow-sample.png";
       const config = {
+        textures: {
+          bar: "https://lf3-static.bytednsdoc.com/obj/eden-cn/pbeh7upsvhpeps/demo/pico/os/shadow-texture-bar.png",
+          ellipse: "https://lf3-static.bytednsdoc.com/obj/eden-cn/pbeh7upsvhpeps/demo/pico/os/shadow-texture-ellipse.png",
+          square: "https://lf3-static.bytednsdoc.com/obj/eden-cn/pbeh7upsvhpeps/demo/pico/os/shadow-texture-square.png",
+        },
         u_texture: function () {
           const input = document.createElement("input");
           input.type = "file";
@@ -83,21 +87,25 @@ void main() {
 
           input.click();
         },
-        u_distance: 1
+        u_distance: 1,
       };
 
       sandbox.load(frag);
-      sandbox.setUniform("u_texture", texture);
+      sandbox.setUniform("u_texture", config.textures.bar);
       sandbox.setUniform("u_distance", config.u_distance);
 
       const gui = new dat.GUI();
 
-      gui.add(config, 'u_texture').name('更换图片');
-      gui.add(config, "u_distance", 0.3, 1.2).step(0.001).name("距离")
-        .onChange(function (value) {
-          sandbox.setUniform("u_distance", value);
-        });
-
+      gui
+        .add(config.textures, "bar", { bar: config.textures.bar, ellipse: config.textures.ellipse, square: config.textures.square })
+        .name("切换图片")
+        .onChange((value) => sandbox.setUniform("u_texture", value));
+      gui.add(config, "u_texture").name("上传图片");
+      gui
+        .add(config, "u_distance", 0.3, 1.2)
+        .step(0.001)
+        .name("距离")
+        .onChange((value) => sandbox.setUniform("u_distance", value));
     </script>
   </body>
 </html>
