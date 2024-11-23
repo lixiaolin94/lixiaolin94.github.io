@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gradient Generator</title>
+    <style>
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      canvas {
+        position: absolute;
+        width: 256px;
+        height: auto;
+        border: 1px solid gray;
+        left: 8px;
+        top: 8px;
+      }
+      .preview {
+        max-height: 100%;
+        width: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <input type="file" id="imageInput" accept="image/*" style="display: none" />
+    <div id="svgPreview" class="preview"></div>
+    <canvas id="sourceCanvas"></canvas>
+
+    <script type="module">
+      import { Pane } from "https://cdn.jsdelivr.net/npm/tweakpane@4.0.5/dist/tweakpane.min.js";
+
+      const PARAMS = {
+        sample: {
+          start: { x: 0.5, y: 0.5 },
+          end: { x: 1.0, y: 0.5 },
+          count: 20,
+        },
+        gradient: {
+          type: "radial",
+          mode: "brightness",
+          tint: "#BF80FF",
+        },
+        export: {
+          scale: 1.0,
+        },
+        output: {
+          json: "",
+          svg: "",
+          xml: "",
+        },
+      };
+
+      const pane = new Pane({
+        title: "Gradient Generator",
+      });
+
+      // 上传图片按钮
+      const uploadButton = pane.addButton({ title: "上传图片" });
+      uploadButton.on("click", () => {
+        document.getElementById("imageInput").click();
+      });
+
+      // 采样设置
+      const POINT_CONFIG = { min: 0, max: 1, step: 0.1 };
+
+      const sampleFolder = pane.addFolder({ title: "采样设置" });
+      sampleFolder.addBinding(PARAMS.sample, "start", { x: POINT_CONFIG, y: POINT_CONFIG }).on("change", updateOutputs);
+      sampleFolder.addBinding(PARAMS.sample, "end", { x: POINT_CONFIG, y: POINT_CONFIG }).on("change", updateOutputs);
+      sampleFolder.addBinding(PARAMS.sample, "count", { min: 3, max: 100, step: 1 }).on("change", updateOutputs);
+
+      // 渐变设置
+      const gradientFolder = pane.addFolder({ title: "渐变设置" });
+      gradientFolder.addBinding(PARAMS.gradient, "type", { options: { radial: "radial", linear: "linear" } }).on("change", updateOutputs);
+      gradientFolder.addBinding(PARAMS.gradient, "mode", { options: { brightness: "brightness", color: "color" } }).on("change", updateOutputs);
+      gradientFolder.addBinding(PARAMS.gradient, "tint").on("change", updateOutputs);
+
+      // 输出设置
+      const outputFolder = pane.addFolder({ title: "输出设置" });
+      outputFolder.addBinding(PARAMS.export, "scale", { min: 0, max: 1 }).on("change", updateOutputs);
+
+      // 输出文本显示
+      const exportFolder = pane.addFolder({ title: "输出结果" });
+
+      exportFolder.addBinding(PARAMS.output, "json", {
+        view: "text",
+        label: "JSON",
+        multiline: true,
+        rows: 3,
+        readonly: true,
+      });
+      const exportJsonButton = exportFolder.addButton({ title: "下载 JSON" });
+      exportJsonButton.on("click", () => {
+        downloadFile(PARAMS.output.json, "gradient.json");
+      });
+
+      exportFolder.addBinding(PARAMS.output, "svg", {
+        view: "text",
+        label: "SVG",
+        multiline: true,
+        rows: 3,
+        readonly: true,
+      });
+      const exportSvgButton = exportFolder.addButton({ title: "下载 SVG" });
+      exportSvgButton.on("click", () => {
+        downloadFile(PARAMS.output.svg, "gradient.svg");
+      });
+
+      exportFolder.addBinding(PARAMS.output, "xml", {
+        view: "text",
+        label: "XML",
+        multiline: true,
+        rows: 3,
+        readonly: true,
+      });
+      const exportXmlButton = exportFolder.addButton({ title: "下载 XML" });
+      exportXmlButton.on("click", () => {
+        downloadFile(PARAMS.output.xml, "gradient.xml");
+      });
+
+      let originalWidth = 360;
+      let originalHeight = 360;
+      const canvas = document.getElementById("sourceCanvas");
+      const ctx = canvas.getContext("2d");
+
+      function generateGenericGradient() {
+        const scale = PARAMS.export.scale;
+        const width = originalWidth * scale;
+        const height = originalHeight * scale;
+        const stops = analyzeImage();
+        const startX = PARAMS.sample.start.x;
+        const startY = PARAMS.sample.start.y;
+        const endX = PARAMS.sample.end.x;
+        const endY = PARAMS.sample.end.y;
+
+        return {
+          type: PARAMS.gradient.type,
+          size: {
+            width,
+            height,
+          },
+          coordinates: {
+            start: { x: startX * width, y: startY * height },
+            end: { x: endX * width, y: endY * height },
+            center: { x: width / 2, y: height / 2 },
+            radius: width / 2,
+          },
+          stops: stops.map((stop) => ({
+            offset: stop.offset,
+            color: stop.color,
+            opacity: stop.hasOwnProperty("opacity") ? stop.opacity : 1,
+          })),
+        };
+      }
+
+      function analyzeImage() {
+        const samples = PARAMS.sample.count;
+        const stops = [];
+        const startX = PARAMS.sample.start.x * canvas.width;
+        const startY = PARAMS.sample.start.y * canvas.height;
+        const endX = PARAMS.sample.end.x * canvas.width;
+        const endY = PARAMS.sample.end.y * canvas.height;
+
+        for (let i = 0; i <= samples; i++) {
+          const t = i / samples;
+          const x = Math.round(startX + (endX - startX) * t);
+          const y = Math.round(startY + (endY - startY) * t);
+          const pixel = ctx.getImageData(x, y, 1, 1).data;
+
+          if (PARAMS.gradient.mode === "brightness") {
+            const brightness = (pixel[0] + pixel[1] + pixel[2]) / (3 * 255);
+            stops.push({
+              offset: t,
+              opacity: brightness,
+              color: PARAMS.gradient.tint,
+            });
+          } else {
+            const rgba = `rgba(${pixel[0]}, ${pixel[1]}, ${pixel[2]}, ${pixel[3] / 255})`;
+            stops.push({
+              offset: t,
+              color: rgba,
+            });
+          }
+        }
+
+        return stops;
+      }
+
+      function generateSVG(gradientData) {
+        const width = gradientData.size.width;
+        const height = gradientData.size.height;
+
+        let gradientElement = "";
+        if (gradientData.type === "radial") {
+          gradientElement = `<radialGradient id="grad" cx="${gradientData.coordinates.center.x}" cy="${gradientData.coordinates.center.y}" r="${gradientData.coordinates.radius}" gradientUnits="userSpaceOnUse">`;
+        } else {
+          gradientElement = `<linearGradient id="grad" x1="${gradientData.coordinates.start.x}" y1="${gradientData.coordinates.start.y}" x2="${gradientData.coordinates.end.x}" y2="${gradientData.coordinates.end.y}" gradientUnits="userSpaceOnUse">`;
+        }
+
+        const gradientStops = gradientData.stops
+          .map((stop) => {
+            if (stop.hasOwnProperty("opacity")) {
+              return `<stop offset="${(stop.offset * 100).toFixed(1)}%" stop-color="${stop.color}" stop-opacity="${stop.opacity.toFixed(3)}"/>`;
+            } else {
+              return `<stop offset="${(stop.offset * 100).toFixed(1)}%" stop-color="${stop.color}"/>`;
+            }
+          })
+          .join("\n        ");
+
+        return `<svg width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}">
+    <defs>
+        ${gradientElement}
+        ${gradientStops}
+        ${gradientData.type === "radial" ? "</radialGradient>" : "</linearGradient>"}
+    </defs>
+    <rect width="${width}" height="${height}" fill="url(#grad)"/>
+</svg>`;
+      }
+
+      function generateVectorXML(gradientData) {
+        const width = gradientData.size.width;
+        const height = gradientData.size.height;
+
+        const items = gradientData.stops
+          .map((stop) => {
+            let color;
+            if (stop.hasOwnProperty("opacity")) {
+              const opacity = Math.round(stop.opacity * 255)
+                .toString(16)
+                .padStart(2, "0");
+              const tintColor = stop.color.substring(1);
+              color = `#${opacity}${tintColor}`;
+            } else {
+              const match = stop.color.match(/rgba\((\d+),\s*(\d+),\s*(\d+),\s*([\d.]+)\)/);
+              if (match) {
+                const [_, r, g, b, a] = match;
+                const alpha = Math.round(parseFloat(a) * 255)
+                  .toString(16)
+                  .padStart(2, "0");
+                color = `#${alpha}${Number(r).toString(16).padStart(2, "0")}${Number(g).toString(16).padStart(2, "0")}${Number(b)
+                  .toString(16)
+                  .padStart(2, "0")}`;
+              }
+            }
+            return `                    <item
+                        android:color="${color}"
+                        android:offset="${stop.offset.toFixed(3)}"/>`;
+          })
+          .join("\n");
+
+        const gradientAttributes =
+          gradientData.type === "radial"
+            ? `android:type="radial"
+                    android:centerX="${gradientData.coordinates.center.x}"
+                    android:centerY="${gradientData.coordinates.center.y}"
+                    android:gradientRadius="${gradientData.coordinates.radius}"`
+            : `android:type="linear"
+                    android:startX="${gradientData.coordinates.start.x}"
+                    android:startY="${gradientData.coordinates.start.y}"
+                    android:endX="${gradientData.coordinates.end.x}"
+                    android:endY="${gradientData.coordinates.end.y}"`;
+
+        return `<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="${width}dp"
+    android:height="${height}dp"
+    android:viewportWidth="${width}"
+    android:viewportHeight="${height}">
+    <path
+        android:pathData="M0,0h${width}v${height}h-${width}z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                ${gradientAttributes}>
+${items}
+            </gradient>
+        </aapt:attr>
+    </path>
+</vector>`;
+      }
+
+      function updateOutputs() {
+        const gradientData = generateGenericGradient();
+        const jsonString = JSON.stringify(gradientData, null, 2);
+        const svgCode = generateSVG(gradientData);
+        const xmlCode = generateVectorXML(gradientData);
+
+        PARAMS.output.json = jsonString;
+        PARAMS.output.svg = svgCode;
+        PARAMS.output.xml = xmlCode;
+        document.getElementById("svgPreview").innerHTML = svgCode;
+      }
+
+      function downloadFile(content, filename) {
+        const blob = new Blob([content], { type: "text/plain" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }
+
+      const imageInput = document.getElementById("imageInput");
+      imageInput.addEventListener("change", (e) => {
+        const file = e.target.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            const img = new Image();
+            img.onload = () => {
+              originalWidth = img.width;
+              originalHeight = img.height;
+              canvas.width = originalWidth;
+              canvas.height = originalHeight;
+              ctx.clearRect(0, 0, canvas.width, canvas.height);
+              ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+              updateOutputs();
+            };
+            img.src = e.target.result;
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Timing | Xiaolin's Tool</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <main>
+      <div id="output" class="output-container">
+        <div>
+          <h2>Android</h2>
+          <code-snippet id="spring-output-android-springanimation" language="Kotlin" api="SpringAnimation" link="https://developer.android.com/reference/kotlin/androidx/dynamicanimation/animation/SpringAnimation"> </code-snippet>
+        </div>
+
+        <div>
+          <h2>iOS</h2>
+          <div class="output-snippets">
+            <code-snippet id="spring-output-ios-spring-duration-bounce" language="Swift" api="Spring(duration:bounce:)" link="https://developer.apple.com/documentation/swiftui/spring/init(duration:bounce:)"> </code-snippet>
+            <code-snippet id="spring-output-ios-spring-response-dampingRatio" language="Swift" api="Spring(response:dampingRatio:)" link="https://developer.apple.com/documentation/swiftui/spring/init(response:dampingratio:)"> </code-snippet>
+            <code-snippet id="spring-output-ios-spring-mass-stiffness-damping" language="Swift" api="Spring(mass:stiffness:damping:allowOverDamping:)" link="https://developer.apple.com/documentation/swiftui/spring/init(mass:stiffness:damping:allowoverdamping:)"> </code-snippet>
+            <code-snippet id="spring-output-ios-caspringanimation" language="Swift" api="CASpringAnimation" link="https://developer.apple.com/documentation/quartzcore/caspringanimation"> </code-snippet>
+          </div>
+        </div>
+
+        <div>
+          <h2>Web</h2>
+          <div class="output-snippets">
+            <code-snippet id="spring-output-web-framer-time" language="JSX" api="framer-motion" link="https://www.framer.com/motion/transition/#spring"> </code-snippet>
+            <code-snippet id="spring-output-web-framer-physical" language="JSX" api="framer-motion" link="https://www.framer.com/motion/transition/#spring"> </code-snippet>
+            <code-snippet id="spring-output-web-react-spring-friendly" language="JSX" api="@react-spring/web" link="https://www.react-spring.dev/docs/components/use-spring"> </code-snippet>
+            <code-snippet id="spring-output-web-react-spring-physical" language="JSX" api="@react-spring/web" link="https://www.react-spring.dev/docs/components/use-spring"> </code-snippet>
+          </div>
+        </div>
+      </div>
+
+      <div id="input" class="input-container">
+        <header>
+          <h1>Timing</h1>
+          <p>Convert between timing functions.</p>
+        </header>
+        <div class="graph-container">
+          <canvas class="graph" id="spring-graph"></canvas>
+          <div class="graph-preview"></div>
+        </div>
+        <select id="spring-type-select"></select>
+        <div id="spring-input-fields"></div>
+        <footer>
+          <a href="https://github.com/lixiaolin94" target="_blank">@lixiaolin94</a>
+        </footer>
+      </div>
+    </main>
+
+    <script src="/components/input-slider.js"></script>
+    <script src="/components/code-snippet.js"></script>
+    <script src="js/init-snippet.js"></script>
+    <script src="js/math.js"></script>
+    <script src="js/constants.js"></script>
+    <script src="js/spring-converter.js"></script>
+    <script src="js/spring-solver.js"></script>
+    <script src="js/spring-graph.js"></script>
+    <script src="js/spring-duration-estimator.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
