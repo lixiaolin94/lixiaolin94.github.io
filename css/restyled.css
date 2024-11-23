@@ -1,6 +1,21 @@
-/********** Select **********/
 a {
   color: inherit;
+}
+
+button {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  height: 2.5rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  padding-inline: 1rem;
+  padding-block: 0.5rem;
+  color: hsl(var(--primary-foreground));
+  background-color: hsl(var(--primary));
+  border-radius: var(--radius);
+  border: none;
+  cursor: pointer;
 }
 
 /********** Select **********/

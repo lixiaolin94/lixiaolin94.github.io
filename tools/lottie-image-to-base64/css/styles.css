@@ -1,0 +1,75 @@
+@import "/css/global.css";
+@import "/css/restyled.css";
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  padding: 1rem;
+}
+
+.drop-zone {
+  height: 100%;
+  border: 2px dashed hsl(var(--border));
+  border-radius: var(--radius);
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.drag-over {
+  border-color: hsl(var(--chart-4));
+  background: hsl(var(--chart-4) / 0.2);
+}
+
+.dialog-container {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: hsl(var(--dim) / 0.5);
+}
+
+.dialog {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  background-color: hsl(var(--background));
+  padding: 1.5rem;
+  border-radius: var(--radius);
+}
+
+.dialog-close-button {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  color: hsl(var(--primary));
+  background-color: transparent;
+}
+
+.dialog-title {
+  margin: 0;
+}
+
+.dialog-content {
+  display: flex;
+  flex-direction: column;
+  color: hsl(var(--muted-foreground));
+}
+
+.lottie-preview {
+  width: 320px;
+  height: 200px;
+}
