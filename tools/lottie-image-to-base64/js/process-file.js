@@ -156,8 +156,7 @@ async function processZipFile(file) {
     }
 
     const compressedContent = compressJSON(jsonContent);
-    // const newFileName = jsonFileName.replace(".json", "-base64.json");
-    const newFileName = jsonFileName;
+    const newFileName = jsonFileName.replace(".json", "-compressed.json");
 
     try {
       const blob = new Blob([JSON.stringify(compressedContent)], {
