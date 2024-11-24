@@ -43,7 +43,7 @@ function createInputFields(type) {
 }
 
 function updateOutputs() {
-  const physicalSpring = converter[currentType](currentInputs);
+  const physicalSpring = springConverter[currentType](currentInputs);
 
   drawSpringGraph(physicalSpring);
 

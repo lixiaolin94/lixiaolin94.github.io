@@ -67,7 +67,7 @@ const convertFromResponseDampingRatio = (response, dampingRatio) => {
   };
 };
 
-const converter = {
+const springConverter = {
   "origami-studio": ({ speed, bounciness }) => convertFromSpeedBounciness(speed, bounciness),
   "figma": ({ mass, stiffness, damping }) => convertFromMassStiffnessDamping(mass, stiffness, damping),
   "principle": ({ stiffness, damping }) => convertFromStiffnessDamping(stiffness, damping),
