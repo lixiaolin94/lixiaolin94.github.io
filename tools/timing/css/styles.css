@@ -1,5 +1,5 @@
 @import "/css/global.css";
-@import '/css/restyled.css';
+@import "/css/restyled.css";
 
 body {
   background-color: hsl(var(--background));
@@ -15,7 +15,6 @@ main {
   margin-right: auto;
   display: grid;
   grid-template-columns: 1fr 16rem;
-  gap: 1rem;
 }
 
 footer {
@@ -24,27 +23,19 @@ footer {
   align-items: center;
 }
 
-.input-container, .output-container {
+.input-container,
+.output-container {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  padding-inline: 1rem;
 }
 
-#output {
-  overflow-y: visible;
-  overflow-x: auto;
-}
-
-#input {
+.input-container {
   position: sticky;
   top: 0;
   max-height: 100vh;
   overflow-y: auto;
-  padding-inline: 1rem;
-}
-
-.output-container {
-  padding-block-end: 4rem;
 }
 
 .graph-container {
@@ -65,6 +56,17 @@ footer {
   aspect-ratio: 1;
 }
 
+.input-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.output-container {
+  padding-block-end: 4rem;
+  overflow-x: auto;
+}
+
 .output-snippets {
   display: flex;
   flex-direction: column;
@@ -73,10 +75,4 @@ footer {
 
 .output-args {
   color: hsl(var(--destructive));
-}
-
-#spring-input-fields {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
 }

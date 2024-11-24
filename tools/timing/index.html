@@ -8,7 +8,7 @@
   </head>
   <body>
     <main>
-      <div id="output" class="output-container">
+      <div class="output-container" id="output">
         <div>
           <h2>Android</h2>
           <code-snippet id="spring-output-android-springanimation" language="Kotlin" api="SpringAnimation" link="https://developer.android.com/reference/kotlin/androidx/dynamicanimation/animation/SpringAnimation"> </code-snippet>
@@ -27,6 +27,7 @@
         <div>
           <h2>Web</h2>
           <div class="output-snippets">
+            <code-snippet id="spring-output-web-css" language="CSS" api="linear-easing-function" link="https://developer.mozilla.org/en-US/docs/Web/CSS/easing-function#linear_easing_function"> </code-snippet>
             <code-snippet id="spring-output-web-framer-time" language="JSX" api="framer-motion" link="https://motion.dev/docs/react-transitions#spring"> </code-snippet>
             <code-snippet id="spring-output-web-framer-physical" language="JSX" api="framer-motion" link="https://motion.dev/docs/react-transitions#spring"> </code-snippet>
             <code-snippet id="spring-output-web-react-spring-friendly" language="JSX" api="@react-spring/web" link="https://www.react-spring.dev/docs/components/use-spring"> </code-snippet>
@@ -35,7 +36,7 @@
         </div>
       </div>
 
-      <div id="input" class="input-container">
+      <div class="input-container" id="input">
         <header>
           <h1>Timing</h1>
           <p>Convert between timing functions.</p>
@@ -45,7 +46,7 @@
           <div class="graph-preview"></div>
         </div>
         <select id="spring-type-select"></select>
-        <div id="spring-input-fields"></div>
+        <div class="input-fields" id="spring-input-fields"></div>
         <footer>
           <a href="https://github.com/lixiaolin94" target="_blank">@lixiaolin94</a>
         </footer>
