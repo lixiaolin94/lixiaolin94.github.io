@@ -98,9 +98,8 @@ export default function MyComponent() {
     from: { x: 0 },
     to: { x: 100 },
     config: {
-      mass: <span class="output-args output-mass"></span>,
-      tension: <span class="output-args output-stiffness"></span>,
-      friction: <span class="output-args output-damping"></span>,
+      frequency: <span class="output-args output-response"></span>,
+      damping: <span class="output-args output-dampingRatio"></span>,
     },
   })
 

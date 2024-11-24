@@ -9,12 +9,12 @@ body {
 
 main {
   width: 100%;
-  max-width: 64rem;
+  max-width: 60rem;
   min-height: 100vh;
   margin-left: auto;
   margin-right: auto;
   display: grid;
-  grid-template-columns: 1fr 18rem;
+  grid-template-columns: 1fr 16rem;
   gap: 1rem;
 }
 
@@ -31,7 +31,8 @@ footer {
 }
 
 #output {
-  overflow: visible;
+  overflow-y: visible;
+  overflow-x: auto;
 }
 
 #input {

@@ -25,7 +25,8 @@ class CodeSnippet extends HTMLElement {
           border-bottom: 1px solid hsl(var(--border));
         }
         #content{
-          margin: 1rem;
+          margin: 0;
+          padding: 1rem;
           line-height: 1.5;
           overflow-x: auto;
         }
