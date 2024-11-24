@@ -38,11 +38,11 @@ footer {
   overflow-y: auto;
 }
 
-.graph-container {
+/* .graph-container {
   display: grid;
   grid-template-columns: 1fr 2.25rem;
   gap: 0.5rem;
-}
+} */
 
 .graph,
 .graph-preview {
