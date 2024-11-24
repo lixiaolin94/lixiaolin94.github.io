@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Bezier Raycast</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    canvas {
+      width: 100%;
+      height: 100%;
+      background-color: black;
+    }
+  </style>
+  <script src="../foundations/core/Time.js"></script>
+  <script src="../foundations/math/MathUtils.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dat.gui@0.7.9/build/dat.gui.min.js"></script>
+</head>
+
+<body>
+  <canvas id="canvas"></canvas>
+  <input type="range" name="ratio" id="ratio" value="1" step="0.01">
+
+  <script>
+    let mouse = new Vector2(0, 0);
+    let origin = new Vector2(0, 0), end = new Vector2(0, 0);
+    let control = new Vector2(0, 0), current = new Vector2(0, 0);
+    let rad = 0;
+
+    let config = {
+      lineLength: 600,
+      controlRatio: 0.5,
+      smoothTime: 0.15,
+      guide: true,
+    }
+
+    let velocity = new Vector2(0, 0);
+
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      origin = new Vector2(window.innerWidth / 2, window.innerHeight);
+    }
+
+    resize();
+
+    window.addEventListener('resize', resize);
+
+    window.addEventListener('mousemove', function (e) {
+      mouse = new Vector2(e.clientX, e.clientY);
+      rad = Math.atan2(mouse.y - origin.y, mouse.x - origin.x);
+    });
+
+    function Draw() {
+      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+      ctx.beginPath();
+
+      ctx.fillStyle = 'gray';
+      ctx.fillRect(current.x - 80, current.y - 40, 160, 80);
+
+      if (config.guide) {
+        ctx.fillStyle = 'yellow';
+        ctx.fillRect(current.x - 2, current.y - 2, 4, 4);
+
+        ctx.fillStyle = 'green';
+        ctx.fillRect(end.x - 2, end.y - 2, 4, 4);
+
+        ctx.fillStyle = 'red';
+        ctx.fillRect(control.x - 2, control.y - 2, 4, 4);
+      }
+
+      ctx.strokeStyle = 'white';
+      ctx.moveTo(origin.x, origin.y);
+      ctx.bezierCurveTo(control.x, control.y, current.x, current.y, current.x, current.y);
+      ctx.stroke();
+    }
+
+    function Update() {
+      let delta = new Vector2(Math.cos(rad) * config.lineLength, Math.sin(rad) * config.lineLength);
+      end = new Vector2(delta.x + origin.x, delta.y + origin.y);
+      control = new Vector2(delta.x * config.controlRatio + origin.x, delta.y * config.controlRatio + origin.y);
+      current = Vector2.SmoothDamp(current, end, velocity, config.smoothTime, Time.deltaTime);
+      Draw();
+      window.requestAnimationFrame(Update);
+    }
+
+    window.requestAnimationFrame(Update);
+
+    const gui = new dat.GUI();
+    gui.add(config, 'lineLength', 200, 1200, 10);
+    gui.add(config, 'controlRatio', 0, 1, 0.01);
+    gui.add(config, 'smoothTime', 0, 0.5, 0.05);
+    gui.add(config, 'guide');
+
+  </script>
+</body>
+
+</html>

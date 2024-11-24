@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Lerp</title>
+    <style>
+        body {
+            background-color: black;
+        }
+
+        #object {
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            width: 40px;
+            height: 40px;
+            background-color: yellow;
+        }
+    </style>
+    <script src="../math/MathUtils.js"></script>
+</head>
+
+<body>
+    <div id="object"></div>
+
+    <script>
+        var current = new Vector2(0, 0);
+        var target = new Vector2(0, 0);
+
+        var obj = document.getElementById('object');
+
+        document.addEventListener('mousemove', function (e) {
+            target.x = e.clientX;
+            target.y = e.clientY;
+        });
+
+        function Update() {
+            current = Vector2.Lerp(current, target, 0.1);
+            obj.style.transform = `translate(${current.x}px, ${current.y}px)`;
+            window.requestAnimationFrame(Update);
+        }
+
+        window.requestAnimationFrame(Update);
+
+    </script>
+</body>
+
+</html>

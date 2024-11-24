@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Follow</title>
+    <style>
+        body {
+            background-color: black;
+        }
+
+        #object {
+            position: absolute;
+            top: -20px;
+            left: -15px;
+            width: 0;
+            height: 0;
+            border-top: 15px solid transparent;
+            border-bottom: 15px solid transparent;
+            border-left: 40px solid yellow;
+        }
+    </style>
+    <script src="../foundations/core/Time.js"></script>
+    <script src="../foundations/math/MathUtils.js"></script>
+</head>
+
+<body>
+    <div id="object"></div>
+
+    <script>
+        let current = new Vector2(0, 0), target = new Vector2(0, 0);
+        let velocity = new Vector2(0, 0);
+
+        let obj = document.getElementById('object');
+
+        document.addEventListener('mousemove', function (e) {
+            target = new Vector2(e.clientX, e.clientY);
+        });
+
+        function Update() {
+            current = Vector2.SmoothDamp(current, target, velocity, 0.3, Time.deltaTime);
+            let rotation = Vector2.Angle(current, target);
+            obj.style.transform = `translate(${current.x}px, ${current.y}px) rotate(${rotation}deg)`;
+            window.requestAnimationFrame(Update);
+        }
+
+        window.requestAnimationFrame(Update);
+    </script>
+</body>
+
+</html>
