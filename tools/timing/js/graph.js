@@ -5,7 +5,6 @@ let springGraphWidth, springGraphHeight, springGraphSafeHeight;
 
 function initSpringGraph() {
   const rect = springGraph.getBoundingClientRect();
-  console.log(rect);
   springGraphWidth = rect.width * DPR;
   springGraphHeight = rect.height * DPR;
 
