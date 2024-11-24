@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lottie Image to Base64 | Xiaolin's Tool</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <div class="drop-zone" id="drop-zone">
+      <p>Drag and drop a ZIP file here or click to select a file.</p>
+      <input type="file" id="file-input" accept=".zip" style="display: none" />
+    </div>
+
+    <div class="dialog-container" id="completed-dialog">
+      <div class="dialog">
+        <button class="dialog-close-button" id="close-button">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 6 6 18"></path>
+            <path d="m6 6 12 12"></path>
+          </svg>
+        </button>
+        <h3 class="dialog-title">Conversion Complete!</h3>
+        <div class="dialog-content">
+          <p>Your file is ready for download.</p>
+          <div class="lottie-preview" id="lottie-preview"></div>
+          <button id="download-button">Download</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lottie-web@5.12.2/build/player/lottie.min.js"></script>
+    <script src="js/process-file.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
