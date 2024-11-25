@@ -127,17 +127,17 @@ springAnimation.duration = springAnimation.settlingDuration
 springAnimation.isRemovedOnCompletion = false
 springAnimation.fillMode = .forwards`;
 
-// document.getElementById("spring-output-web-css").innerHTML = `@keyframes spring-animation-keyframes {
-//   from { transform: translateX(0px) }
-//   to { transform: translateX(100px) }
-// }
+document.getElementById("spring-output-web-css").innerHTML = `@keyframes spring-animation-keyframes {
+  from { transform: translateX(0px) }
+  to { transform: translateX(100px) }
+}
 
-// .spring-animation {
-//   animation-name: spring-animation-keyframes;
-//   animation-duration: <span class="output-args"><span class="output-response"></span>s</span>;
-//   animation-timing-function: linear(0 0%, 0.5 50%, 1 100%);
-//   animation-fill-mode: forwards;
-// }`;
+.spring-animation {
+  animation-name: spring-animation-keyframes;
+  animation-duration: <span class="output-args"><span class="output-duration"></span>s</span>;
+  animation-timing-function: <span  class="output-args" id="output-css-linear"></span>;
+  animation-fill-mode: forwards;
+}`;
 
 document.getElementById("spring-output-web-framer-duration").innerHTML = `import { motion } from "framer-motion"
 

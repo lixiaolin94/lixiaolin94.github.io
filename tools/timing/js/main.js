@@ -44,14 +44,16 @@ function createInputFields(type) {
 
 function updateOutputs() {
   const physicalSpring = springConverter[currentType](currentInputs);
+  const springSolver = SpringSolver(physicalSpring.mass, physicalSpring.stiffness, physicalSpring.damping, physicalSpring.initialVelocity, 0, 1);
 
-  drawSpringGraph(physicalSpring);
+  drawSpringGraph(springSolver);
 
   const spring = (() => {
     const { mass, stiffness, damping, initialVelocity } = physicalSpring;
     const dampingRatio = calculateDampingRatio(damping, stiffness, mass);
     const response = calculateResponse(stiffness, mass);
     const bounce = 1 - dampingRatio;
+    const duration = estimateSpringAnimationDuration(stiffness, dampingRatio, initialVelocity, 1, 0.001);
 
     return {
       mass: round(mass),
@@ -61,6 +63,7 @@ function updateOutputs() {
       dampingRatio: round(dampingRatio),
       response: round(response),
       bounce: round(bounce),
+      duration: round(duration),
     };
   })();
 
@@ -70,6 +73,9 @@ function updateOutputs() {
       element.textContent = spring[key];
     });
   });
+
+  const cssLinear = generateLinearTiming(springSolver, spring.duration * 1000, 0.001);
+  document.getElementById("output-css-linear").innerHTML = cssLinear;
 }
 
 springTypeSelect.addEventListener("change", (e) => {

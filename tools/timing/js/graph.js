@@ -15,11 +15,7 @@ function initSpringGraph() {
   springGraphContext.lineWidth = LINE_WIDTH;
 }
 
-function drawSpringGraph(spring) {
-  const { mass, stiffness, damping, initialVelocity } = spring;
-
-  const solver = SpringSolver(mass, stiffness, damping, initialVelocity, 0, 1);
-
+function drawSpringGraph(solver) {
   springGraphContext.clearRect(0, 0, springGraphWidth, springGraphHeight);
   springGraphContext.strokeStyle = "black";
   springGraphContext.beginPath();
