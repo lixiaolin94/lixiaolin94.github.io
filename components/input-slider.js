@@ -55,7 +55,7 @@ class InputSlider extends HTMLElement {
         input[type="number"] {
           appearance: none;
 
-          width: 6rem;
+          width: 4rem;
           font-family: var(--font-mono);
           border: 1px solid hsl(var(--input));
           border-radius: var(--radius);
