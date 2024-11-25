@@ -38,17 +38,31 @@ footer {
   overflow-y: auto;
 }
 
-/* .graph-container {
+.graph-container {
   display: grid;
   grid-template-columns: 1fr 2.25rem;
   gap: 0.5rem;
-} */
+}
 
 .graph,
 .graph-preview {
   background-color: hsl(var(--secondary));
   border: 1px solid hsl(var(--border));
   border-radius: var(--radius);
+}
+
+.graph-preview {
+  padding: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.graph-preview-object {
+  width: 100%;
+  height: 2px;
+  border-radius: 1px;
+  background-color: hsl(var(--destructive));
 }
 
 .graph {

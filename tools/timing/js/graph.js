@@ -1,12 +1,16 @@
+const graphContainer = document.querySelector("#graph-container");
+const graphPreviewObject = document.querySelector("#graph-preview-object");
+
 const springGraph = document.querySelector("#spring-graph");
 const springGraphContext = springGraph.getContext("2d");
 
-let springGraphWidth, springGraphHeight, springGraphSafeHeight;
+let springGraphWidth, springGraphHeight, springGraphSafeHeight, previewTranslateY;
 
 function initSpringGraph() {
   const rect = springGraph.getBoundingClientRect();
   springGraphWidth = rect.width * DPR;
   springGraphHeight = rect.height * DPR;
+  previewTranslateY = rect.height * 0.5 - 1;
 
   springGraph.width = springGraphWidth;
   springGraph.height = springGraphHeight;
@@ -28,6 +32,15 @@ function drawSpringGraph(solver) {
   }
 
   springGraphContext.stroke();
+}
+
+function previewAnimation(progress) {
+  const value = lerp(previewTranslateY, 0, progress);
+  graphPreviewObject.style.transform = `translateY(${value}px)`;
+}
+
+function resetPreviewAnimation() {
+  graphPreviewObject.style.transform = `translateY(${previewTranslateY}px)`;
 }
 
 initSpringGraph();

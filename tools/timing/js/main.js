@@ -1,6 +1,8 @@
 const springTypeSelect = document.querySelector("#spring-type-select");
 const springInputFields = document.querySelector("#spring-input-fields");
 
+let spring;
+let animator = new Animator(SpringSolver(1, 100, 10, 0, 0, 1));
 let currentType;
 let currentInputs = {};
 
@@ -44,11 +46,14 @@ function createInputFields(type) {
 
 function updateOutputs() {
   const physicalSpring = springConverter[currentType](currentInputs);
+
   const springSolver = SpringSolver(physicalSpring.mass, physicalSpring.stiffness, physicalSpring.damping, physicalSpring.initialVelocity, 0, 1);
+
+  animator.solver = springSolver;
 
   drawSpringGraph(springSolver);
 
-  const spring = (() => {
+  spring = (() => {
     const { mass, stiffness, damping, initialVelocity } = physicalSpring;
     const dampingRatio = calculateDampingRatio(damping, stiffness, mass);
     const response = calculateResponse(stiffness, mass);
@@ -89,6 +94,29 @@ springInputFields.addEventListener("input", (e) => {
     currentInputs[e.target.dataset.param] = parseFloat(e.target.value);
     updateOutputs();
   }
+});
+
+springInputFields.addEventListener("mouseup", (e) => {
+  if (e.target.tagName.toLowerCase() === "input-slider") {
+    animator.start((value) => {
+      previewAnimation(value);
+    });
+  }
+});
+
+springInputFields.addEventListener("mousedown", (e) => {
+  if (e.target.tagName.toLowerCase() === "input-slider") {
+    animator.stop();
+    resetPreviewAnimation();
+  }
+});
+
+graphContainer.addEventListener("click", () => {
+  animator.stop();
+  resetPreviewAnimation();
+  animator.start((value) => {
+    previewAnimation(value);
+  });
 });
 
 initTypeSelector();

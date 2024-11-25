@@ -13,6 +13,8 @@ const springConverter = {
   "ios-spring-mass-stiffness-damping": ({ mass, stiffness, damping }) => convertFromMassStiffnessDamping(mass, stiffness, damping),
 };
 
+/* Spring Conversion */
+
 const calculateStiffness = (response, mass = 1) => mass * Math.pow((2 * Math.PI) / response, 2);
 
 const calculateDamping = (dampingRatio, stiffness, mass = 1) => dampingRatio * 2 * Math.sqrt(stiffness * mass);
