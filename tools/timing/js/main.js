@@ -58,7 +58,9 @@ function updateOutputs() {
     const dampingRatio = calculateDampingRatio(damping, stiffness, mass);
     const response = calculateResponse(stiffness, mass);
     const bounce = 1 - dampingRatio;
-    const duration = estimateSpringAnimationDuration(stiffness, dampingRatio, initialVelocity, 1, 0.001);
+
+    let duration = estimateSpringAnimationDuration(stiffness, dampingRatio, initialVelocity, 1, 0.001);
+    duration = Math.min(duration, 99.999);
 
     return {
       mass: round(mass),

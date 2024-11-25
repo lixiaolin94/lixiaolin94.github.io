@@ -15,17 +15,17 @@ const SPRING_INPUT_TYPES = {
     name: "Figma",
     group: "Design Tool",
     params: [
-      { label: "Mass", value: "mass", defaultValue: 1, min: 0.1, max: 10, step: 0.1 },
+      { label: "Mass", value: "mass", defaultValue: 1, min: 0.1, max: 10, step: 0.01 },
       { label: "Stiffness", value: "stiffness", defaultValue: 100, min: 1, max: 2000, step: 1 },
-      { label: "Damping", value: "damping", defaultValue: 15, min: 0, max: 100, step: 0.1 },
+      { label: "Damping", value: "damping", defaultValue: 15, min: 1, max: 100, step: 0.1 },
     ],
   },
   "principle": {
     name: "Principle",
     group: "Design Tool",
     params: [
-      { label: "Tension", value: "stiffness", defaultValue: 100, min: 1, max: 2000, step: 1 },
-      { label: "Friction", value: "damping", defaultValue: 10, min: 0, max: 100, step: 0.1 },
+      { label: "Tension", value: "stiffness", defaultValue: 380, min: 1, max: 2000, step: 1 },
+      { label: "Friction", value: "damping", defaultValue: 20, min: 1, max: 100, step: 0.1 },
     ],
   },
   "protopie": {
@@ -33,14 +33,14 @@ const SPRING_INPUT_TYPES = {
     group: "Design Tool",
     params: [
       { label: "Tension", value: "stiffness", defaultValue: 100, min: 1, max: 2000, step: 1 },
-      { label: "Friction", value: "damping", defaultValue: 10, min: 0, max: 100, step: 0.1 },
+      { label: "Friction", value: "damping", defaultValue: 10, min: 1, max: 100, step: 0.1 },
     ],
   },
-  "framer-time": {
+  "framer-duration": {
     name: "Framer [Duration]",
     group: "API",
     params: [
-      { label: "Duration", value: "response", defaultValue: 0.8, min: 0, max: 5, step: 0.1 },
+      { label: "Duration", value: "response", defaultValue: 0.8, min: 0.01, max: 5, step: 0.01 },
       { label: "Bounce", value: "bounce", defaultValue: 0.25, min: -1, max: 1, step: 0.01 },
     ],
   },
@@ -48,16 +48,16 @@ const SPRING_INPUT_TYPES = {
     name: "Framer [Physical]",
     group: "API",
     params: [
-      { label: "Mass", value: "mass", defaultValue: 1, min: 0.1, max: 10, step: 0.1 },
+      { label: "Mass", value: "mass", defaultValue: 1, min: 0.1, max: 10, step: 0.01 },
       { label: "Stiffness", value: "stiffness", defaultValue: 100, min: 1, max: 2000, step: 1 },
-      { label: "Damping", value: "damping", defaultValue: 10, min: 0, max: 100, step: 0.1 },
+      { label: "Damping", value: "damping", defaultValue: 10, min: 1, max: 100, step: 0.1 },
     ],
   },
   "react-spring-friendly": {
     name: "React Spring [Friendly]",
     group: "API",
     params: [
-      { label: "friction", value: "response", defaultValue: 0.5, min: 0, max: 5, step: 0.1 },
+      { label: "friction", value: "response", defaultValue: 0.5, min: 0.01, max: 5, step: 0.01 },
       { label: "damping", value: "dampingRatio", defaultValue: 1, min: 0, max: 2, step: 0.01 },
     ],
   },
@@ -65,9 +65,9 @@ const SPRING_INPUT_TYPES = {
     name: "React Spring [Physical]",
     group: "API",
     params: [
-      { label: "Mass", value: "mass", defaultValue: 1, min: 0.1, max: 10, step: 0.1 },
+      { label: "Mass", value: "mass", defaultValue: 1, min: 0.1, max: 10, step: 0.01 },
       { label: "Stiffness", value: "stiffness", defaultValue: 100, min: 1, max: 2000, step: 1 },
-      { label: "Damping", value: "damping", defaultValue: 10, min: 0, max: 100, step: 0.1 },
+      { label: "Damping", value: "damping", defaultValue: 10, min: 1, max: 100, step: 0.1 },
     ],
   },
   "android-springanimation": {
@@ -82,7 +82,7 @@ const SPRING_INPUT_TYPES = {
     name: "iOS [Spring(duration:bounce:)]",
     group: "API",
     params: [
-      { label: "duration", value: "response", defaultValue: 0.5, min: 0, max: 5, step: 0.1 },
+      { label: "duration", value: "response", defaultValue: 0.5, min: 0.01, max: 5, step: 0.01 },
       { label: "bounce", value: "bounce", defaultValue: 0, min: -1, max: 1, step: 0.01 },
     ],
   },
@@ -90,7 +90,7 @@ const SPRING_INPUT_TYPES = {
     name: "iOS [Spring(response:dampingRatio)]",
     group: "API",
     params: [
-      { label: "response", value: "response", defaultValue: 0.5, min: 0, max: 5, step: 0.1 },
+      { label: "response", value: "response", defaultValue: 0.5, min: 0.01, max: 5, step: 0.01 },
       { label: "dampingRatio", value: "dampingRatio", defaultValue: 1, min: 0, max: 2, step: 0.01 },
     ],
   },
@@ -98,9 +98,9 @@ const SPRING_INPUT_TYPES = {
     name: "iOS [Spring(mass:stiffness:damping:)]",
     group: "API",
     params: [
-      { label: "mass", value: "mass", defaultValue: 1, min: 0.1, max: 10, step: 0.1 },
+      { label: "mass", value: "mass", defaultValue: 1, min: 0.1, max: 10, step: 0.01 },
       { label: "stiffness", value: "stiffness", defaultValue: 100, min: 1, max: 2000, step: 1 },
-      { label: "damping", value: "damping", defaultValue: 10, min: 0, max: 100, step: 0.1 },
+      { label: "damping", value: "damping", defaultValue: 10, min: 1, max: 100, step: 0.1 },
     ],
   },
 };

@@ -3,10 +3,10 @@ const springConverter = {
   "figma": ({ mass, stiffness, damping }) => convertFromMassStiffnessDamping(mass, stiffness, damping),
   "principle": ({ stiffness, damping }) => convertFromStiffnessDamping(stiffness, damping),
   "protopie": ({ stiffness, damping }) => convertFromStiffnessDamping(stiffness, damping),
+  "framer-duration": ({ response, bounce }) => convertFromResponseDampingRatio(response, 1 - bounce),
   "framer-physical": ({ mass, stiffness, damping }) => convertFromMassStiffnessDamping(mass, stiffness, damping),
-  "framer-time": ({ response, bounce }) => convertFromResponseDampingRatio(response, 1 - bounce),
-  "react-spring-physical": ({ mass, stiffness, damping }) => convertFromMassStiffnessDamping(mass, stiffness, damping),
   "react-spring-friendly": ({ response, dampingRatio }) => convertFromResponseDampingRatio(response, dampingRatio),
+  "react-spring-physical": ({ mass, stiffness, damping }) => convertFromMassStiffnessDamping(mass, stiffness, damping),
   "android-springanimation": ({ stiffness, dampingRatio }) => convertFromStiffnessDampingRatio(stiffness, dampingRatio),
   "ios-spring-duration-bounce": ({ response, bounce }) => convertFromResponseDampingRatio(response, 1 - bounce),
   "ios-spring-response-dampingratio": ({ response, dampingRatio }) => convertFromResponseDampingRatio(response, dampingRatio),
@@ -292,11 +292,19 @@ function simplifyDouglasPeucker(points, tolerance) {
 }
 
 function generateLinearTiming(solver, duration = 1000, tolerance = 0.001) {
+  const interval = Math.max(1, Math.floor(duration / 1000));
   const points = [];
-  for (let i = 0; i <= duration; i++) {
+
+  for (let i = 0; i <= duration; i += interval) {
     const t = i / duration;
     const value = solver(t);
     points.push([t, value]);
+  }
+
+  const lastT = 1;
+  const lastValue = solver(lastT); 
+  if(points[points.length-1][0] !== 1) {
+    points.push([lastT, lastValue]);
   }
 
   const simplified = simplifyDouglasPeucker(points, tolerance);
