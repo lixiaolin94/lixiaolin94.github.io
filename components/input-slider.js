@@ -101,7 +101,7 @@ class InputSlider extends HTMLElement {
       this.value = this.rangeInput.value;
     });
 
-    this.numberInput.addEventListener("input", () => {
+    this.numberInput.addEventListener("change", () => {
       this.value = this.numberInput.value;
     });
   }
