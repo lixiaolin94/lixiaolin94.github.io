@@ -6,6 +6,44 @@ let animator = new Animator(SpringSolver(1, 100, 10, 0, 0, 1));
 let currentType;
 let currentInputs = {};
 
+function updateURLParams() {
+  const urlParams = new URLSearchParams();
+
+  urlParams.set("type", currentType);
+
+  SPRING_INPUT_TYPES[currentType].params.forEach(({ value: paramKey }) => {
+    if (currentInputs[paramKey] !== undefined) {
+      urlParams.set(paramKey, currentInputs[paramKey]);
+    }
+  });
+
+  const newURL = `${window.location.pathname}?${urlParams.toString()}`;
+  window.history.pushState({ path: newURL }, "", newURL);
+}
+
+function loadFromURLParams() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const type = urlParams.get("type");
+  if (type && SPRING_INPUT_TYPES[type]) {
+    currentType = type;
+    springTypeSelect.value = type;
+    createInputFields(type);
+
+    SPRING_INPUT_TYPES[type].params.forEach(({ value: paramKey }) => {
+      const paramValue = urlParams.get(paramKey);
+      if (paramValue !== null) {
+        currentInputs[paramKey] = parseFloat(paramValue);
+        const slider = springInputFields.querySelector(`input-slider[data-param="${paramKey}"]`);
+        if (slider) {
+          slider.value = paramValue;
+        }
+      }
+    });
+
+    updateOutputs();
+  }
+}
+
 function initTypeSelector() {
   const groups = Object.entries(SPRING_INPUT_TYPES).reduce((acc, [key, { group, name }]) => {
     (acc[group] = acc[group] || []).push({ key, name });
@@ -73,8 +111,8 @@ function updateOutputs() {
       duration,
       peak: {
         time: peakTime,
-        value: peakValue
-      }
+        value: peakValue,
+      },
     };
   })();
 
@@ -95,12 +133,14 @@ springTypeSelect.addEventListener("change", (e) => {
   currentType = e.target.value;
   createInputFields(currentType);
   updateOutputs();
+  updateURLParams();
 });
 
 springInputFields.addEventListener("input", (e) => {
   if (e.target.tagName.toLowerCase() === "input-slider") {
     currentInputs[e.target.dataset.param] = parseFloat(e.target.value);
     updateOutputs();
+    updateURLParams();
   }
 });
 
@@ -127,5 +167,13 @@ graphContainer.addEventListener("click", () => {
   });
 });
 
+window.addEventListener("popstate", () => {
+  loadFromURLParams();
+});
+
 initTypeSelector();
-springTypeSelect.dispatchEvent(new Event("change"));
+if (window.location.search) {
+  loadFromURLParams();
+} else {
+  springTypeSelect.dispatchEvent(new Event("change"));
+}
