@@ -3,25 +3,57 @@ const springConverter = {
   "figma": ({ mass, stiffness, damping }) => convertFromMassStiffnessDamping(mass, stiffness, damping),
   "principle": ({ stiffness, damping }) => convertFromStiffnessDamping(stiffness, damping),
   "protopie": ({ stiffness, damping }) => convertFromStiffnessDamping(stiffness, damping),
-  "framer-duration": ({ response, bounce }) => convertFromResponseDampingRatio(response, 1 - bounce),
+  "framer-duration": ({ response, bounce }) => convertFromResponseDampingRatio(response, convertBounceToDampingRatio(bounce)),
   "framer-physical": ({ mass, stiffness, damping }) => convertFromMassStiffnessDamping(mass, stiffness, damping),
   "react-spring-friendly": ({ response, dampingRatio }) => convertFromResponseDampingRatio(response, dampingRatio),
   "react-spring-physical": ({ mass, stiffness, damping }) => convertFromMassStiffnessDamping(mass, stiffness, damping),
   "android-springanimation": ({ stiffness, dampingRatio }) => convertFromStiffnessDampingRatio(stiffness, dampingRatio),
-  "ios-spring-duration-bounce": ({ response, bounce }) => convertFromResponseDampingRatio(response, 1 - bounce),
+  "ios-spring-duration-bounce": ({ response, bounce }) => convertFromResponseDampingRatio(response, convertBounceToDampingRatio(bounce)),
   "ios-spring-response-dampingratio": ({ response, dampingRatio }) => convertFromResponseDampingRatio(response, dampingRatio),
   "ios-spring-mass-stiffness-damping": ({ mass, stiffness, damping }) => convertFromMassStiffnessDamping(mass, stiffness, damping),
 };
 
 /* Spring Conversion */
 
-const calculateStiffness = (response, mass = 1) => mass * Math.pow((2 * Math.PI) / response, 2);
+const calculateDampingRatio = (mass = 1, stiffness, damping) => damping / (2 * Math.sqrt(stiffness * mass));
 
-const calculateDamping = (dampingRatio, stiffness, mass = 1) => dampingRatio * 2 * Math.sqrt(stiffness * mass);
+const calculateUndampedAngularFrequency = (mass = 1, stiffness) => Math.sqrt(stiffness / mass);
 
-const calculateDampingRatio = (damping, stiffness, mass = 1) => damping / (2 * Math.sqrt(stiffness * mass));
+const calculateAngularFrequency = (undampedAngularFrequency, dampingRatio) => undampedAngularFrequency * Math.sqrt(1 - dampingRatio * dampingRatio);
 
-const calculateResponse = (stiffness, mass = 1) => (2 * Math.PI) / Math.sqrt(stiffness / mass);
+const calculatePeakTime = (mass = 1, stiffness, damping) => {
+  const dampingRatio = calculateDampingRatio(mass, stiffness, damping);
+  const undampedAngularFrequency = calculateUndampedAngularFrequency(mass, stiffness);
+  const angularFrequency = calculateAngularFrequency(undampedAngularFrequency, dampingRatio);
+
+  return Math.PI / angularFrequency;
+};
+
+const convertResponseToStiffness = (response, mass = 1) => mass * Math.pow((2 * Math.PI) / response, 2);
+
+const convertStiffnessToResponse = (stiffness, mass = 1) => (2 * Math.PI) / Math.sqrt(stiffness / mass);
+
+const convertDampingRatioToDamping = (dampingRatio, stiffness, mass = 1) => dampingRatio * 2 * Math.sqrt(stiffness * mass);
+
+const convertBounceToDampingRatio = (bounce) => {
+  if (bounce >= 0 && bounce <= 1) {
+    return 1 - bounce;
+  } else if (bounce > -1 && bounce < 0) {
+    return 1 / (1 + bounce);
+  } else {
+    throw new Error("Bounce value must be between -1 and 1");
+  }
+};
+
+const convertDampingRatioToBounce = (dampingRatio) => {
+  if (dampingRatio >= 0 && dampingRatio <= 1) {
+    return 1 - dampingRatio;
+  } else if (dampingRatio > 1) {
+    return 1 / dampingRatio - 1;
+  } else {
+    throw new Error("Damping ratio must be greater than or equal to 0");
+  }
+};
 
 const b3Nobounce = (x) => {
   if (x <= 18) {
@@ -69,17 +101,17 @@ const convertFromStiffnessDamping = (stiffness, damping) => ({
 const convertFromStiffnessDampingRatio = (stiffness, dampingRatio) => ({
   mass: 1,
   stiffness,
-  damping: calculateDamping(dampingRatio, stiffness),
+  damping: convertDampingRatioToDamping(dampingRatio, stiffness),
   initialVelocity: 0,
 });
 
 const convertFromResponseDampingRatio = (response, dampingRatio) => {
-  const stiffness = calculateStiffness(response);
+  const stiffness = convertResponseToStiffness(response);
 
   return {
     mass: 1,
     stiffness,
-    damping: calculateDamping(dampingRatio, stiffness),
+    damping: convertDampingRatioToDamping(dampingRatio, stiffness),
     initialVelocity: 0,
   };
 };
@@ -106,14 +138,15 @@ const estimateCriticallyDamped = (firstRoot, p0, v0, delta) => {
   const c2 = v0 - r * c1;
 
   const t1 = Math.log(Math.abs(delta / c1)) / r;
-  const t2 = (() => {
-    const guess = Math.log(Math.abs(delta / c2));
-    let t = guess;
-    for (let i = 0; i <= 5; i++) {
-      t = guess - Math.log(Math.abs(t / r));
-    }
-    return t;
-  })() / r;
+  const t2 =
+    (() => {
+      const guess = Math.log(Math.abs(delta / c2));
+      let t = guess;
+      for (let i = 0; i <= 5; i++) {
+        t = guess - Math.log(Math.abs(t / r));
+      }
+      return t;
+    })() / r;
 
   let tCurr;
   if (!isFinite(t1)) tCurr = t2;
@@ -215,23 +248,24 @@ const estimateSpringAnimationDuration = (stiffness, dampingRatio, initialVelocit
 
   const dampingCoefficient = 2.0 * dampingRatio * Math.sqrt(stiffness);
   const discriminant = dampingCoefficient * dampingCoefficient - 4.0 * stiffness;
-  
+
   let duration;
-  
-  if (dampingRatio > 1) { // 过阻尼 - 两个不同实根
+
+  if (dampingRatio > 1) {
+    // 过阻尼 - 两个不同实根
     const sqrtDiscriminant = Math.sqrt(discriminant);
-    const firstRoot = {real: (-dampingCoefficient + sqrtDiscriminant) / 2, imaginary: 0};
-    const secondRoot = {real: (-dampingCoefficient - sqrtDiscriminant) / 2, imaginary: 0};
+    const firstRoot = { real: (-dampingCoefficient + sqrtDiscriminant) / 2, imaginary: 0 };
+    const secondRoot = { real: (-dampingCoefficient - sqrtDiscriminant) / 2, imaginary: 0 };
     duration = estimateOverDamped(firstRoot, secondRoot, p0, v0, delta);
-  } 
-  else if (dampingRatio === 1) { // 临界阻尼 - 两个相等实根
-    const root = {real: -dampingCoefficient / 2, imaginary: 0};
+  } else if (dampingRatio === 1) {
+    // 临界阻尼 - 两个相等实根
+    const root = { real: -dampingCoefficient / 2, imaginary: 0 };
     duration = estimateCriticallyDamped(root, p0, v0, delta);
-  }
-  else { // 欠阻尼 - 一对共轭复根
+  } else {
+    // 欠阻尼 - 一对共轭复根
     const realPart = -dampingCoefficient / 2;
     const imaginaryPart = Math.sqrt(Math.abs(discriminant)) / 2;
-    const root = {real: realPart, imaginary: imaginaryPart};
+    const root = { real: realPart, imaginary: imaginaryPart };
     duration = estimateUnderDamped(root, p0, v0, delta);
   }
 
@@ -302,16 +336,16 @@ function generateLinearTiming(solver, duration = 1000, tolerance = 0.001) {
   }
 
   const lastT = 1;
-  const lastValue = solver(lastT); 
-  if(points[points.length-1][0] !== 1) {
+  const lastValue = solver(lastT);
+  if (points[points.length - 1][0] !== 1) {
     points.push([lastT, lastValue]);
   }
 
   const simplified = simplifyDouglasPeucker(points, tolerance);
 
   const formatted = simplified.map(([t, v]) => {
-    const formattedT = round(t * 100);
-    const formattedV = round(v);
+    const formattedT = (t * 100).round();
+    const formattedV = v.round();
     return t === 0 ? `${formattedV}` : `${formattedV} ${formattedT}%`;
   });
 

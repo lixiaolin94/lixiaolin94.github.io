@@ -51,35 +51,41 @@ function updateOutputs() {
 
   animator.solver = springSolver;
 
-  drawSpringGraph(springSolver);
-
   spring = (() => {
     const { mass, stiffness, damping, initialVelocity } = physicalSpring;
-    const dampingRatio = calculateDampingRatio(damping, stiffness, mass);
-    const response = calculateResponse(stiffness, mass);
-    const bounce = 1 - dampingRatio;
+    const dampingRatio = calculateDampingRatio(mass, stiffness, damping);
+    const response = convertStiffnessToResponse(stiffness, mass);
+    const bounce = convertDampingRatioToBounce(dampingRatio);
+    const peakTime = calculatePeakTime(mass, stiffness, damping);
+    const peakValue = springSolver(peakTime);
 
     let duration = estimateSpringAnimationDuration(stiffness, dampingRatio, initialVelocity, 1, 0.001);
     duration = Math.min(duration, 99.999);
 
     return {
-      mass: round(mass),
-      stiffness: round(stiffness),
-      damping: round(damping),
-      initialVelocity: round(initialVelocity),
-      dampingRatio: round(dampingRatio),
-      response: round(response),
-      bounce: round(bounce),
-      duration: round(duration),
+      mass,
+      stiffness,
+      damping,
+      initialVelocity,
+      dampingRatio,
+      response,
+      bounce,
+      duration,
+      peak: {
+        time: peakTime,
+        value: peakValue
+      }
     };
   })();
 
   Object.keys(spring).forEach((key) => {
     const elements = document.querySelectorAll(`span.output-${key}`);
     elements.forEach((element) => {
-      element.textContent = spring[key];
+      element.textContent = spring[key].round();
     });
   });
+
+  drawSpringGraph(springSolver, spring.peak);
 
   const cssLinear = generateLinearTiming(springSolver, spring.duration * 1000, 0.001);
   document.getElementById("output-css-linear").innerHTML = cssLinear;
