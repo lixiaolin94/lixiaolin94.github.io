@@ -97,12 +97,38 @@ class InputSlider extends HTMLElement {
     this.numberInput = this.shadowRoot.querySelector('input[type="number"]');
     this.rangeInput = this.shadowRoot.querySelector('input[type="range"]');
 
-    this.rangeInput.addEventListener("input", () => {
+    this._numberInputTemp = "";
+
+    this.rangeInput.addEventListener("input", (e) => {
+      e.stopPropagation();
       this.value = this.rangeInput.value;
+      this.dispatchEvent(
+        new CustomEvent("input", {
+          detail: this.value,
+          bubbles: true,
+          composed: true,
+        })
+      );
     });
 
-    this.numberInput.addEventListener("change", () => {
-      this.value = this.numberInput.value;
+    this.numberInput.addEventListener("input", (e) => {
+      e.stopPropagation();
+      this._numberInputTemp = e.target.value;
+    });
+
+    this.numberInput.addEventListener("change", (e) => {
+      e.stopPropagation();
+      if (this._numberInputTemp !== "" && !isNaN(this._numberInputTemp)) {
+        this.value = this._numberInputTemp;
+        this.dispatchEvent(
+          new CustomEvent("input", {
+            detail: this.value,
+            bubbles: true,
+            composed: true,
+          })
+        );
+      }
+      this._numberInputTemp = "";
     });
   }
 
@@ -126,9 +152,6 @@ class InputSlider extends HTMLElement {
 
     this.numberInput.value = this.value;
     this.rangeInput.value = this.value;
-    this.numberInput.min = this.min;
-    this.numberInput.max = this.max;
-    this.numberInput.step = this.step;
     this.rangeInput.min = this.min;
     this.rangeInput.max = this.max;
     this.rangeInput.step = this.step;
@@ -142,7 +165,6 @@ class InputSlider extends HTMLElement {
     this.setAttribute("value", val);
     this.numberInput.value = val;
     this.rangeInput.value = val;
-    this.dispatchEvent(new CustomEvent("change", { detail: val }));
   }
 
   get min() {
