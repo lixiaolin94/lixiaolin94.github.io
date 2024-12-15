@@ -2,7 +2,7 @@ const springTypeSelect = document.querySelector("#spring-type-select");
 const springInputFields = document.querySelector("#spring-input-fields");
 
 let spring;
-let animator = new Animator(SpringSolver(1, 100, 10, 0, 0, 1));
+let animator = new Animator(SpringSolver(1, 100, 10, 0));
 let currentType;
 let currentInputs = {};
 
@@ -85,7 +85,7 @@ function createInputFields(type) {
 function updateOutputs() {
   const physicalSpring = springConverter[currentType](currentInputs);
 
-  const springSolver = SpringSolver(physicalSpring.mass, physicalSpring.stiffness, physicalSpring.damping, physicalSpring.initialVelocity, 0, 1);
+  const springSolver = SpringSolver(physicalSpring.mass, physicalSpring.stiffness, physicalSpring.damping, physicalSpring.initialVelocity);
 
   animator.solver = springSolver;
 
@@ -94,11 +94,17 @@ function updateOutputs() {
     const dampingRatio = calculateDampingRatio(mass, stiffness, damping);
     const response = convertStiffnessToResponse(stiffness, mass);
     const bounce = convertDampingRatioToBounce(dampingRatio);
-    const peakTime = calculatePeakTime(mass, stiffness, damping);
-    const peakValue = springSolver(peakTime);
 
     let duration = estimateSpringAnimationDuration(stiffness, dampingRatio, initialVelocity, 1, 0.001);
     duration = Math.min(duration, 99.999);
+
+    let peakTime = calculatePeakTime(mass, stiffness, damping);
+    let peakValue = springSolver(peakTime);
+
+    if (dampingRatio >= 1) {
+      peakTime = duration;
+      peakValue = 1;
+    }
 
     return {
       mass,
