@@ -6,34 +6,42 @@ class CodeSnippet extends HTMLElement {
       <style>
         :host {
           display: block;
-          border: 1px solid hsl(var(--border));
-          border-radius: var(--radius);
           overflow: hidden;
           font-family: var(--font-mono);
           font-size: 0.875rem;
+          border-radius: var(--radius-large);
+          border: 1px solid var(--color-border);
+          background-color: var(--color-surface);
+          color: var(--color-muted-foreground);
         }
         a {
-          color: inherit;
+          display: inline-block;
+          padding: 0.4rem 0.6rem;
+          color: var(--color-accent);
         }
         #header {
           height: 2.25rem;
-          padding-inline: 1rem;
+          padding-inline-start: 0.2rem;
+          padding-inline-end: 1rem;
           display: flex;
           justify-content: space-between;
           align-items: center;
-          background-color: hsl(var(--secondary));
-          border-bottom: 1px solid hsl(var(--border));
         }
         #content{
           margin: 0;
           padding: 1rem;
           line-height: 1.5;
           overflow-x: auto;
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+        #content::-webkit-scrollbar {
+          display: none;
         }
       </style>
       <div id="header">
-        <span id="language"></span>
         <a id="api" target="_blank"></a>
+        <span id="language"></span>
       </div>
       <pre id="content"><code><slot></slot></code></pre>
     `;

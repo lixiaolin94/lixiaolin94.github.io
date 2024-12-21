@@ -4,93 +4,88 @@ class InputSlider extends HTMLElement {
     this.attachShadow({ mode: "open" });
     this.shadowRoot.innerHTML = `
       <style>
-        /********** Input Range **********/
-        input[type="range"] {
-          -webkit-appearance: none;
-          appearance: none;
-          cursor: pointer;
-          outline: none;
-          overflow: hidden;
-          border-radius: 9999px;
-        }
+      /* Base Styles & Variables */
+      :host {
+        position: relative;
+        height: 2rem;
+        padding: 0;
+        overflow: hidden;
+        box-sizing: border-box;
+        font-family: var(--font-mono);
+        font-size: 0.875rem;
+        background-color: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-large);
+      }
 
-        /* track */
-        input[type="range"]::-webkit-slider-runnable-track {
-          height: 100%;
-          border-radius: 9999px;
-          background-color: hsl(var(--primary) / 0.2);
-        }
+      /* Range Input Styles */
+      input[type="range"] {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        cursor: pointer;
+        background: none;
+        appearance: none;
+        -webkit-appearance: none;
+        overflow: hidden;
+      }
 
-        input[type="range"]::-moz-range-track {
-          height: 100%;
-          border-radius: 9999px;
-          background-color: hsl(var(--primary) / 0.2);
-        }
+      /* Range Thumb Styles */
+      input[type="range"]::-webkit-slider-thumb {
+        width: 0;
+        appearance: none;
+        -webkit-appearance: none;
+        box-shadow: -999px 0 0 999px var(--color-border);
+      }
 
-        /* thumb */
-        input[type="range"]::-webkit-slider-thumb {
-          -webkit-appearance: none;
-          appearance: none;
+      input[type="range"]::-moz-range-thumb {
+        box-shadow: -9999px 0 0 calc(9999px - 0.5rem) var(--color-border);
+      }
 
-          width: 1rem;
-          height: 1rem;
-          border: 1px solid hsl(var(--primary) / 0.5);
-          border-radius: 50%;
-          background-color: hsl(var(--background));
-          box-shadow: -999px 0 0 calc(999px - 0.5rem) hsl(var(--primary));
-        }
+      /* Number Input Styles */
+      input[type="number"] {
+        position: absolute;
+        top: 50%;
+        right: 0.75rem;
+        transform: translateY(-50%);
+        width: 4.5ch;
+        font-family: var(--color-font-mono);
+        font-size: 0.875rem;
+        line-height: 1.25rem;
+        color: inherit;
+        text-align: right;
+        background: none;
+        border: none;
+        appearance: none;
+        -moz-appearance: textfield;
+      }
 
-        input[type="range"]::-moz-range-thumb {
-          width: 1rem;
-          height: 1rem;
-          border: 1px solid hsl(var(--primary) / 0.5);
-          border-radius: 50%;
-          background-color: hsl(var(--background));
+      /* Remove number input spinners */
+      input[type="number"]::-webkit-outer-spin-button,
+      input[type="number"]::-webkit-inner-spin-button {
+        margin: 0;
+        -webkit-appearance: none;
+      }
 
-          box-shadow: -9999px 0 0 calc(9999px - 0.5rem) hsl(var(--primary));
-        }
+      input[type="number"]:focus {
+        outline: none;
+      }
 
-        /********** Input Number **********/
-
-        input[type="number"] {
-          appearance: none;
-
-          width: 4rem;
-          font-family: var(--font-mono);
-          border: 1px solid hsl(var(--input));
-          border-radius: var(--radius);
-
-          padding-block: 0.5rem;
-          padding-inline: 0.75rem;
-          font-size: 0.875rem;
-          line-height: 1.25rem;
-          color: inherit;
-        }
-
-        input[type="number"]:focus {
-          outline: 2px solid hsl(var(--ring));
-          outline-offset: 1px;
-        }
-
-        /********** Layout **********/
-
-        :host {
-          display: flex;
-          flex-direction: column;
-          gap: 0.5rem;
-        }
-        
-        #wrapper {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-        }
+      /* Label Styles */
+      label {
+        position: absolute;
+        top: 50%;
+        left: 0.75rem;
+        transform: translateY(-50%);
+        pointer-events: none;
+      }
       </style>
-      <div id="wrapper">
-        <label></label>
-        <input type="number">
-      </div>
       <input type="range">
+      <input type="number">
+      <label></label>
     `;
 
     this.labelElement = this.shadowRoot.querySelector("label");

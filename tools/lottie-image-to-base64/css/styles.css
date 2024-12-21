@@ -13,8 +13,8 @@ body {
 
 .drop-zone {
   height: 100%;
-  border: 2px dashed hsl(var(--border));
-  border-radius: var(--radius);
+  border: 2px dashed var(--color-border);
+  border-radius: var(--radius-large);
   cursor: pointer;
   display: flex;
   justify-content: center;
@@ -22,8 +22,8 @@ body {
 }
 
 .drag-over {
-  border-color: hsl(var(--chart-4));
-  background: hsl(var(--chart-4) / 0.2);
+  border-color: var(--color-accent);
+  background-color: rgb(from var(--color-accent) r g b / 0.2);
 }
 
 .dialog-container {
@@ -33,7 +33,7 @@ body {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: hsl(var(--dim) / 0.5);
+  background-color: rgb(from var(--color-dim) r g b / 0.5);
 }
 
 .dialog {
@@ -43,9 +43,9 @@ body {
   transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
-  background-color: hsl(var(--background));
+  background-color: var(--color-background);
   padding: 1.5rem;
-  border-radius: var(--radius);
+  border-radius: var(--radius-large);
 }
 
 .dialog-close-button {
@@ -55,7 +55,7 @@ body {
   width: 2rem;
   height: 2rem;
   padding: 0;
-  color: hsl(var(--primary));
+  color: var(--color-primary);
   background-color: transparent;
 }
 
@@ -66,7 +66,7 @@ body {
 .dialog-content {
   display: flex;
   flex-direction: column;
-  color: hsl(var(--muted-foreground));
+  color: var(--color-muted-foreground);
 }
 
 .lottie-preview {

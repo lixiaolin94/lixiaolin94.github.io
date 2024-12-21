@@ -4,6 +4,10 @@ const graphPreviewObject = document.querySelector("#graph-preview-object");
 const springGraph = document.querySelector("#spring-graph");
 const springGraphContext = springGraph.getContext("2d");
 
+const graphPathColor = getCSSVariable("--color-foreground");
+const graphreferenceColor = getCSSVariable("--color-border");
+const graphHighlightColor = getCSSVariable("--color-destructive");
+
 let springGraphWidth, springGraphHeight, springGraphSafeHeight, previewTranslateY;
 
 function initSpringGraph() {
@@ -24,13 +28,13 @@ function drawSpringGraph(solver, peak) {
 
   springGraphContext.beginPath();
   springGraphContext.setLineDash([5, 5]);
-  springGraphContext.strokeStyle = "rgba(0, 0, 0, 0.2)";
+  springGraphContext.strokeStyle = graphreferenceColor;
   springGraphContext.moveTo(0, springGraphHeight / 2);
   springGraphContext.lineTo(springGraphWidth, springGraphHeight / 2);
   springGraphContext.stroke();
   springGraphContext.setLineDash([]);
 
-  springGraphContext.strokeStyle = "black";
+  springGraphContext.strokeStyle = graphPathColor;
   springGraphContext.beginPath();
   springGraphContext.moveTo(0, springGraphHeight);
 
@@ -45,21 +49,14 @@ function drawSpringGraph(solver, peak) {
   const peakY = (1 - peak.value * 0.5) * springGraphSafeHeight + LINE_WIDTH * 0.5;
   const peakX = peak.time * (springGraphSafeHeight * 0.5);
 
-  // Line
-  springGraphContext.beginPath();
-  springGraphContext.strokeStyle = "red";
-  springGraphContext.moveTo(0, peakY);
-  springGraphContext.lineTo(springGraphWidth, peakY);
-  springGraphContext.stroke();
-
   // Point
   springGraphContext.beginPath();
-  springGraphContext.fillStyle = "red";
+  springGraphContext.fillStyle = graphHighlightColor;
   springGraphContext.arc(peakX, peakY, 2 * DPR, 0, Math.PI * 2);
   springGraphContext.fill();
 
   // Text
-  springGraphContext.fillStyle = "red";
+  springGraphContext.fillStyle = graphHighlightColor;
   springGraphContext.font = `${0.75 * DPR}rem Arial`;
   springGraphContext.fillText(`(${peak.time.toFixed(2)}, ${peak.value.toFixed(2)})`, peakX, peakY - 8 * DPR);
 }
