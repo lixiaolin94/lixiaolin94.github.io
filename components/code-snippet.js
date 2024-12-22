@@ -24,21 +24,22 @@ class CodeSnippet extends HTMLElement {
           display: flex;
           justify-content: space-between;
           align-items: center;
+          background-color: var(--color-muted);
+        }
+        #title {
+          color: var(--color-foreground);
         }
         #right-section {
           display: flex;
           align-items: center;
           gap: 0.5rem;
         }
-        #title {
-          color: var(--color-foreground);
-        }
         #language{
           user-select: none;
           padding-inline: 0.5rem;
           padding-block: 0.25rem;
           font-size: 0.75rem;
-          background-color: var(--color-muted);
+          background-color: var(--color-surface);
           border-radius: var(--radius-small);
         }
         #copy-button {
@@ -86,14 +87,14 @@ class CodeSnippet extends HTMLElement {
     this.apiElement = this.shadowRoot.querySelector("#api");
     this.languageElement = this.shadowRoot.querySelector("#language");
     this.copyButton = this.shadowRoot.querySelector("#copy-button");
-    
+
     this.copyButton.addEventListener("click", async () => {
       const content = this.textContent;
       await navigator.clipboard.writeText(content);
-      
+
       const originalIcon = this.copyButton.innerHTML;
       this.copyButton.innerHTML = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 15 2 2 4-4"/><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>`;
-      
+
       setTimeout(() => {
         this.copyButton.innerHTML = originalIcon;
       }, 1000);
