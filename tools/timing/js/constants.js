@@ -1,6 +1,6 @@
 const DPR = window.devicePixelRatio || 1;
 
-const LINE_WIDTH = DPR;
+const LINE_WIDTH = DPR * 1.25;
 
 const SPRING_INPUT_TYPES = {
   "origami-studio": {

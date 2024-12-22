@@ -53,7 +53,7 @@ class CodeSnippet extends HTMLElement {
           align-items: center;
         }
         #copy-button:hover {
-          color: var(--color-accent);
+          color: var(--color-primary);
         }
         #content{
           margin: 0;

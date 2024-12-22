@@ -38,11 +38,11 @@ class InputSlider extends HTMLElement {
         width: 0;
         appearance: none;
         -webkit-appearance: none;
-        box-shadow: -999px 0 0 999px var(--color-border);
+        box-shadow: -999px 0 0 999px var(--color-primary);
       }
 
       input[type="range"]::-moz-range-thumb {
-        box-shadow: -9999px 0 0 calc(9999px - 0.5rem) var(--color-border);
+        box-shadow: -999px 0 0 999px var(--color-primary);
       }
 
       /* Number Input Styles */
