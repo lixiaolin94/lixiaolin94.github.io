@@ -30,14 +30,16 @@ class CodeSnippet extends HTMLElement {
           align-items: center;
           gap: 0.5rem;
         }
+        #title {
+          color: var(--color-foreground);
+        }
         #language{
           user-select: none;
           padding-inline: 0.5rem;
           padding-block: 0.25rem;
           font-size: 0.75rem;
-          background-color: rgb( from var(--color-muted) r g b / 0.5);
+          background-color: var(--color-muted);
           border-radius: var(--radius-small);
-          border: 1px solid var(--color-border);
         }
         #copy-button {
           width: 1.75rem;
@@ -66,7 +68,10 @@ class CodeSnippet extends HTMLElement {
         }
       </style>
       <div id="header">
-        <a id="api" target="_blank"></a>
+        <div id="left-section">
+          <span id="title"></span>
+          <a id="api" target="_blank"></a>
+        </div>
         <div id="right-section">
           <span id="language"></span>
           <button id="copy-button" title="Copy to clipboard">
@@ -77,8 +82,9 @@ class CodeSnippet extends HTMLElement {
       <pre id="content"><code><slot></slot></code></pre>
     `;
 
-    this.languageElement = this.shadowRoot.querySelector("#language");
+    this.titleElement = this.shadowRoot.querySelector("#title");
     this.apiElement = this.shadowRoot.querySelector("#api");
+    this.languageElement = this.shadowRoot.querySelector("#language");
     this.copyButton = this.shadowRoot.querySelector("#copy-button");
     
     this.copyButton.addEventListener("click", async () => {
@@ -95,7 +101,7 @@ class CodeSnippet extends HTMLElement {
   }
 
   static get observedAttributes() {
-    return ["language", "api", "link"];
+    return ["title", "api", "link", "language"];
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
@@ -106,9 +112,10 @@ class CodeSnippet extends HTMLElement {
   }
 
   updateDisplay() {
-    this.languageElement.textContent = this.getAttribute("language") || "c";
+    this.titleElement.textContent = this.getAttribute("title") || "";
     this.apiElement.textContent = this.getAttribute("api") || "API";
     this.apiElement.href = this.getAttribute("link") || "#";
+    this.languageElement.textContent = this.getAttribute("language") || "c";
   }
 }
 

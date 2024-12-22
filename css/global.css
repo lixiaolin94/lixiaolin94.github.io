@@ -19,7 +19,7 @@
   --color-neutral-800: #141414;
   --color-neutral-900: #0d0d0c;
   --color-primary-50: #faf8f5;
-  --color-primary-100: #f8f5f0;
+  --color-primary-100: #f5f0ea;
   --color-primary-200: #ece2d6;
   --color-primary-300: #d7c3ad;
   --color-primary-400: #b99a7a;
@@ -57,7 +57,7 @@
   --color-primary-foreground: var(--color-primary-50);
   --color-secondary: var(--color-primary-200);
   --color-secondary-foreground: var(--color-primary-900);
-  --color-muted: var(--color-primary-200);
+  --color-muted: var(--color-primary-100);
   --color-muted-foreground: var(--color-primary-400);
   --color-accent: var(--color-accent-500);
   --color-accent-foreground: var(--color-accent-50);
