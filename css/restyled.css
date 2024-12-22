@@ -26,6 +26,7 @@ select {
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
+  user-select: none;
   cursor: pointer;
   color: inherit;
   background-color: var(--color-input);

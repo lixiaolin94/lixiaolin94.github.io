@@ -76,6 +76,7 @@ class InputSlider extends HTMLElement {
 
       /* Label Styles */
       label {
+        user-select: none;
         position: absolute;
         top: 50%;
         left: 0.75rem;
