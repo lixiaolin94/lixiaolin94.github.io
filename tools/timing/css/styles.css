@@ -102,5 +102,5 @@ main {
 }
 
 .output-args {
-  color: var(--color-foreground);
+  color: var(--color-warning);
 }

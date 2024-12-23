@@ -13,7 +13,7 @@ class InputSlider extends HTMLElement {
         box-sizing: border-box;
         font-family: var(--font-mono);
         font-size: 0.875rem;
-        background-color: var(--color-surface);
+        background-color: var(--color-input);
         border: 1px solid var(--color-border);
         border-radius: var(--radius-large);
       }
@@ -61,6 +61,8 @@ class InputSlider extends HTMLElement {
         border: none;
         appearance: none;
         -moz-appearance: textfield;
+        color: var(--color-primary-foreground);
+        mix-blend-mode: difference;
       }
 
       /* Remove number input spinners */
@@ -82,6 +84,8 @@ class InputSlider extends HTMLElement {
         left: 0.75rem;
         transform: translateY(-50%);
         pointer-events: none;
+        color: var(--color-primary-foreground);
+        mix-blend-mode: difference;
       }
       </style>
       <input type="range">

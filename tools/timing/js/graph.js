@@ -4,7 +4,7 @@ const graphPreviewObject = document.querySelector("#graph-preview-object");
 const springGraph = document.querySelector("#spring-graph");
 const springGraphContext = springGraph.getContext("2d");
 
-const graphPathColor = getCSSVariable("--color-foreground");
+const graphPathColor = getCSSVariable("--color-primary");
 const graphreferenceColor = getCSSVariable("--color-ring");
 const graphHighlightColor = getCSSVariable("--color-destructive");
 
