@@ -14,9 +14,11 @@ class CodeSnippet extends HTMLElement {
           background-color: var(--color-surface);
           color: var(--color-muted-foreground);
         }
+
         a {
           color: var(--color-accent);
         }
+
         #header {
           height: 2.25rem;
           padding-inline-start: 1rem;
@@ -26,14 +28,17 @@ class CodeSnippet extends HTMLElement {
           align-items: center;
           background-color: var(--color-muted);
         }
+
         #title {
           color: var(--color-foreground);
         }
+
         #right-section {
           display: flex;
           align-items: center;
           gap: 0.5rem;
         }
+
         #language{
           user-select: none;
           padding-inline: 0.5rem;
@@ -42,6 +47,7 @@ class CodeSnippet extends HTMLElement {
           background-color: var(--color-surface);
           border-radius: var(--radius-small);
         }
+
         #copy-button {
           width: 1.75rem;
           height: 1.75rem;
@@ -52,10 +58,13 @@ class CodeSnippet extends HTMLElement {
           display: flex;
           justify-content: center;
           align-items: center;
+          transition: color 0.1s;
         }
+
         #copy-button:hover {
           color: var(--color-primary);
         }
+
         #content{
           margin: 0;
           padding: 1rem;
@@ -64,6 +73,7 @@ class CodeSnippet extends HTMLElement {
           -ms-overflow-style: none;
           scrollbar-width: none;
         }
+          
         #content::-webkit-scrollbar {
           display: none;
         }

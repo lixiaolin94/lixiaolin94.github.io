@@ -183,3 +183,21 @@ if (window.location.search) {
 } else {
   springTypeSelect.dispatchEvent(new Event("change"));
 }
+
+const copyLinkButton = document.querySelector("#copy-link-button");
+
+copyLinkButton.addEventListener("click", async () => {
+  try {
+    const url = window.location.href;
+    await navigator.clipboard.writeText(url);
+    
+    const originalButtonText = copyLinkButton.innerHTML;
+    copyLinkButton.innerHTML = "Copied!";
+    
+    setTimeout(() => {
+      copyLinkButton.innerHTML = originalButtonText;
+    }, 1000);
+  } catch (err) {
+    console.error('Failed to copy link:', err);
+  }
+});

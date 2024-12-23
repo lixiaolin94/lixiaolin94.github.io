@@ -10,16 +10,46 @@ button {
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-  height: 2.5rem;
   font-size: 0.875rem;
   line-height: 1.25rem;
   padding-inline: 1rem;
   padding-block: 0.5rem;
-  color: var(--color-primary-foreground);
-  background-color: var(--color-primary);
-  border-radius: var(--radius-full);
+  border-radius: var(--radius);
   border: none;
   cursor: pointer;
+  transition: background-color 0.1s;
+}
+
+button {
+  color: var(--color-primary-foreground);
+  background-color: var(--color-primary);
+}
+
+button:hover {
+  background-color: var(--color-primary-hover);
+}
+
+button.secondary {
+  border: 1px solid var(--color-border);
+  color: var(--color-secondary-foreground);
+  background-color: var(--color-secondary);
+}
+
+button.secondary:hover {
+  background-color: var(--color-secondary-hover);
+}
+
+a.icon {
+  display: inline-flex;
+  padding: 0.5rem;
+  border-radius: var(--radius);
+  color: var(--color-secondary-foreground);
+  background-color: transparent;
+  transition: background-color 0.1s;
+}
+
+a.icon:hover {
+  background-color: var(--color-secondary-hover);
 }
 
 select {
@@ -40,9 +70,10 @@ select {
   background-position: calc(100% - 1rem - 5px) 1.25rem, calc(100% - 1rem) 1.25rem;
   background-size: 5px 5px, 5px 5px;
   background-repeat: no-repeat;
+  outline: none;
+  transition: border-color 0.1s;
 }
 
 select:focus {
-  outline: 1px solid var(--color-ring);
-  outline-offset: 1px;
+  border-color: var(--color-primary);
 }

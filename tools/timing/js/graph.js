@@ -57,8 +57,10 @@ function drawSpringGraph(solver, peak) {
 
   // Text
   springGraphContext.fillStyle = graphHighlightColor;
-  springGraphContext.font = `${0.75 * DPR}rem Arial`;
-  springGraphContext.fillText(`(${peak.time.toFixed(2)}, ${peak.value.toFixed(2)})`, peakX, peakY - 8 * DPR);
+  springGraphContext.font = `${0.75 * DPR}rem monospace`;
+  const textPositionX = Math.min(160 * DPR, peakX);
+  const textPositionY = Math.max(14 * DPR, peakY - 8 * DPR);
+  springGraphContext.fillText(`(${peak.time.toFixed(2)}, ${peak.value.toFixed(2)})`, textPositionX, textPositionY);
 }
 
 function previewAnimation(progress) {

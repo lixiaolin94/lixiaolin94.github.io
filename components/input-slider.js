@@ -16,8 +16,13 @@ class InputSlider extends HTMLElement {
         background-color: var(--color-input);
         border: 1px solid var(--color-border);
         border-radius: var(--radius-large);
+        transition: border-color 0.1s;
       }
-
+      
+      :host(:focus-within) {
+        border-color: var(--color-primary);
+      }
+      
       /* Range Input Styles */
       input[type="range"] {
         position: absolute;
@@ -38,6 +43,11 @@ class InputSlider extends HTMLElement {
         width: 0;
         appearance: none;
         -webkit-appearance: none;
+        box-shadow: -999px 0 0 999px var(--color-border);
+        transition: box-shadow 0.1s;
+      }
+
+      input[type="range"]:focus::-webkit-slider-thumb {
         box-shadow: -999px 0 0 999px var(--color-primary);
       }
 
