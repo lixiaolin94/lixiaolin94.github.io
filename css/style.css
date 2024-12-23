@@ -1,0 +1,11 @@
+@import "/css/global.css";
+@import "/css/restyled.css";
+
+.title {
+  font-size: 8rem;
+  line-height: 1.1;
+  margin: 0;
+  position: absolute;
+  left: 4rem;
+  top: 4rem;
+}

@@ -54,9 +54,6 @@ body {
   right: 0.5rem;
   width: 2rem;
   height: 2rem;
-  padding: 0;
-  color: var(--color-primary);
-  background-color: transparent;
 }
 
 .dialog-title {

@@ -39,6 +39,16 @@ button.secondary:hover {
   background-color: var(--color-secondary-hover);
 }
 
+button.icon {
+  padding: 0.5rem;
+  color: var(--color-secondary-foreground);
+  background-color: transparent;
+}
+
+button.icon:hover {
+  background-color: var(--color-secondary-hover);
+}
+
 a.icon {
   display: inline-flex;
   padding: 0.5rem;
