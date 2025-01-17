@@ -1,3 +1,12 @@
+/**
+ * Draws a rounded rectangle with specified dimensions and radius
+ * @param {number} left - Left coordinate
+ * @param {number} top - Top coordinate
+ * @param {number} right - Right coordinate
+ * @param {number} bottom - Bottom coordinate
+ * @param {number} radius - Corner radius
+ * @param {CanvasRenderingContext2D} paint - Canvas context
+ */
 function drawRoundRect(left, top, right, bottom, radius, paint) {
   const width = right - left;
   const height = bottom - top;
@@ -6,25 +15,35 @@ function drawRoundRect(left, top, right, bottom, radius, paint) {
   paint.closePath();
 }
 
+/**
+ * Draws a smooth cornered rectangle using Figma's algorithm
+ * @param {number} left - Left coordinate
+ * @param {number} top - Top coordinate
+ * @param {number} right - Right coordinate
+ * @param {number} bottom - Bottom coordinate
+ * @param {number} radius - Corner radius
+ * @param {number} smoothness - Corner smoothness (0-1)
+ * @param {CanvasRenderingContext2D} paint - Canvas context
+ */
 function drawFigmaSmoothCorners(left, top, right, bottom, radius, smoothness = 0.6, paint) {
   const DEGREES_TO_RADIANS = Math.PI / 180;
 
-  // 基础尺寸计算
+  // Basic dimension calculations
   const width = right - left;
   const height = bottom - top;
   const minDimension = Math.min(width, height);
 
-  // 特殊情况处理：当尺寸过小或无圆角时，退化为普通圆角矩形
+  // Special case: when size is too small or no radius, fallback to regular rounded rect
   if (minDimension <= 2 * radius || radius === 0) {
     drawRoundRect(left, top, right, bottom, radius, paint);
     return;
   }
 
-  // 计算圆角最大尺寸
+  // Calculate maximum corner size
   const maxCornerSize = minDimension / 2;
   const cornerSize = Math.min(maxCornerSize, (1 + smoothness) * radius);
 
-  // 计算平滑角度
+  // Calculate smooth angles
   let smoothAngle, cornerAngle;
   const quarterSize = minDimension / 4;
 
@@ -37,7 +56,7 @@ function drawFigmaSmoothCorners(left, top, right, bottom, radius, smoothness = 0
     smoothAngle = 45 * smoothness;
   }
 
-  // 计算控制点参数
+  // Calculate control point
   const theta = (90 - cornerAngle) / 2;
   const controlRatio = Math.tan(smoothAngle * DEGREES_TO_RADIANS);
   const handleLength = radius * Math.tan((theta / 2) * DEGREES_TO_RADIANS);
@@ -49,13 +68,13 @@ function drawFigmaSmoothCorners(left, top, right, bottom, radius, smoothness = 0
   const handleSmall = (cornerSize - arcLength - (1 + controlRatio) * controlLength) / 3;
   const handleLarge = 2 * handleSmall;
 
-  // 开始
+  // Start
   paint.beginPath();
 
-  // 起点（上边中点）
+  // Starting point (center of top edge)
   paint.moveTo(left + width / 2, top);
 
-  // 右上角
+  // TR corner
   paint.lineTo(right - cornerSize, top);
   paint.bezierCurveTo(
     right - (cornerSize - handleLarge),
@@ -68,7 +87,7 @@ function drawFigmaSmoothCorners(left, top, right, bottom, radius, smoothness = 0
   paint.arc(right - radius, top + radius, radius, (270 + theta) * DEGREES_TO_RADIANS, (360 - theta) * DEGREES_TO_RADIANS, false);
   paint.bezierCurveTo(right, top + (cornerSize - handleLarge - handleSmall), right, top + (cornerSize - handleLarge), right, top + cornerSize);
 
-  // 右下角
+  // BR corner
   paint.lineTo(right, bottom - cornerSize);
   paint.bezierCurveTo(
     right,
@@ -81,7 +100,7 @@ function drawFigmaSmoothCorners(left, top, right, bottom, radius, smoothness = 0
   paint.arc(right - radius, bottom - radius, radius, (0 + theta) * DEGREES_TO_RADIANS, (90 - theta) * DEGREES_TO_RADIANS, false);
   paint.bezierCurveTo(right - (cornerSize - handleLarge - handleSmall), bottom, right - (cornerSize - handleLarge), bottom, right - cornerSize, bottom);
 
-  // 左下角
+  // BL corner
   paint.lineTo(left + cornerSize, bottom);
   paint.bezierCurveTo(
     left + (cornerSize - handleLarge),
@@ -94,7 +113,7 @@ function drawFigmaSmoothCorners(left, top, right, bottom, radius, smoothness = 0
   paint.arc(left + radius, bottom - radius, radius, (90 + theta) * DEGREES_TO_RADIANS, (180 - theta) * DEGREES_TO_RADIANS, false);
   paint.bezierCurveTo(left, bottom - (cornerSize - handleLarge - handleSmall), left, bottom - (cornerSize - handleLarge), left, bottom - cornerSize);
 
-  // 左上角
+  // TL corner
   paint.lineTo(left, top + cornerSize);
   paint.bezierCurveTo(
     left,
@@ -107,12 +126,21 @@ function drawFigmaSmoothCorners(left, top, right, bottom, radius, smoothness = 0
   paint.arc(left + radius, top + radius, radius, (180 + theta) * DEGREES_TO_RADIANS, (270 - theta) * DEGREES_TO_RADIANS, false);
   paint.bezierCurveTo(left + (cornerSize - handleLarge - handleSmall), top, left + (cornerSize - handleLarge), top, left + cornerSize, top);
 
-  // 完成
+  // Complete
   paint.closePath();
 }
 
+/**
+ * Draws a smooth cornered rectangle using Sketch's algorithm
+ * @param {number} left - Left coordinate
+ * @param {number} top - Top coordinate
+ * @param {number} right - Right coordinate
+ * @param {number} bottom - Bottom coordinate
+ * @param {number} radius - Corner radius
+ * @param {CanvasRenderingContext2D} paint - Canvas context
+ */
 function drawSketchSmoothCorners(left, top, right, bottom, radius, paint) {
-  // 基础常量定义
+  // Base constants
   const CORNER_MAX_RATIO = 128.19;
   const CONTROL_HANDLE_RATIO = 83.62;
   const CONTROL_POINTS_RATIO = {
@@ -124,19 +152,19 @@ function drawSketchSmoothCorners(left, top, right, bottom, radius, paint) {
     curveOuter: 4.64,
   };
 
-  // 基础尺寸计算
+  // Basic dimension calculations
   const width = right - left;
   const height = bottom - top;
   const minDimension = Math.min(width, height) / 2;
   const radiusRatio = radius / minDimension;
 
-  // 特殊情况处理：当尺寸过小或无圆角时，退化为普通圆角矩形
+  // Special case: when size is too small or no radius, fallback to regular rounded rect
   if (minDimension <= 2 * radius || radius === 0) {
     drawRoundRect(left, top, right, bottom, radius, paint);
     return;
   }
 
-  // 计算端点比例
+  // Calculate endpoint ratio
   let endpointRatio = 1;
   if (radiusRatio > 0.5) {
     const percentage = (radiusRatio - 0.5) / 0.4;
@@ -144,7 +172,7 @@ function drawSketchSmoothCorners(left, top, right, bottom, radius, paint) {
     endpointRatio = 1 - (1 - 1.104 / 1.2819) * clampedPercentage;
   }
 
-  // 计算控制点比例
+  // Calculate control point ratio
   let controlRatio = 1;
   if (radiusRatio > 0.6) {
     const percentage = (radiusRatio - 0.6) / 0.3;
@@ -152,7 +180,7 @@ function drawSketchSmoothCorners(left, top, right, bottom, radius, paint) {
     controlRatio = 1 + (0.8717 / 0.8362 - 1) * clampedPercentage;
   }
 
-  // 预计算所有radius相关的值
+  // Pre-calculate all radius-related values
   const radiusUnit = radius / 100;
   const cornerDistance = radiusUnit * CORNER_MAX_RATIO * endpointRatio;
   const controlHandleDistance = radiusUnit * CONTROL_HANDLE_RATIO * controlRatio;
@@ -165,13 +193,13 @@ function drawSketchSmoothCorners(left, top, right, bottom, radius, paint) {
     curveOuter: radiusUnit * CONTROL_POINTS_RATIO.curveOuter,
   };
 
-  // 开始
+  // Start
   paint.beginPath();
 
-  // 起点（上边中点）
+  // Starting point (center of top)
   paint.moveTo(left + width / 2, top);
 
-  // 右上角
+  // TR corner
   const cornerEndX = Math.max(left + width / 2, right - cornerDistance);
   paint.lineTo(cornerEndX, top);
 
@@ -200,7 +228,7 @@ function drawSketchSmoothCorners(left, top, right, bottom, radius, paint) {
     top + Math.min(height / 2, cornerDistance)
   );
 
-  // 右下角
+  // BR corner
   const cornerStartY = Math.max(top + height / 2, bottom - cornerDistance);
   paint.lineTo(right, cornerStartY);
 
@@ -229,7 +257,7 @@ function drawSketchSmoothCorners(left, top, right, bottom, radius, paint) {
     bottom
   );
 
-  // 左下角
+  // BL corner
   const cornerEndX2 = Math.min(left + width / 2, left + cornerDistance);
   paint.lineTo(cornerEndX2, bottom);
 
@@ -258,7 +286,7 @@ function drawSketchSmoothCorners(left, top, right, bottom, radius, paint) {
     Math.max(top + height / 2, bottom - cornerDistance)
   );
 
-  // 左上角
+  // TL corner
   const cornerEndY2 = Math.min(top + height / 2, top + cornerDistance);
   paint.lineTo(left, cornerEndY2);
 
@@ -287,48 +315,59 @@ function drawSketchSmoothCorners(left, top, right, bottom, radius, paint) {
     top
   );
 
+  // Complete
   paint.closePath();
 }
 
+/**
+ * Draws a smooth cornered rectangle using quadratic curves
+ * @param {number} left - Left coordinate
+ * @param {number} top - Top coordinate
+ * @param {number} right - Right coordinate
+ * @param {number} bottom - Bottom coordinate
+ * @param {number} radius - Corner radius
+ * @param {CanvasRenderingContext2D} paint - Canvas context
+ */
 function drawQuadSmoothCorners(left, top, right, bottom, radius, paint) {
-  // 基础尺寸计算
+  // Basic dimension calculations
   const width = right - left;
   const height = bottom - top;
 
-  // 确保半径在合理范围内
+  // Ensure radius is within valid range
   const maxRadius = Math.min(width, height) / 2;
   const rx = Math.min(Math.max(0, radius), maxRadius);
   const ry = rx; // 保持圆角为正圆形
 
-  // 开始
+  // Start
   paint.beginPath();
 
-  // 起点（右边中点）
+  // Starting point (center of right edge)
   paint.moveTo(right, top + ry);
 
-  // 右上角
+  // TR corner
   paint.quadraticCurveTo(right, top, right - rx, top);
 
-  // 上边
+  // Top edge
   paint.lineTo(left + rx, top);
 
-  // 左上角
+  // TL corner
   paint.quadraticCurveTo(left, top, left, top + ry);
 
-  // 左边
+  // Left edge
   paint.lineTo(left, bottom - ry);
 
-  // 左下角
+  // BL corner
   paint.quadraticCurveTo(left, bottom, left + rx, bottom);
 
-  // 底边
+  // Bottom edge
   paint.lineTo(right - rx, bottom);
 
-  // 右下角
+  // BR corner
   paint.quadraticCurveTo(right, bottom, right, bottom - ry);
 
-  // 右边
+  // Right edge
   paint.lineTo(right, top + ry);
 
+  // Complete
   paint.closePath();
 }
