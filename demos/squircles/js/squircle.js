@@ -336,7 +336,7 @@ function drawQuadSmoothCorners(left, top, right, bottom, radius, paint) {
   // Ensure radius is within valid range
   const maxRadius = Math.min(width, height) / 2;
   const rx = Math.min(Math.max(0, radius), maxRadius);
-  const ry = rx; // 保持圆角为正圆形
+  const ry = rx; // Keep corners circular
 
   // Start
   paint.beginPath();
