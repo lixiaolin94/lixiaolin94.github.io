@@ -12,44 +12,91 @@ const config = {
   roundRectColor: "rgba(0, 0, 255, 0.75)",
   drawFigmaSmoothCorners: false,
   figmaColor: "rgba(0, 255, 0, 0.75)",
-  drawSketchSmoothCorners: true,
+  drawSketchSmoothCorners: false,
   sketchColor: "rgba(255, 0, 0, 0.75)",
-  drawQuadSmoothCorners: false,
+  drawQuadSmoothCorners: true,
   quadColor: "rgba(0, 255, 255, 0.75)",
+  outline: false,
+  debug: true,
 };
 
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 const dpr = window.devicePixelRatio || 1;
 
+function drawDebugPoints(points, paint, color = "red") {
+  paint.save();
+
+  points.forEach((point) => {
+    paint.beginPath();
+    paint.arc(point.x, point.y, 2, 0, Math.PI * 2);
+    paint.fillStyle = color;
+    paint.fill();
+  });
+
+  paint.restore();
+}
+
 function draw() {
   const paint = ctx;
   paint.clearRect(0, 0, canvas.width, canvas.height);
 
-  paint.globalCompositeOperation = "difference";
+  // paint.globalCompositeOperation = "difference";
 
   if (config.drawRoundRect) {
-    paint.fillStyle = config.roundRectColor;
-    drawRoundRect(view.left, view.top, view.right, view.bottom, view.radius, paint);
-    paint.fill();
+    const points = drawRoundRect(view.left, view.top, view.right, view.bottom, view.radius, paint);
+    if (config.outline) {
+      paint.strokeStyle = config.roundRectColor;
+      paint.stroke();
+    } else {
+      paint.fillStyle = config.roundRectColor;
+      paint.fill();
+    }
+    if (config.debug) {
+      drawDebugPoints(points, paint, 'blue');
+    }
   }
 
   if (config.drawFigmaSmoothCorners) {
-    paint.fillStyle = config.figmaColor;
-    drawFigmaSmoothCorners(view.left, view.top, view.right, view.bottom, view.radius, view.smoothness, paint);
-    paint.fill();
+    const points = drawFigmaSmoothCorners(view.left, view.top, view.right, view.bottom, view.radius, view.smoothness, paint);
+    if (config.outline) {
+      paint.strokeStyle = config.figmaColor;
+      paint.stroke();
+    } else {
+      paint.fillStyle = config.figmaColor;
+      paint.fill();
+    }
+    if (config.debug) {
+      drawDebugPoints(points, paint, 'red');
+    }
   }
 
   if (config.drawSketchSmoothCorners) {
-    paint.fillStyle = config.sketchColor;
-    drawSketchSmoothCorners(view.left, view.top, view.right, view.bottom, view.radius, paint);
-    paint.fill();
+    const points = drawSketchSmoothCorners(view.left, view.top, view.right, view.bottom, view.radius, paint);
+    if (config.outline) {
+      paint.strokeStyle = config.sketchColor;
+      paint.stroke();
+    } else {
+      paint.fillStyle = config.sketchColor;
+      paint.fill();
+    }
+    if (config.debug) {
+      drawDebugPoints(points, paint, 'red');
+    }
   }
 
   if (config.drawQuadSmoothCorners) {
-    paint.fillStyle = config.quadColor;
-    drawQuadSmoothCorners(view.left, view.top, view.right, view.bottom, view.radius, paint);
-    paint.fill();
+    const points = drawQuadSmoothCorners(view.left, view.top, view.right, view.bottom, view.radius, paint);
+    if (config.outline) {
+      paint.strokeStyle = config.quadColor;
+      paint.stroke();
+    } else {
+      paint.fillStyle = config.quadColor;
+      paint.fill();
+    }
+    if (config.debug) {
+      drawDebugPoints(points, paint, 'red');
+    }
   }
 }
 
@@ -58,20 +105,23 @@ pane.addInput(view, "left");
 pane.addInput(view, "top");
 pane.addInput(view, "right");
 pane.addInput(view, "bottom");
-pane.addInput(view, "radius", { min: 0});
+pane.addInput(view, "radius", { min: 0 });
 pane.addSeparator();
 pane.addInput(config, "drawRoundRect");
 pane.addInput(config, "roundRectColor");
 pane.addSeparator();
 pane.addInput(config, "drawFigmaSmoothCorners");
 pane.addInput(config, "figmaColor");
-pane.addInput(view, "smoothness", {label:"figmaSmoothness", min: 0, max: 1 });
+pane.addInput(view, "smoothness", { label: "figmaSmoothness", min: 0, max: 1 });
 pane.addSeparator();
 pane.addInput(config, "drawSketchSmoothCorners");
 pane.addInput(config, "sketchColor");
 pane.addSeparator();
 pane.addInput(config, "drawQuadSmoothCorners");
 pane.addInput(config, "quadColor");
+pane.addSeparator();
+pane.addInput(config, "outline");
+pane.addInput(config, "debug");
 pane.on("change", draw);
 
 function initCanvas() {
