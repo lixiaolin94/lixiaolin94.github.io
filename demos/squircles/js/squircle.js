@@ -10,6 +10,7 @@
 function drawRoundRect(paint, left, top, right, bottom, radius) {
   const width = right - left;
   const height = bottom - top;
+  
   paint.beginPath();
   paint.roundRect(left, top, width, height, radius);
   paint.closePath();
@@ -48,7 +49,7 @@ function drawFigmaSmoothCorners(paint, left, top, right, bottom, radius, smoothn
 
   // Special case: when no radius or radius is too large, fallback to regular rounded rect
   if (radius === 0 || radius >= 0.5 * minDimension) {
-    drawRoundRect(left, top, right, bottom, radius, paint);
+    drawRoundRect(paint, left, top, right, bottom, radius);
     return;
   }
 
@@ -211,7 +212,7 @@ function drawSketchSmoothCorners(paint, left, top, right, bottom, radius) {
 
   // Special case: when no radius or radius is too large, fallback to regular rounded rect
   if (radius === 0 || radius >= 0.5 * minDimension) {
-    drawRoundRect(left, top, right, bottom, radius, paint);
+    drawRoundRect(paint, left, top, right, bottom, radius);
     return [];
   }
 
@@ -358,7 +359,7 @@ function drawQuadSmoothCorners(paint, left, top, right, bottom, radius) {
 
   // Special case: when no radius or radius is too large, fallback to regular rounded rect
   if (radius === 0 || radius >= 0.375 * minDimension) {
-    drawRoundRect(left, top, right, bottom, radius, paint);
+    drawRoundRect(paint, left, top, right, bottom, radius);
     return;
   }
 
