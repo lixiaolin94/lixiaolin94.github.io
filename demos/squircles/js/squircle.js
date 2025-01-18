@@ -1,13 +1,13 @@
 /**
  * Draws a rounded rectangle with specified dimensions and radius
+ * @param {CanvasRenderingContext2D} paint - Canvas context
  * @param {number} left - Left coordinate
  * @param {number} top - Top coordinate
  * @param {number} right - Right coordinate
  * @param {number} bottom - Bottom coordinate
  * @param {number} radius - Corner radius
- * @param {CanvasRenderingContext2D} paint - Canvas context
  */
-function drawRoundRect(left, top, right, bottom, radius, paint) {
+function drawRoundRect(paint, left, top, right, bottom, radius) {
   const width = right - left;
   const height = bottom - top;
   paint.beginPath();
@@ -30,15 +30,15 @@ function drawRoundRect(left, top, right, bottom, radius, paint) {
 
 /**
  * Draws a smooth cornered rectangle using Figma's algorithm
+ * @param {CanvasRenderingContext2D} paint - Canvas context
  * @param {number} left - Left coordinate
  * @param {number} top - Top coordinate
  * @param {number} right - Right coordinate
  * @param {number} bottom - Bottom coordinate
  * @param {number} radius - Corner radius
  * @param {number} smoothness - Corner smoothness (0-1)
- * @param {CanvasRenderingContext2D} paint - Canvas context
  */
-function drawFigmaSmoothCorners(left, top, right, bottom, radius, smoothness = 0.6, paint) {
+function drawFigmaSmoothCorners(paint, left, top, right, bottom, radius, smoothness = 0.6) {
   const DEGREES_TO_RADIANS = Math.PI / 180;
 
   // Basic dimension calculations
@@ -183,14 +183,14 @@ function drawFigmaSmoothCorners(left, top, right, bottom, radius, smoothness = 0
 
 /**
  * Draws a smooth cornered rectangle using Sketch's algorithm
+ * @param {CanvasRenderingContext2D} paint - Canvas context
  * @param {number} left - Left coordinate
  * @param {number} top - Top coordinate
  * @param {number} right - Right coordinate
  * @param {number} bottom - Bottom coordinate
  * @param {number} radius - Corner radius
- * @param {CanvasRenderingContext2D} paint - Canvas context
  */
-function drawSketchSmoothCorners(left, top, right, bottom, radius, paint) {
+function drawSketchSmoothCorners(paint, left, top, right, bottom, radius) {
   // Base constants
   const CORNER_MAX_RATIO = 128.19;
   const CONTROL_HANDLE_RATIO = 83.62;
@@ -341,14 +341,14 @@ function drawSketchSmoothCorners(left, top, right, bottom, radius, paint) {
 
 /**
  * Draws a smooth cornered rectangle using quadratic curves
+ * @param {CanvasRenderingContext2D} paint - Canvas context
  * @param {number} left - Left coordinate
  * @param {number} top - Top coordinate
  * @param {number} right - Right coordinate
  * @param {number} bottom - Bottom coordinate
  * @param {number} radius - Corner radius
- * @param {CanvasRenderingContext2D} paint - Canvas context
  */
-function drawQuadSmoothCorners(left, top, right, bottom, radius, paint) {
+function drawQuadSmoothCorners(paint, left, top, right, bottom, radius) {
   const CORNER_CORRECTION_FACTOR = 1.175; // Correction factor to make corners more accurate
 
   // Basic dimension calculations

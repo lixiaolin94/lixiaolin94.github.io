@@ -4,25 +4,32 @@ const view = {
   right: 400,
   bottom: 400,
   radius: 80,
-  smoothness: 0.6,
 };
 
 const config = {
-  drawRoundRect: false,
-  roundRectColor: "rgba(0, 0, 255, 0.75)",
-  drawFigmaSmoothCorners: false,
-  figmaColor: "rgba(0, 255, 0, 0.75)",
+  drawRoundRect: true,
+  roundRectColor: "#f24822",
+  drawFigmaSmoothCorners: true,
+  figmaColor: "#1bc47d",
+  figmaSmoothness: 0.6,
   drawSketchSmoothCorners: false,
-  sketchColor: "rgba(255, 0, 0, 0.75)",
-  drawQuadSmoothCorners: true,
-  quadColor: "rgba(0, 255, 255, 0.75)",
+  sketchColor: "#18a0fb",
+  drawQuadSmoothCorners: false,
+  quadColor: "#7b61ff",
+  alpha: 0.5,
   outline: false,
-  debug: true,
+  lineWidth: 1,
+  debug: false,
 };
 
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 const dpr = window.devicePixelRatio || 1;
+
+const hex2rgba = (hex, alpha = 1) => {
+  const [r, g, b] = hex.match(/\w\w/g).map((x) => parseInt(x, 16));
+  return `rgba(${r},${g},${b},${alpha})`;
+};
 
 function drawDebugPoints(points, paint, color = "red") {
   paint.save();
@@ -37,67 +44,60 @@ function drawDebugPoints(points, paint, color = "red") {
   paint.restore();
 }
 
+function drawShape(paint, drawMethod, color, params) {
+  const points = drawMethod(paint, ...params);
+  if (config.outline) {
+    ctx.strokeStyle = hex2rgba(color, config.alpha);
+    ctx.stroke();
+  } else {
+    ctx.fillStyle = hex2rgba(color, config.alpha);
+    ctx.fill();
+  }
+  if (config.debug) {
+    drawDebugPoints(points, ctx, color);
+  }
+}
+
 function draw() {
   const paint = ctx;
   paint.clearRect(0, 0, canvas.width, canvas.height);
+  paint.lineWidth = config.lineWidth;
 
-  // paint.globalCompositeOperation = "difference";
+  const shapes = [
+    {
+      enabled: config.drawRoundRect,
+      method: drawRoundRect,
+      color: config.roundRectColor,
+      extraParams: [],
+    },
+    {
+      enabled: config.drawFigmaSmoothCorners,
+      method: drawFigmaSmoothCorners,
+      color: config.figmaColor,
+      extraParams: [config.figmaSmoothness],
+    },
+    {
+      enabled: config.drawSketchSmoothCorners,
+      method: drawSketchSmoothCorners,
+      color: config.sketchColor,
+      extraParams: [],
+    },
+    {
+      enabled: config.drawQuadSmoothCorners,
+      method: drawQuadSmoothCorners,
+      color: config.quadColor,
+      extraParams: [],
+    },
+  ].map(shape => ({
+    ...shape,
+    params: [...Object.values(view), ...shape.extraParams]
+  }));
 
-  if (config.drawRoundRect) {
-    const points = drawRoundRect(view.left, view.top, view.right, view.bottom, view.radius, paint);
-    if (config.outline) {
-      paint.strokeStyle = config.roundRectColor;
-      paint.stroke();
-    } else {
-      paint.fillStyle = config.roundRectColor;
-      paint.fill();
+  shapes.forEach((shape) => {
+    if (shape.enabled) {
+      drawShape(paint, shape.method, shape.color, shape.params);
     }
-    if (config.debug) {
-      drawDebugPoints(points, paint, 'blue');
-    }
-  }
-
-  if (config.drawFigmaSmoothCorners) {
-    const points = drawFigmaSmoothCorners(view.left, view.top, view.right, view.bottom, view.radius, view.smoothness, paint);
-    if (config.outline) {
-      paint.strokeStyle = config.figmaColor;
-      paint.stroke();
-    } else {
-      paint.fillStyle = config.figmaColor;
-      paint.fill();
-    }
-    if (config.debug) {
-      drawDebugPoints(points, paint, 'red');
-    }
-  }
-
-  if (config.drawSketchSmoothCorners) {
-    const points = drawSketchSmoothCorners(view.left, view.top, view.right, view.bottom, view.radius, paint);
-    if (config.outline) {
-      paint.strokeStyle = config.sketchColor;
-      paint.stroke();
-    } else {
-      paint.fillStyle = config.sketchColor;
-      paint.fill();
-    }
-    if (config.debug) {
-      drawDebugPoints(points, paint, 'red');
-    }
-  }
-
-  if (config.drawQuadSmoothCorners) {
-    const points = drawQuadSmoothCorners(view.left, view.top, view.right, view.bottom, view.radius, paint);
-    if (config.outline) {
-      paint.strokeStyle = config.quadColor;
-      paint.stroke();
-    } else {
-      paint.fillStyle = config.quadColor;
-      paint.fill();
-    }
-    if (config.debug) {
-      drawDebugPoints(points, paint, 'red');
-    }
-  }
+  });
 }
 
 const pane = new Tweakpane.Pane({ title: "Squircle", container: document.getElementById("pane") });
@@ -112,7 +112,7 @@ pane.addInput(config, "roundRectColor");
 pane.addSeparator();
 pane.addInput(config, "drawFigmaSmoothCorners");
 pane.addInput(config, "figmaColor");
-pane.addInput(view, "smoothness", { label: "figmaSmoothness", min: 0, max: 1 });
+pane.addInput(config, "figmaSmoothness", { min: 0, max: 1 });
 pane.addSeparator();
 pane.addInput(config, "drawSketchSmoothCorners");
 pane.addInput(config, "sketchColor");
@@ -120,7 +120,9 @@ pane.addSeparator();
 pane.addInput(config, "drawQuadSmoothCorners");
 pane.addInput(config, "quadColor");
 pane.addSeparator();
+pane.addInput(config, "alpha", { min: 0, max: 1 });
 pane.addInput(config, "outline");
+pane.addInput(config, "lineWidth", { min: 0 });
 pane.addInput(config, "debug");
 pane.on("change", draw);
 
