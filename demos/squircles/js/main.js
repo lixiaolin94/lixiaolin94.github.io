@@ -1,3 +1,4 @@
+// Constants
 const view = {
   left: 40,
   top: 40,
@@ -22,10 +23,7 @@ const config = {
   debug: false,
 };
 
-const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext("2d");
-const dpr = window.devicePixelRatio || 1;
-
+// Utils
 const hex2rgba = (hex, alpha = 1) => {
   const [r, g, b] = hex.match(/\w\w/g).map((x) => parseInt(x, 16));
   return `rgba(${r},${g},${b},${alpha})`;
@@ -57,6 +55,11 @@ function drawShape(paint, drawMethod, color, params) {
     drawDebugPoints(points, ctx, color);
   }
 }
+
+// Drawing methods
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+const dpr = window.devicePixelRatio || 1;
 
 function draw() {
   const paint = ctx;
@@ -100,6 +103,7 @@ function draw() {
   });
 }
 
+// GUI
 const pane = new Tweakpane.Pane({ title: "Squircle", container: document.getElementById("pane") });
 pane.addInput(view, "left");
 pane.addInput(view, "top");
@@ -126,6 +130,7 @@ pane.addInput(config, "lineWidth", { min: 0 });
 pane.addInput(config, "debug");
 pane.on("change", draw);
 
+// Init canvas
 function initCanvas() {
   canvas.width = window.innerWidth * dpr;
   canvas.height = window.innerHeight * dpr;
