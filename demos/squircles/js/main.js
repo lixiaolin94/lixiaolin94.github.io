@@ -1,18 +1,18 @@
 const view = {
-  left: 50,
-  top: 50,
-  right: 250,
-  bottom: 250,
-  radius: 40,
+  left: 40,
+  top: 40,
+  right: 400,
+  bottom: 400,
+  radius: 80,
   smoothness: 0.6,
 };
 
 const config = {
-  drawRoundRect: true,
+  drawRoundRect: false,
   roundRectColor: "rgba(0, 0, 255, 0.75)",
-  drawFigmaSmoothCorners: true,
+  drawFigmaSmoothCorners: false,
   figmaColor: "rgba(0, 255, 0, 0.75)",
-  drawSketchSmoothCorners: false,
+  drawSketchSmoothCorners: true,
   sketchColor: "rgba(255, 0, 0, 0.75)",
   drawQuadSmoothCorners: false,
   quadColor: "rgba(0, 255, 255, 0.75)",
@@ -58,7 +58,7 @@ pane.addInput(view, "left");
 pane.addInput(view, "top");
 pane.addInput(view, "right");
 pane.addInput(view, "bottom");
-pane.addInput(view, "radius", { min: 0 });
+pane.addInput(view, "radius", { min: 0});
 pane.addSeparator();
 pane.addInput(config, "drawRoundRect");
 pane.addInput(config, "roundRectColor");
