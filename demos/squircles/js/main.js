@@ -16,7 +16,7 @@ const config = {
   sketchColor: "#18a0fb",
   drawQuadSmoothCorners: false,
   quadColor: "#7b61ff",
-  alpha: 0.5,
+  alpha: 0.8,
   outline: false,
   lineWidth: 1,
   debug: false,
