@@ -10,13 +10,13 @@ const view = {
 const config = {
   drawRoundRect: true,
   roundRectColor: "#f24822",
+  drawQuadSmoothCorners: false,
+  quadColor: "#7b61ff",
+  drawSketchSmoothCorners: false,
+  sketchColor: "#18a0fb",
   drawFigmaSmoothCorners: true,
   figmaColor: "#1bc47d",
   figmaSmoothness: 0.6,
-  drawSketchSmoothCorners: false,
-  sketchColor: "#18a0fb",
-  drawQuadSmoothCorners: false,
-  quadColor: "#7b61ff",
   alpha: 0.8,
   outline: false,
   lineWidth: 1,
@@ -82,10 +82,10 @@ function draw() {
       extraParams: [],
     },
     {
-      enabled: config.drawFigmaSmoothCorners,
-      method: drawFigmaSmoothCorners,
-      color: config.figmaColor,
-      extraParams: [config.figmaSmoothness],
+      enabled: config.drawQuadSmoothCorners,
+      method: drawQuadSmoothCorners,
+      color: config.quadColor,
+      extraParams: [],
     },
     {
       enabled: config.drawSketchSmoothCorners,
@@ -94,10 +94,10 @@ function draw() {
       extraParams: [],
     },
     {
-      enabled: config.drawQuadSmoothCorners,
-      method: drawQuadSmoothCorners,
-      color: config.quadColor,
-      extraParams: [],
+      enabled: config.drawFigmaSmoothCorners,
+      method: drawFigmaSmoothCorners,
+      color: config.figmaColor,
+      extraParams: [config.figmaSmoothness],
     },
   ].map((shape) => ({
     ...shape,
@@ -157,15 +157,15 @@ pane.addSeparator();
 pane.addInput(config, "drawRoundRect");
 pane.addInput(config, "roundRectColor");
 pane.addSeparator();
-pane.addInput(config, "drawFigmaSmoothCorners");
-pane.addInput(config, "figmaColor");
-pane.addInput(config, "figmaSmoothness", { min: 0, max: 1 });
+pane.addInput(config, "drawQuadSmoothCorners");
+pane.addInput(config, "quadColor");
 pane.addSeparator();
 pane.addInput(config, "drawSketchSmoothCorners");
 pane.addInput(config, "sketchColor");
 pane.addSeparator();
-pane.addInput(config, "drawQuadSmoothCorners");
-pane.addInput(config, "quadColor");
+pane.addInput(config, "drawFigmaSmoothCorners");
+pane.addInput(config, "figmaColor");
+pane.addInput(config, "figmaSmoothness", { min: 0, max: 1 });
 pane.addSeparator();
 pane.addInput(config, "alpha", { min: 0, max: 1 });
 pane.addInput(config, "outline");
