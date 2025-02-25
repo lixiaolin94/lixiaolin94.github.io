@@ -9,14 +9,16 @@ const view = {
 
 const config = {
   drawRoundRect: true,
-  roundRectColor: "#f24822",
+  roundRectColor: "#000000",
   drawQuadSmoothCorners: false,
   quadColor: "#7b61ff",
   drawSketchSmoothCorners: false,
-  sketchColor: "#18a0fb",
-  drawFigmaSmoothCorners: true,
-  figmaColor: "#1bc47d",
-  figmaSmoothness: 0.6,
+  sketchColor: "#FF5C00",
+  drawFigmaSmoothCorners: false,
+  figmaColor: "#18A0FB",
+  drawAndroidSmoothCorners: true,
+  androidColor: "#1bc47d",
+  smoothness: 0.6,
   alpha: 0.8,
   outline: false,
   lineWidth: 1,
@@ -58,7 +60,6 @@ function drawShape(context, drawMethod, color, params) {
   }
 }
 
-// Drawing methods
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 const dpr = window.devicePixelRatio || 1;
@@ -97,8 +98,14 @@ function draw() {
       enabled: config.drawFigmaSmoothCorners,
       method: drawFigmaSmoothCorners,
       color: config.figmaColor,
-      extraParams: [config.figmaSmoothness],
+      extraParams: [config.smoothness],
     },
+    {
+      enabled: config.drawAndroidSmoothCorners,
+      method: drawSmoothCorners,
+      color: config.androidColor,
+      extraParams: [config.smoothness],
+    }
   ].map((shape) => ({
     ...shape,
     params: [...Object.values(view), ...shape.extraParams],
@@ -153,6 +160,7 @@ pane.addInput(view, "top");
 pane.addInput(view, "right");
 pane.addInput(view, "bottom");
 pane.addInput(view, "radius", { min: 0 });
+pane.addInput(config, "smoothness", { min: 0, max: 1 });
 pane.addSeparator();
 pane.addInput(config, "drawRoundRect");
 pane.addInput(config, "roundRectColor");
@@ -165,7 +173,9 @@ pane.addInput(config, "sketchColor");
 pane.addSeparator();
 pane.addInput(config, "drawFigmaSmoothCorners");
 pane.addInput(config, "figmaColor");
-pane.addInput(config, "figmaSmoothness", { min: 0, max: 1 });
+pane.addSeparator();
+pane.addInput(config, "drawAndroidSmoothCorners");
+pane.addInput(config, "androidColor");
 pane.addSeparator();
 pane.addInput(config, "alpha", { min: 0, max: 1 });
 pane.addInput(config, "outline");
