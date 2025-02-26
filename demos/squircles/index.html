@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Squircles | Xiaolin's Demo</title>
+    <meta name="keywords" content="squircle, smooth corners, smooth, ios" />
+    <meta name="author" content="Xiaolin" />
+    <style>
+      body {
+        margin: 0;
+        overflow: hidden;
+        background-color: #f5f5f5;
+      }
+      #pane {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        width: 360px;
+      }
+      #references {
+        position: fixed;
+        bottom: 10px;
+        left: 10px;
+      }
+      #references h3 {
+        margin-block: 0;
+      }
+      #references ul {
+        margin-block: 0.5rem;
+        padding-inline-start: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="canvas"></canvas>
+    <div id="references">
+      <h3>References</h3>
+      <ul>
+        <li><a href="https://www.figma.com/blog/desperately-seeking-squircles/" target="_blank">Desperately seeking squircles - Figma Blog</a></li>
+        <li><a href="https://github.com/MartinRGB/Figma_Squircles_Approximation/" target="_blank">MartinRGB/Figma_Squircles_Approximation</a></li>
+        <li><a href="https://github.com/MartinRGB/sketch-smooth-corner-android" target="_blank">MartinRGB/sketch-smooth-corner-android</a></li>
+      </ul>
+    </div>
+    <div id="pane"></div>
+    <script src="https://cdn.jsdelivr.net/npm/tweakpane@3.1.4/dist/tweakpane.min.js"></script>
+    <script src="./js/squircle.js"></script>
+    <script src="./js/android.js"></script>
+    <script src="./js/main.js"></script>
+  </body>
+</html>
