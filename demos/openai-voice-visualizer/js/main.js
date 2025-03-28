@@ -22,10 +22,19 @@ const PALETTE = {
   },
 };
 
+// State enumeration - only keeping the useful states
+const STATE = {
+  IDLE: "idle",
+  LISTEN: "listen",
+  THINK: "think",
+  SPEAK: "speak",
+};
+
 const config = {
   isDarkMode: false,
   useMicrophone: false,
   isAdvancedBloop: true,
+  currentState: STATE.LISTEN,
   ...PALETTE.BLUE,
 };
 
@@ -36,6 +45,12 @@ let audioData = [0, 0, 0, 0];
 let cumulativeAudioData = [0, 0, 0, 0];
 let micLevel = 0;
 let startTime, lastFrameTime, requestId;
+let stateTimestamps = {
+  [STATE.IDLE]: 0,
+  [STATE.LISTEN]: 0,
+  [STATE.THINK]: 0,
+  [STATE.SPEAK]: 0,
+};
 
 // Create shader helper function
 function createShader(gl, type, source) {
@@ -239,6 +254,17 @@ function updateAudioData() {
   micLevel = Math.min(1, rms * 5);
 }
 
+// Switch state and update timestamp
+function changeState(newState) {
+  if (config.currentState === newState) return;
+
+  config.currentState = newState;
+  stateTimestamps[newState] = performance.now() / 1000;
+
+  // Update UI if pane exists
+  if (pane) pane.refresh();
+}
+
 function updateUniforms() {
   const currentTime = performance.now() / 1000;
 
@@ -247,21 +273,37 @@ function updateUniforms() {
   const midColor = [config.mid.r, config.mid.g, config.mid.b];
   const highColor = [config.high.r, config.high.g, config.high.b];
 
+  const stateValues = {
+    stateListen: 0,
+    stateThink: 0,
+    stateSpeak: 0,
+    stateHalt: 0,
+    stateFailedToConnect: 0,
+  };
+
+  switch (config.currentState) {
+    case STATE.LISTEN:
+      stateValues.stateListen = 1;
+      break;
+    case STATE.THINK:
+      stateValues.stateThink = 1;
+      break;
+    case STATE.SPEAK:
+      stateValues.stateSpeak = 1;
+      break;
+  }
+
   const values = {
     time: currentTime,
     micLevel: micLevel,
     touchDownTimestamp: 0,
     touchUpTimestamp: 0,
-    stateListen: 0,
-    listenTimestamp: 0,
-    stateThink: 0,
-    thinkTimestamp: 0,
-    stateSpeak: 1, // Always in speak mode for this demo
-    speakTimestamp: startTime,
+    ...stateValues,
+    listenTimestamp: stateTimestamps[STATE.LISTEN],
+    thinkTimestamp: stateTimestamps[STATE.THINK],
+    speakTimestamp: stateTimestamps[STATE.SPEAK],
     readyTimestamp: startTime,
-    stateHalt: 0,
     haltTimestamp: 0,
-    stateFailedToConnect: 0,
     failedToConnectTimestamp: 0,
     avgMag: audioData,
     cumulativeAudio: cumulativeAudioData,
@@ -365,6 +407,14 @@ async function initWebGL() {
     startTime = performance.now() / 1000;
     lastFrameTime = performance.now();
 
+    // Initialize all state timestamps
+    Object.keys(stateTimestamps).forEach((key) => {
+      stateTimestamps[key] = startTime;
+    });
+
+    // Set initial state timestamp
+    stateTimestamps[config.currentState] = startTime;
+
     document.body.style.background = config.isDarkMode ? "black" : "white";
 
     if (config.useMicrophone && audioInitialized) {
@@ -393,10 +443,12 @@ function applyColorPreset(presetName) {
 }
 
 const pane = new Tweakpane.Pane();
-
 const generalFolder = pane.addFolder({ title: "general" });
-generalFolder.addInput(config, "isDarkMode", { label: "darkMode" }).on("change", (event) => {
-  document.body.style.background = event.value ? "black" : "white";
+const colorFolder = pane.addFolder({ title: "color" });
+const paletteFolder = pane.addFolder({ title: "palette" });
+
+generalFolder.addInput(config, "isAdvancedBloop", { label: "advanced" }).on("change", (event) => {
+  toggleInputVisibility(event.value);
 });
 
 generalFolder.addInput(config, "useMicrophone", { label: "mic" }).on("change", (event) => {
@@ -407,9 +459,26 @@ generalFolder.addInput(config, "useMicrophone", { label: "mic" }).on("change", (
   }
 });
 
-generalFolder.addInput(config, "isAdvancedBloop", { label: "advanced" });
+const darkModeInput = generalFolder.addInput(config, "isDarkMode", { label: "darkMode" }).on("change", (event) => {
+  document.body.style.background = event.value ? "black" : "white";
+});
 
-const colorFolder = pane.addFolder({ title: "color" });
+const stateInput = generalFolder
+  .addInput(config, "currentState", {
+    label: "state",
+    options: {
+      Idle: STATE.IDLE,
+      Listen: STATE.LISTEN,
+      Think: STATE.THINK,
+      Speak: STATE.SPEAK,
+    },
+  })
+  .on("change", (event) => {
+    changeState(event.value);
+  });
+
+toggleInputVisibility(config.isAdvancedBloop);
+
 colorFolder.addInput(config, "main", {
   color: { type: "float" },
 });
@@ -423,7 +492,7 @@ colorFolder.addInput(config, "high", {
   color: { type: "float" },
 });
 
-const paletteFolder = pane.addFolder({ title: "palette" });
+
 paletteFolder.addButton({ title: "Blue" }).on("click", () => {
   applyColorPreset("BLUE");
 });
@@ -433,3 +502,11 @@ paletteFolder.addButton({ title: "DarkBlue" }).on("click", () => {
 paletteFolder.addButton({ title: "Greyscale" }).on("click", () => {
   applyColorPreset("GREYSCALE");
 });
+
+
+function toggleInputVisibility(visible) {
+  stateInput.hidden = visible;
+  darkModeInput.hidden = visible;
+  colorFolder.hidden = !visible;
+  paletteFolder.hidden = !visible;
+}
