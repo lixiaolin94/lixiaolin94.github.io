@@ -1,4 +1,3 @@
-// Constants
 const TEXTURE_SOURCE = "./assets/noise-watercolor.jpg";
 const VIEWPORT = [300, 300];
 const PALETTE = {
@@ -22,37 +21,32 @@ const PALETTE = {
   },
 };
 
-// State enumeration - only keeping the useful states
-const STATE = {
-  IDLE: "idle",
-  LISTEN: "listen",
-  THINK: "think",
-  SPEAK: "speak",
-};
-
 const config = {
-  isDarkMode: false,
-  useMicrophone: false,
-  isAdvancedBloop: true,
-  currentState: STATE.SPEAK,
-  ...PALETTE.BLUE,
+  mic: false,
+  advanced: true,
+  main: { ...PALETTE.BLUE.main },
+  low: { ...PALETTE.BLUE.low },
+  mid: { ...PALETTE.BLUE.mid },
+  high: { ...PALETTE.BLUE.high },
 };
 
-// Global variables
 let gl, program, vao, textureLocation, noiseTexture, uniformData, uniformDataBuffer, uniformFloats, uniformInts, glUniformBuffer;
 let audioContext, analyser, freqData, timeData, microphone, microphoneStream;
 let audioData = [0, 0, 0, 0];
 let cumulativeAudioData = [0, 0, 0, 0];
 let micLevel = 0;
 let startTime, lastFrameTime, requestId;
-let stateTimestamps = {
-  [STATE.IDLE]: 0,
-  [STATE.LISTEN]: 0,
-  [STATE.THINK]: 0,
-  [STATE.SPEAK]: 0,
-};
 
-// Create shader helper function
+const AUDIO_UPDATE_INTERVAL = 60;
+const AUDIO_FRAME_MS = Math.floor(1000 / AUDIO_UPDATE_INTERVAL);
+const AUDIO_BANDS = 240;
+const AUDIO_TIME_CONSTANT_MULTIPLIER = 2;
+const AUDIO_TIME_CONSTANT_DELTA = 2;
+const AUDIO_CUMULATIVE_MULTIPLIER = 40;
+const AUDIO_CUMULATIVE_TIME_CONSTANT = 2;
+const FFT_SIZE = 2048;
+const SAMPLE_RATE = 48000;
+
 function createShader(gl, type, source) {
   const shader = gl.createShader(type);
   gl.shaderSource(shader, source);
@@ -67,7 +61,6 @@ function createShader(gl, type, source) {
   return shader;
 }
 
-// Create program helper function
 async function createProgram(gl, vertexSource, fragmentSource) {
   const vertexShader = createShader(gl, gl.VERTEX_SHADER, vertexSource);
   const fragmentShader = createShader(gl, gl.FRAGMENT_SHADER, fragmentSource);
@@ -85,7 +78,6 @@ async function createProgram(gl, vertexSource, fragmentSource) {
   return program;
 }
 
-// Setup uniform buffers
 function setupUniforms() {
   vao = gl.createVertexArray();
   gl.bindVertexArray(vao);
@@ -121,13 +113,11 @@ function setupUniforms() {
   textureLocation = gl.getUniformLocation(program, "uTextureNoise");
 }
 
-// Load noise texture
 async function loadNoiseTexture() {
   return new Promise((resolve) => {
     const noiseTexture = gl.createTexture();
     gl.bindTexture(gl.TEXTURE_2D, noiseTexture);
 
-    // Temporary texture until image loads
     const tempData = new Uint8Array([255, 255, 255, 255]);
     gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE, tempData);
 
@@ -146,12 +136,11 @@ async function loadNoiseTexture() {
   });
 }
 
-// Audio initialization
 function initAudio() {
   try {
     audioContext = new (window.AudioContext || window.webkitAudioContext)();
     analyser = audioContext.createAnalyser();
-    analyser.fftSize = 2048;
+    analyser.fftSize = FFT_SIZE;
     freqData = new Float32Array(analyser.frequencyBinCount);
     timeData = new Float32Array(analyser.frequencyBinCount);
     return true;
@@ -161,7 +150,6 @@ function initAudio() {
   }
 }
 
-// Microphone functions
 function startMicrophone() {
   if (audioContext.state === "suspended") {
     audioContext.resume();
@@ -191,35 +179,99 @@ function stopMicrophone() {
   }
 }
 
-// Audio processing functions
 function normalizeFrequencyData(data) {
   const result = new Array(data.length);
   for (let i = 0; i < data.length; i++) {
-    // Convert dB scale to linear
     let value = 1 - (Math.max(-100, Math.min(-10, data[i])) * -1) / 100;
-    value = Math.sqrt(value); // Add some non-linear scaling
+    value = Math.sqrt(value);
     result[i] = value;
   }
   return result;
 }
 
-function calculateBandMagnitudes(data, bandCount) {
-  const result = new Array(bandCount).fill(0);
-  const bandSize = Math.floor(data.length / bandCount);
+function calculateBandMagnitudes(normalizedData, options) {
+  const { bandCount, binCount, gainMultipliers } = options;
+  const result = [];
+
+  const minFreq = 20;
+  const maxFreq = SAMPLE_RATE / 2;
+  const bands = new Array(bandCount + 1);
+
+  for (let i = 0; i <= bandCount; i++) {
+    bands[i] = minFreq * Math.pow(maxFreq / minFreq, i / bandCount);
+  }
+
+  const bandData = new Array(bandCount).fill(null).map(() => []);
+
+  const freqResolution = SAMPLE_RATE / (normalizedData.length * 2);
+
+  for (let i = 0; i < normalizedData.length; i++) {
+    const freq = i * freqResolution;
+
+    for (let j = 0; j < bandCount; j++) {
+      if (freq >= bands[j] && freq < bands[j + 1]) {
+        bandData[j].push(normalizedData[i]);
+        break;
+      }
+    }
+  }
 
   for (let i = 0; i < bandCount; i++) {
-    let sum = 0;
-    const start = i * bandSize;
-    const end = Math.min((i + 1) * bandSize, data.length);
+    const bandValues = bandData[i];
+    const gainMultiplier = gainMultipliers ? gainMultipliers[i] : 1;
 
-    for (let j = start; j < end; j++) {
-      sum += data[j];
+    if (bandValues.length === 0) {
+      for (let j = 0; j < binCount; j++) {
+        result.push(0);
+      }
+      continue;
     }
 
-    result[i] = sum / (end - start);
+    const sortedValues = [...bandValues].sort((a, b) => a - b);
+    const medianIndex = Math.floor(sortedValues.length / 2);
+    let median;
+
+    if (sortedValues.length % 2 === 0) {
+      median = (sortedValues[medianIndex - 1] + sortedValues[medianIndex]) / 2;
+    } else {
+      median = sortedValues[medianIndex];
+    }
+
+    median = Math.abs(median) * gainMultiplier;
+
+    const scaledValue = median / (median + 1);
+
+    for (let j = 0; j < binCount; j++) {
+      result.push(scaledValue);
+    }
   }
 
   return result;
+}
+
+function smoothTransition(time, timeConstant) {
+  return 1 - Math.exp(-time / timeConstant);
+}
+
+function lerp(start, end, t) {
+  return start + t * (end - start);
+}
+
+function processAudioData(prevAudioData, prevCumulativeAudioData, deltaTimeS, audioDataRaw) {
+  const audioDataIncrement = audioDataRaw.map((v) => v * deltaTimeS * AUDIO_UPDATE_INTERVAL * AUDIO_TIME_CONSTANT_MULTIPLIER);
+
+  const audioAlpha = smoothTransition(deltaTimeS, AUDIO_TIME_CONSTANT_DELTA);
+
+  const audioData = prevAudioData.map((prev, i) => lerp(prev, prev + audioDataIncrement[i], audioAlpha));
+
+  const cumulativeIncrement = audioDataRaw.map((v) => v * deltaTimeS * AUDIO_UPDATE_INTERVAL * AUDIO_CUMULATIVE_MULTIPLIER);
+
+  const rawCumulativeAudio = prevCumulativeAudioData.map((prev, i) => prev + cumulativeIncrement[i]);
+
+  const cumulativeAlpha = smoothTransition(deltaTimeS, AUDIO_CUMULATIVE_TIME_CONSTANT);
+  const cumulativeAudioData = prevCumulativeAudioData.map((prev, i) => lerp(prev, rawCumulativeAudio[i], cumulativeAlpha));
+
+  return { audioData, cumulativeAudioData };
 }
 
 function updateAudioData() {
@@ -229,42 +281,29 @@ function updateAudioData() {
   analyser.getFloatTimeDomainData(timeData);
 
   const normalizedFreqData = normalizeFrequencyData(freqData);
-  const bandData = calculateBandMagnitudes(normalizedFreqData, 4);
+
+  const gainMultipliers = [10, 1, 1, 1];
+  const bandData = calculateBandMagnitudes(normalizedFreqData, {
+    bandCount: 4,
+    binCount: 1,
+    gainMultipliers: gainMultipliers,
+  });
 
   const now = performance.now();
   const deltaTime = (now - lastFrameTime) / 1000;
   lastFrameTime = now;
 
-  const audioRaw = [...bandData, 0]; // 4 bands + overall level
+  const processedData = processAudioData(audioData, cumulativeAudioData, deltaTime, bandData);
 
-  // Simple lowpass filter for smoother visualization
-  for (let i = 0; i < 4; i++) {
-    audioData[i] = audioData[i] * 0.7 + audioRaw[i] * 0.3;
-    cumulativeAudioData[i] += audioData[i] * deltaTime * 2;
-    // Add some decay to cumulative data
-    cumulativeAudioData[i] *= 0.99;
-  }
+  audioData = processedData.audioData;
+  cumulativeAudioData = processedData.cumulativeAudioData;
 
-  console.log("Audio Data:", cumulativeAudioData);
-
-  // Calculate microphone level
   let rms = 0;
   for (let i = 0; i < timeData.length; i++) {
     rms += timeData[i] * timeData[i];
   }
   rms = Math.sqrt(rms / timeData.length);
   micLevel = Math.min(1, rms * 5);
-}
-
-// Switch state and update timestamp
-function changeState(newState) {
-  if (config.currentState === newState) return;
-
-  config.currentState = newState;
-  stateTimestamps[newState] = performance.now() / 1000;
-
-  // Update UI if pane exists
-  if (pane) pane.refresh();
 }
 
 function updateUniforms() {
@@ -275,52 +314,36 @@ function updateUniforms() {
   const midColor = [config.mid.r, config.mid.g, config.mid.b];
   const highColor = [config.high.r, config.high.g, config.high.b];
 
-  const stateValues = {
-    stateListen: 0,
-    stateThink: 0,
-    stateSpeak: 0,
-    stateHalt: 0,
-    stateFailedToConnect: 0,
-  };
-
-  switch (config.currentState) {
-    case STATE.LISTEN:
-      stateValues.stateListen = 1;
-      break;
-    case STATE.THINK:
-      stateValues.stateThink = 1;
-      break;
-    case STATE.SPEAK:
-      stateValues.stateSpeak = 1;
-      break;
-  }
-
   const values = {
     time: currentTime,
     micLevel: micLevel,
+    stateListen: 0,
+    listenTimestamp: 0,
+    stateThink: 0,
+    thinkTimestamp: 0,
+    stateSpeak: 1,
+    speakTimestamp: startTime,
+    readyTimestamp: startTime,
+    stateHalt: 0,
+    haltTimestamp: 0,
     touchDownTimestamp: 0,
     touchUpTimestamp: 0,
-    ...stateValues,
-    listenTimestamp: stateTimestamps[STATE.LISTEN],
-    thinkTimestamp: stateTimestamps[STATE.THINK],
-    speakTimestamp: stateTimestamps[STATE.SPEAK],
-    readyTimestamp: startTime,
-    haltTimestamp: 0,
+    stateFailedToConnect: 0,
     failedToConnectTimestamp: 0,
     avgMag: audioData,
     cumulativeAudio: cumulativeAudioData,
-    viewport: VIEWPORT,
-    screenScaleFactor: window.devicePixelRatio,
-    silenceAmount: 0,
-    silenceTimestamp: 0,
-    isDarkMode: config.isDarkMode,
-    fadeBloopWhileListening: false,
     isNewBloop: true,
-    isAdvancedBloop: config.isAdvancedBloop,
+    isAdvancedBloop: config.advanced,
     bloopColorMain: mainColor,
     bloopColorLow: lowColor,
     bloopColorMid: midColor,
     bloopColorHigh: highColor,
+    isDarkMode: false,
+    screenScaleFactor: window.devicePixelRatio,
+    viewport: VIEWPORT,
+    silenceAmount: 0,
+    silenceTimestamp: 0,
+    fadeBloopWhileListening: false,
   };
 
   Object.keys(uniformData).forEach((name) => {
@@ -343,7 +366,6 @@ function updateUniforms() {
   gl.bufferSubData(gl.UNIFORM_BUFFER, 0, uniformDataBuffer);
 }
 
-// Render function
 function render() {
   updateAudioData();
   updateUniforms();
@@ -393,7 +415,6 @@ async function initWebGL() {
       throw new Error("WebGL2 is not supported in your browser");
     }
 
-    // Load shaders from external files
     const vertexShaderSource = await fetch("./shaders/vertex.glsl").then((res) => res.text());
     const fragmentShaderSource = await fetch("./shaders/fragment.glsl").then((res) => res.text());
 
@@ -409,17 +430,7 @@ async function initWebGL() {
     startTime = performance.now() / 1000;
     lastFrameTime = performance.now();
 
-    // Initialize all state timestamps
-    Object.keys(stateTimestamps).forEach((key) => {
-      stateTimestamps[key] = startTime;
-    });
-
-    // Set initial state timestamp
-    stateTimestamps[config.currentState] = startTime;
-
-    document.body.style.background = config.isDarkMode ? "black" : "white";
-
-    if (config.useMicrophone && audioInitialized) {
+    if (config.mic && audioInitialized) {
       startMicrophone();
     }
 
@@ -440,16 +451,20 @@ function applyColorPreset(presetName) {
   const preset = PALETTE[presetName];
   if (!preset) return;
 
-  Object.assign(config, preset);
+  config.main = { ...preset.main };
+  config.low = { ...preset.low };
+  config.mid = { ...preset.mid };
+  config.high = { ...preset.high };
+
   if (pane) pane.refresh();
 }
 
 const pane = new Tweakpane.Pane();
 const generalFolder = pane.addFolder({ title: "general" });
-const colorFolder = pane.addFolder({ title: "color" });
-const paletteFolder = pane.addFolder({ title: "palette" });
+const colorFolder = pane.addFolder({ title: "color", expanded: false });
+const paletteFolder = pane.addFolder({ title: "palette", expanded: false });
 
-generalFolder.addInput(config, "useMicrophone", { label: "mic" }).on("change", (event) => {
+generalFolder.addInput(config, "mic").on("change", (event) => {
   if (event.value) {
     startMicrophone();
   } else {
@@ -457,25 +472,7 @@ generalFolder.addInput(config, "useMicrophone", { label: "mic" }).on("change", (
   }
 });
 
-generalFolder.addInput(config, "isAdvancedBloop", { label: "advanced" });
-
-generalFolder.addInput(config, "isDarkMode", { label: "darkMode" }).on("change", (event) => {
-  document.body.style.background = event.value ? "black" : "white";
-});
-
-generalFolder
-  .addInput(config, "currentState", {
-    label: "state",
-    options: {
-      Idle: STATE.IDLE,
-      Listen: STATE.LISTEN,
-      Think: STATE.THINK,
-      Speak: STATE.SPEAK,
-    },
-  })
-  .on("change", (event) => {
-    changeState(event.value);
-  });
+generalFolder.addInput(config, "advanced");
 
 colorFolder.addInput(config, "main", {
   color: { type: "float" },
@@ -489,6 +486,7 @@ colorFolder.addInput(config, "mid", {
 colorFolder.addInput(config, "high", {
   color: { type: "float" },
 });
+
 
 paletteFolder.addButton({ title: "Blue" }).on("click", () => {
   applyColorPreset("BLUE");
