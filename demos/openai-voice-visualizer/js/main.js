@@ -449,10 +449,6 @@ const generalFolder = pane.addFolder({ title: "general" });
 const colorFolder = pane.addFolder({ title: "color" });
 const paletteFolder = pane.addFolder({ title: "palette" });
 
-generalFolder.addInput(config, "isAdvancedBloop", { label: "advanced" }).on("change", (event) => {
-  toggleInputVisibility(event.value);
-});
-
 generalFolder.addInput(config, "useMicrophone", { label: "mic" }).on("change", (event) => {
   if (event.value) {
     startMicrophone();
@@ -461,11 +457,13 @@ generalFolder.addInput(config, "useMicrophone", { label: "mic" }).on("change", (
   }
 });
 
-const darkModeInput = generalFolder.addInput(config, "isDarkMode", { label: "darkMode" }).on("change", (event) => {
+generalFolder.addInput(config, "isAdvancedBloop", { label: "advanced" });
+
+generalFolder.addInput(config, "isDarkMode", { label: "darkMode" }).on("change", (event) => {
   document.body.style.background = event.value ? "black" : "white";
 });
 
-const stateInput = generalFolder
+generalFolder
   .addInput(config, "currentState", {
     label: "state",
     options: {
@@ -478,8 +476,6 @@ const stateInput = generalFolder
   .on("change", (event) => {
     changeState(event.value);
   });
-
-toggleInputVisibility(config.isAdvancedBloop);
 
 colorFolder.addInput(config, "main", {
   color: { type: "float" },
@@ -494,7 +490,6 @@ colorFolder.addInput(config, "high", {
   color: { type: "float" },
 });
 
-
 paletteFolder.addButton({ title: "Blue" }).on("click", () => {
   applyColorPreset("BLUE");
 });
@@ -504,11 +499,3 @@ paletteFolder.addButton({ title: "DarkBlue" }).on("click", () => {
 paletteFolder.addButton({ title: "Greyscale" }).on("click", () => {
   applyColorPreset("GREYSCALE");
 });
-
-
-function toggleInputVisibility(visible) {
-  stateInput.hidden = visible;
-  darkModeInput.hidden = visible;
-  colorFolder.hidden = !visible;
-  paletteFolder.hidden = !visible;
-}
