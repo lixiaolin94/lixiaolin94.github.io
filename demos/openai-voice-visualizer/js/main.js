@@ -34,7 +34,7 @@ const config = {
   isDarkMode: false,
   useMicrophone: false,
   isAdvancedBloop: true,
-  currentState: STATE.LISTEN,
+  currentState: STATE.SPEAK,
   ...PALETTE.BLUE,
 };
 
@@ -244,6 +244,8 @@ function updateAudioData() {
     // Add some decay to cumulative data
     cumulativeAudioData[i] *= 0.99;
   }
+
+  console.log("Audio Data:", cumulativeAudioData);
 
   // Calculate microphone level
   let rms = 0;
