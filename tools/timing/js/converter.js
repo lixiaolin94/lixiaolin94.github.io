@@ -11,6 +11,8 @@ const springConverter = {
   "ios-spring-duration-bounce": ({ response, bounce }) => convertFromResponseDampingRatio(response, convertBounceToDampingRatio(bounce)),
   "ios-spring-response-dampingratio": ({ response, dampingRatio }) => convertFromResponseDampingRatio(response, dampingRatio),
   "ios-spring-mass-stiffness-damping": ({ mass, stiffness, damping }) => convertFromMassStiffnessDamping(mass, stiffness, damping),
+  "spring-physical": ({ mass, stiffness, damping, initialVelocity }) => ({ mass, stiffness, damping, initialVelocity }),
+
 };
 
 /* Spring Conversion */

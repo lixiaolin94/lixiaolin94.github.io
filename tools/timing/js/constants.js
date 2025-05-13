@@ -103,6 +103,16 @@ const SPRING_INPUT_TYPES = {
       { label: "damping", value: "damping", defaultValue: 10, min: 1, max: 100, step: 0.1 },
     ],
   },
+  "spring-physical": {
+    name: "[DEBUG] Spring Physical",
+    group: "API",
+    params: [
+      { label: "mass", value: "mass", defaultValue: 1, min: 0.1, max: 10, step: 0.01 },
+      { label: "stiffness", value: "stiffness", defaultValue: 100, min: 1, max: 2000, step: 1 },
+      { label: "damping", value: "damping", defaultValue: 10, min: 1, max: 100, step: 0.1 },
+      { label: "initialVelocity", value: "initialVelocity", defaultValue: 0, min: -100, max: 100, step: 0.1 },
+    ],
+  },
 };
 
 document.getElementById("spring-output-android-springanimation").innerHTML = `val anim = SpringAnimation(view, DynamicAnimation.TRANSLATION_X, 100f).apply {
