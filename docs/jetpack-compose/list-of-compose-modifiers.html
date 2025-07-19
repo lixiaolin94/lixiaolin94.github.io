@@ -1,0 +1,3221 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>List of Compose modifiers | Jetpack Compose</title>
+    <style>
+      body {
+        margin: 1rem;
+      }
+
+      main {
+        margin: 0 auto;
+        max-width: 1280px;
+      }
+
+      code {
+        font-size: 0.75rem;
+      }
+
+      .list {
+        display: flex;
+        flex-direction: column;
+        gap: 4rem;
+      }
+
+      .row {
+        display: grid;
+        grid-template-columns: 1fr 45%;
+        gap: 2rem;
+      }
+
+      .col {
+        padding-block: 0.5rem;
+      }
+
+      .col > p {
+        line-height: 1.5;
+        margin-block-start: 0;
+        margin-block-end: 0.5rem;
+      }
+
+      p > code {
+        background-color: #eee;
+        border: 1px solid #ccc;
+        border-radius: 0.25rem;
+        padding-block: 0.125rem;
+        padding-inline: 0.25rem;
+      }
+
+      .codeblock {
+        background-color: #f5f5f5;
+        border-radius: 0.5rem;
+        overflow-x: auto;
+        padding: 1rem;
+      }
+
+      .codeblock > code {
+        word-break: break-all;
+      }
+
+      .modifier {
+        font-style: italic;
+        font-weight: bold;
+      }
+
+      .description {
+        font-size: 0.875rem;
+        opacity: 0.5;
+      }
+
+      @media (max-width: 768px) {
+        .row {
+          grid-template-columns: 1fr;
+          gap: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>List of Compose modifiers</h1>
+      <h2>Actions</h2>
+      <div class="list">
+        <div class="row">
+          <div class="col">
+            <p class="modifier">anchoredDraggable</p>
+            <p>锚定拖动</p>
+            <br />
+            <p class="description">Enable drag gestures between a set of predefined values.</p>
+            <p>启用在一组预定义值之间的拖动手势。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >&lt;T&nbsp;:&nbsp;Any?&gt; Modifier.anchoredDraggable( <br />&nbsp;&nbsp;&nbsp;&nbsp;state:&nbsp;AnchoredDraggableState&lt;T&gt;,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;orientation:&nbsp;Orientation, <br />&nbsp;&nbsp;&nbsp;&nbsp;enabled:&nbsp;Boolean,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;interactionSource:&nbsp;MulistInteractionSource?,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;overscrollEffect:&nbsp;OverscrollEffect?, <br />&nbsp;&nbsp;&nbsp;&nbsp;flingBehavior:&nbsp;FlingBehavior?
+              <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">anchoredDraggable</p>
+            <p>锚定拖动</p>
+            <br />
+            <p class="description">Enable drag gestures between a set of predefined values.</p>
+            <p>启用在一组预定义值之间的拖动手势。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >&lt;T&nbsp;:&nbsp;Any?&gt; Modifier.anchoredDraggable( <br />&nbsp;&nbsp;&nbsp;&nbsp;state:&nbsp;AnchoredDraggableState&lt;T&gt;,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;reverseDirection:&nbsp;Boolean, <br />&nbsp;&nbsp;&nbsp;&nbsp;orientation:&nbsp;Orientation,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;enabled:&nbsp;Boolean, <br />&nbsp;&nbsp;&nbsp;&nbsp;interactionSource:&nbsp;MulistInteractionSource?,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;overscrollEffect:&nbsp;OverscrollEffect?, <br />&nbsp;&nbsp;&nbsp;&nbsp;flingBehavior:&nbsp;FlingBehavior?
+              <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">clickable</p>
+            <p>可点击</p>
+            <br />
+            <p class="description">Configure component to receive clicks via input or accessibility "click" event.</p>
+            <p>配置组件以通过输入或辅助功能“点击”事件接收点击。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.clickable( <br />&nbsp;&nbsp;&nbsp;&nbsp;enabled:&nbsp;Boolean, <br />&nbsp;&nbsp;&nbsp;&nbsp;onClickLabel:&nbsp;String?,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;role:&nbsp;Role?, <br />&nbsp;&nbsp;&nbsp;&nbsp;onClick:&nbsp;() <span>-&gt;</span>Unit <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">clickable</p>
+            <p>可点击</p>
+            <br />
+            <p class="description">Configure component to receive clicks via input or accessibility "click" event.</p>
+            <p>配置组件以通过输入或辅助功能“点击”事件接收点击。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.clickable( <br />&nbsp;&nbsp;&nbsp;&nbsp;interactionSource:&nbsp;MulistInteractionSource?,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;indication:&nbsp;Indication?, <br />&nbsp;&nbsp;&nbsp;&nbsp;enabled:&nbsp;Boolean,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;onClickLabel:&nbsp;String?, <br />&nbsp;&nbsp;&nbsp;&nbsp;role:&nbsp;Role?,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;onClick:&nbsp;() <span>-&gt;</span>Unit <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">combinedClickable</p>
+            <p>组合点击</p>
+            <br />
+            <p class="description">Configure component to receive clicks, double clicks and long clicks via input or accessibility "click" event.</p>
+            <p>配置组件以通过输入或辅助功能“点击”事件接收单击、双击和长按点击。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.combinedClickable( <br />&nbsp;&nbsp;&nbsp;&nbsp;enabled:&nbsp;Boolean, <br />&nbsp;&nbsp;&nbsp;&nbsp;onClickLabel:&nbsp;String?,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;role:&nbsp;Role?, <br />&nbsp;&nbsp;&nbsp;&nbsp;onLongClickLabel:&nbsp;String?,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;onLongClick:&nbsp;(() <span>-&gt;</span>Unit)?, <br />&nbsp;&nbsp;&nbsp;&nbsp;onDoubleClick:&nbsp;(()
+              <span>-&gt;</span>Unit)?, <br />&nbsp;&nbsp;&nbsp;&nbsp;hapticFeedbackEnabled:&nbsp;Boolean, <br />&nbsp;&nbsp;&nbsp;&nbsp;onClick:&nbsp;()
+              <span>-&gt;</span>Unit <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">combinedClickable</p>
+            <p>组合点击</p>
+            <br />
+            <p class="description">Configure component to receive clicks, double clicks and long clicks via input or accessibility "click" event.</p>
+            <p>配置组件以通过输入或辅助功能“点击”事件接收单击、双击和长按点击。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.combinedClickable( <br />&nbsp;&nbsp;&nbsp;&nbsp;interactionSource:&nbsp;MulistInteractionSource?,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;indication:&nbsp;Indication?, <br />&nbsp;&nbsp;&nbsp;&nbsp;enabled:&nbsp;Boolean,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;onClickLabel:&nbsp;String?, <br />&nbsp;&nbsp;&nbsp;&nbsp;role:&nbsp;Role?,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;onLongClickLabel:&nbsp;String?, <br />&nbsp;&nbsp;&nbsp;&nbsp;onLongClick:&nbsp;(() <span>-&gt;</span>Unit)?,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;onDoubleClick:&nbsp;(() <span>-&gt;</span>Unit)?, <br />&nbsp;&nbsp;&nbsp;&nbsp;hapticFeedbackEnabled:&nbsp;Boolean,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;onClick:&nbsp;() <span>-&gt;</span>Unit <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">draggable2D</p>
+            <p>二维拖动</p>
+            <br />
+            <p class="description">Configure touch dragging for the UI element in both orientations.</p>
+            <p>为该 UI 元素在两种方向上配置触摸拖动。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.draggable2D( <br />&nbsp;&nbsp;&nbsp;&nbsp;state:&nbsp;Draggable2DState, <br />&nbsp;&nbsp;&nbsp;&nbsp;enabled:&nbsp;Boolean,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;interactionSource:&nbsp;MulistInteractionSource?, <br />&nbsp;&nbsp;&nbsp;&nbsp;startDragImmediately:&nbsp;Boolean,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;onDragStarted:&nbsp;(startedPosition:&nbsp;Offset) <span>-&gt;</span>Unit,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;onDragStopped:&nbsp;(velocity:&nbsp;Velocity) <span>-&gt;</span>Unit,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;reverseDirection:&nbsp;Boolean <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">draggable</p>
+            <p>可拖动</p>
+            <br />
+            <p class="description">Configure touch dragging for the UI element in a single <code>Orientation</code>.</p>
+            <p>在单个 <code>Orientation</code> 中为 UI 元素配置触摸拖动。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.draggable( <br />&nbsp;&nbsp;&nbsp;&nbsp;state:&nbsp;DraggableState, <br />&nbsp;&nbsp;&nbsp;&nbsp;orientation:&nbsp;Orientation,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;enabled:&nbsp;Boolean, <br />&nbsp;&nbsp;&nbsp;&nbsp;interactionSource:&nbsp;MulistInteractionSource?,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;startDragImmediately:&nbsp;Boolean,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;onDragStarted:&nbsp;suspend&nbsp;CoroutineScope.(startedPosition:&nbsp;Offset) <span>-&gt;</span>Unit,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;onDragStopped:&nbsp;suspend&nbsp;CoroutineScope.(velocity:&nbsp;Float) <span>-&gt;</span>Unit,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;reverseDirection:&nbsp;Boolean <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">seleclistGroup</p>
+            <p>可选组</p>
+            <br />
+            <p class="description">
+              Use this modifier to group a list of <code>seleclist</code> items like Tabs or RadioButtons together for accessibility purpose.
+            </p>
+            <p>使用此修饰符将一组 <code>seleclist</code> 项（如标签页或单选按钮）组合在一起，以提高无障碍性。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.seleclistGroup()</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">seleclist</p>
+            <p>可选</p>
+            <p>
+              Configure component to be seleclist, usually as a part of a mutually exclusive group, where only one item can be selected at any point in time.
+            </p>
+            <p>配置组件为可选择，通常作为互斥组的一部分，其中任意时刻只能选择一个项目。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.seleclist( <br />&nbsp;&nbsp;&nbsp;&nbsp;selected:&nbsp;Boolean, <br />&nbsp;&nbsp;&nbsp;&nbsp;enabled:&nbsp;Boolean,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;role:&nbsp;Role?, <br />&nbsp;&nbsp;&nbsp;&nbsp;onClick:&nbsp;() <span>-&gt;</span>Unit <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">seleclist</p>
+            <p>可选</p>
+            <p>
+              Configure component to be seleclist, usually as a part of a mutually exclusive group, where only one item can be selected at any point in time.
+            </p>
+            <p>配置组件为可选择，通常作为互斥组的一部分，其中任何时刻只能选择一个项目。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.seleclist( <br />&nbsp;&nbsp;&nbsp;&nbsp;selected:&nbsp;Boolean,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;interactionSource:&nbsp;MulistInteractionSource?, <br />&nbsp;&nbsp;&nbsp;&nbsp;indication:&nbsp;Indication?,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;enabled:&nbsp;Boolean, <br />&nbsp;&nbsp;&nbsp;&nbsp;role:&nbsp;Role?,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;onClick:&nbsp;() <span>-&gt;</span>Unit <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">swipeable</p>
+            <p>可滑动</p>
+            <br />
+            <p class="description">Enable swipe gestures between a set of predefined states.</p>
+            <p>启用在一组预定义状态之间的滑动手势。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >@ExperimentalWearMaterialApi <br />&lt;T&nbsp;:&nbsp;Any?&gt; Modifier.swipeable(
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;state:&nbsp;SwipeableState&lt;T&gt;, <br />&nbsp;&nbsp;&nbsp;&nbsp;anchors:&nbsp;Map&lt;Float,&nbsp;T&gt;,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;orientation:&nbsp;Orientation, <br />&nbsp;&nbsp;&nbsp;&nbsp;enabled:&nbsp;Boolean,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;reverseDirection:&nbsp;Boolean, <br />&nbsp;&nbsp;&nbsp;&nbsp;interactionSource:&nbsp;MulistInteractionSource?,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;thresholds:&nbsp;(from, to) <span>-&gt;</span>ThresholdConfig,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;resistance:&nbsp;ResistanceConfig?, <br />&nbsp;&nbsp;&nbsp;&nbsp;velocityThreshold:&nbsp;Dp <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">toggleable</p>
+            <p>可切换</p>
+            <br />
+            <p class="description">Configure component to make it toggleable via input and accessibility events</p>
+            <p>配置组件，使其可以通过输入和辅助功能事件切换状态</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.toggleable( <br />&nbsp;&nbsp;&nbsp;&nbsp;value:&nbsp;Boolean, <br />&nbsp;&nbsp;&nbsp;&nbsp;enabled:&nbsp;Boolean,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;role:&nbsp;Role?, <br />&nbsp;&nbsp;&nbsp;&nbsp;onValueChange:&nbsp;(Boolean) <span>-&gt;</span>Unit <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">toggleable</p>
+            <p>可切换</p>
+            <br />
+            <p class="description">Configure component to make it toggleable via input and accessibility events.</p>
+            <p>配置组件，使其可以通过输入和辅助功能事件切换。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.toggleable( <br />&nbsp;&nbsp;&nbsp;&nbsp;value:&nbsp;Boolean,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;interactionSource:&nbsp;MulistInteractionSource?, <br />&nbsp;&nbsp;&nbsp;&nbsp;indication:&nbsp;Indication?,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;enabled:&nbsp;Boolean, <br />&nbsp;&nbsp;&nbsp;&nbsp;role:&nbsp;Role?,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;onValueChange:&nbsp;(Boolean) <span>-&gt;</span>Unit <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">triStateToggleable</p>
+            <p>三态切换</p>
+            <br />
+            <p class="description">
+              Configure component to make it toggleable via input and accessibility events with three states: On, Off and Indeterminate.
+            </p>
+            <p>配置组件，使其通过输入和辅助功能事件可切换，具有三种状态：开启、关闭和不确定。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.triStateToggleable( <br />&nbsp;&nbsp;&nbsp;&nbsp;state:&nbsp;ToggleableState, <br />&nbsp;&nbsp;&nbsp;&nbsp;enabled:&nbsp;Boolean,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;role:&nbsp;Role?, <br />&nbsp;&nbsp;&nbsp;&nbsp;onClick:&nbsp;() <span>-&gt;</span>Unit <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">triStateToggleable</p>
+            <p>三态切换</p>
+            <br />
+            <p class="description">
+              Configure component to make it toggleable via input and accessibility events with three states: On, Off and Indeterminate.
+            </p>
+            <p>配置组件，使其通过输入和辅助功能事件可切换，具有三种状态：开启、关闭和不确定。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.triStateToggleable( <br />&nbsp;&nbsp;&nbsp;&nbsp;state:&nbsp;ToggleableState,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;interactionSource:&nbsp;MulistInteractionSource?, <br />&nbsp;&nbsp;&nbsp;&nbsp;indication:&nbsp;Indication?,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;enabled:&nbsp;Boolean, <br />&nbsp;&nbsp;&nbsp;&nbsp;role:&nbsp;Role?,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;onClick:&nbsp;() <span>-&gt;</span>Unit <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">paneExpansionDraggable</p>
+            <p>面板展开拖动</p>
+            <p>
+              The modifier that should be applied on a drag handle composable so the drag handle can be dragged and operate on the provided
+              <code>PaneExpansionState</code> properly.
+            </p>
+            <p>应应用于拖拽手柄可组合项的修饰符，以便拖拽手柄可以被拖动并正确操作所提供的 <code>PaneExpansionState</code>。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >@ExperimentalMaterial3AdaptiveApi <br />Modifier.paneExpansionDraggable( <br />&nbsp;&nbsp;&nbsp;&nbsp;state:&nbsp;PaneExpansionState,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;minTouchTargetSize:&nbsp;Dp, <br />&nbsp;&nbsp;&nbsp;&nbsp;interactionSource:&nbsp;MulistInteractionSource
+              <br />)</code
+            >
+          </div>
+        </div>
+      </div>
+      <h2>Alignment</h2>
+      <div class="list">
+        <div class="row">
+          <div class="col">
+            <p class="modifier">align</p>
+            <p>对齐</p>
+            <br />
+            <p class="description">Align the element vertically within the <code>Row</code>.</p>
+            <p>在 <code>Row</code> 内垂直对齐元素。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.align(alignment:&nbsp;Alignment.Vertical)</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">alignBy</p>
+            <p>按...对齐</p>
+            <p>
+              Position the element vertically such that the alignment line for the content as determined by <code>alignmentLineBlock</code> aligns with sibling
+              elements also configured to <code>alignBy</code>.
+            </p>
+            <p>将元素垂直定位，使由 <code>alignmentLineBlock</code> 确定的内容对齐线与同样配置为 <code>alignBy</code> 的兄弟元素对齐。</p>
+          </div>
+          <div class="col codeblock">
+            <code>Modifier.alignBy(alignmentLineBlock:&nbsp;(Measured) <span>-&gt;</span>Int)</code>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">alignBy</p>
+            <p>按...对齐</p>
+            <p>
+              Position the element vertically such that its <code>alignmentLine</code> aligns with sibling elements also configured to <code>alignBy</code>.
+            </p>
+            <p>将元素垂直定位，使其 <code>alignmentLine</code> 与同样配置为 <code>alignBy</code> 的兄弟元素对齐。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.alignBy(alignmentLine:&nbsp;HorizontalAlignmentLine)</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">alignByBaseline</p>
+            <p>按基线对齐</p>
+            <p>
+              Position the element vertically such that its first baseline aligns with sibling elements also configured to <code>alignByBaseline</code> or
+              <code>alignBy</code>.
+            </p>
+            <p>将元素垂直定位，使其第一个基线与同样配置为 <code>alignByBaseline</code> 或 <code>alignBy</code> 的兄弟元素对齐。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.alignByBaseline()</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">align</p>
+            <p>对齐</p>
+            <br />
+            <p class="description">Align the element horizontally within the <code>Column</code>.</p>
+            <p>在 <code>Column</code> 内水平对齐元素。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.align(alignment:&nbsp;Alignment.Horizontal)</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">alignBy</p>
+            <p>按...对齐</p>
+            <p>
+              Position the element horizontally such that the alignment line for the content as determined by <code>alignmentLineBlock</code> aligns with
+              sibling elements also configured to <code>alignBy</code>.
+            </p>
+            <p>水平定位元素，使由 <code>alignmentLineBlock</code> 确定的内容对齐线与同样配置为 <code>alignBy</code> 的兄弟元素对齐。</p>
+          </div>
+          <div class="col codeblock">
+            <code>Modifier.alignBy(alignmentLineBlock:&nbsp;(Measured) <span>-&gt;</span>Int)</code>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">alignBy</p>
+            <p>按...对齐</p>
+            <p>
+              Position the element horizontally such that its <code>alignmentLine</code> aligns with sibling elements also configured to <code>alignBy</code>.
+            </p>
+            <p>将元素水平定位，使其 <code>alignmentLine</code> 与同样配置为 <code>alignBy</code> 的兄弟元素对齐。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.alignBy(alignmentLine:&nbsp;VerticalAlignmentLine)</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">align</p>
+            <p>对齐</p>
+            <br />
+            <p class="description">Pull the content element to a specific <code>Alignment</code> within the <code>Box</code>.</p>
+            <p>将内容元素拉到 <code>Box</code> 内的特定 <code>Alignment</code> 位置。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.align(alignment:&nbsp;Alignment)</code></div>
+        </div>
+      </div>
+      <h2>Animation</h2>
+      <div class="list">
+        <div class="row">
+          <div class="col">
+            <p class="modifier">animateBounds</p>
+            <p>动画边界</p>
+            <p><code>Modifier</code> to animate layout changes (position and/or size) that occur within a <code>LookaheadScope</code>.</p>
+            <p><code>Modifier</code> 用于为发生在 <code>LookaheadScope</code> 内的布局更改（位置和/或大小）添加动画。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >@ExperimentalSharedTransitionApi <br />Modifier.animateBounds( <br />&nbsp;&nbsp;&nbsp;&nbsp;lookaheadScope:&nbsp;LookaheadScope,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;modifier:&nbsp;Modifier, <br />&nbsp;&nbsp;&nbsp;&nbsp;boundsTransform:&nbsp;BoundsTransform,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;animateMotionFrameOfReference:&nbsp;Boolean <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">animateFloatingActionButton</p>
+            <p>动画悬浮操作按钮</p>
+            <p>
+              Apply this modifier to a <code>FloatingActionButton</code> to show or hide it with an animation, typically based on the app's main content
+              scrolling.
+            </p>
+            <p>将此修饰符应用于 <code>FloatingActionButton</code>，以通过动画显示或隐藏它，通常基于应用的主要内容滚动。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >@ExperimentalMaterial3ExpressiveApi <br />Modifier.animateFloatingActionButton( <br />&nbsp;&nbsp;&nbsp;&nbsp;visible:&nbsp;Boolean,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;alignment:&nbsp;Alignment, <br />&nbsp;&nbsp;&nbsp;&nbsp;targetScale:&nbsp;Float,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;scaleAnimationSpec:&nbsp;AnimationSpec&lt;Float&gt;?,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;alphaAnimationSpec:&nbsp;AnimationSpec&lt;Float&gt;? <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">animateEnterExit</p>
+            <p>动画入场退场</p>
+            <p>
+              <code>animateEnterExit</code> modifier can be used for any direct or indirect children of <code>AnimatedVisibility</code> to create a different
+              enter/exit animation than what's specified in <code>AnimatedVisibility</code>.
+            </p>
+            <p>
+              <code>animateEnterExit</code> 修饰符可用于 <code>AnimatedVisibility</code> 的任何直接或间接子元素，以创建与
+              <code>AnimatedVisibility</code> 中指定的不同的进入/退出动画。
+            </p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.animateEnterExit( <br />&nbsp;&nbsp;&nbsp;&nbsp;enter:&nbsp;EnterTransition, <br />&nbsp;&nbsp;&nbsp;&nbsp;exit:&nbsp;ExitTransition,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;label:&nbsp;String <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">animateItem</p>
+            <p>动画列表项</p>
+            <br />
+            <p class="description">
+              This modifier animates the item appearance (fade in), disappearance (fade out) and placement changes (such as an item reordering).
+            </p>
+            <p>此修饰符用于动画化项目的出现（淡入）、消失（淡出）和位置变化（例如项目重新排序）。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.animateItem( <br />&nbsp;&nbsp;&nbsp;&nbsp;fadeInSpec:&nbsp;FiniteAnimationSpec&lt;Float&gt;?,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;placementSpec:&nbsp;FiniteAnimationSpec&lt;IntOffset&gt;?,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;fadeOutSpec:&nbsp;FiniteAnimationSpec&lt;Float&gt;? <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">animateItem</p>
+            <p>动画列表项</p>
+            <br />
+            <p class="description">
+              This modifier animates the item appearance (fade in), disappearance (fade out) and placement changes (such as an item reordering).
+            </p>
+            <p>此修饰符用于动画化项目的出现（淡入）、消失（淡出）和位置变化（例如项目重新排序）。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.animateItem( <br />&nbsp;&nbsp;&nbsp;&nbsp;fadeInSpec:&nbsp;FiniteAnimationSpec&lt;Float&gt;?,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;placementSpec:&nbsp;FiniteAnimationSpec&lt;IntOffset&gt;?,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;fadeOutSpec:&nbsp;FiniteAnimationSpec&lt;Float&gt;? <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">animateItem</p>
+            <p>动画列表项</p>
+            <br />
+            <p class="description">
+              This modifier animates the item appearance (fade in), disappearance (fade out) and placement changes (such as an item reordering).
+            </p>
+            <p>此修饰符用于动画化项目的出现（淡入）、消失（淡出）和位置变化（例如项目重新排序）。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.animateItem( <br />&nbsp;&nbsp;&nbsp;&nbsp;fadeInSpec:&nbsp;FiniteAnimationSpec&lt;Float&gt;?,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;placementSpec:&nbsp;FiniteAnimationSpec&lt;IntOffset&gt;?,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;fadeOutSpec:&nbsp;FiniteAnimationSpec&lt;Float&gt;? <br />)</code
+            >
+          </div>
+        </div>
+      </div>
+      <h2>Border</h2>
+      <div class="list">
+        <div class="row">
+          <div class="col">
+            <p class="modifier">border</p>
+            <p>边框</p>
+            <br />
+            <p class="description">Modify element to add border with appearance specified with a <code>border</code> and a <code>shape</code> and clip it.</p>
+            <p>修改元素以添加带有指定为 <code>border</code> 和 <code>shape</code> 的外观的边框并进行裁剪。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.border(border:&nbsp;BorderStroke,&nbsp;shape:&nbsp;Shape)</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">border</p>
+            <p>边框</p>
+            <br />
+            <p class="description">
+              Modify element to add border with appearance specified with a <code>width</code>, a <code>brush</code> and a <code>shape</code> and clip it.
+            </p>
+            <p>修改元素以添加带有指定为 <code>width</code>、 <code>brush</code> 和 <code>shape</code> 的外观的边框，并进行裁剪。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.border(width:&nbsp;Dp,&nbsp;brush:&nbsp;Brush,&nbsp;shape:&nbsp;Shape)</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">border</p>
+            <p>边框</p>
+            <br />
+            <p class="description">
+              Modify element to add border with appearance specified with a <code>width</code>, a <code>color</code> and a <code>shape</code> and clip it.
+            </p>
+            <p>修改元素以添加带有指定为 <code>width</code>、 <code>color</code> 和 <code>shape</code> 的外观的边框并进行裁剪。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.border(width:&nbsp;Dp,&nbsp;color:&nbsp;Color,&nbsp;shape:&nbsp;Shape)</code></div>
+        </div>
+      </div>
+      <h2>Drawing</h2>
+      <div class="list">
+        <div class="row">
+          <div class="col">
+            <p class="modifier">alpha</p>
+            <p>透明度</p>
+            <br />
+            <p class="description">Draw content with modified alpha that may be less than 1.</p>
+            <p>绘制可能小于 1 的修改过的透明度内容。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.alpha(alpha:&nbsp;Float)</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">background</p>
+            <p>背景</p>
+            <br />
+            <p class="description">Draws <code>shape</code> with a solid <code>color</code> behind the content.</p>
+            <p>在内容后绘制一个实心的 <code>color</code>，大小为 <code>shape</code>。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.background(color:&nbsp;Color,&nbsp;shape:&nbsp;Shape)</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">background</p>
+            <p>背景</p>
+            <br />
+            <p class="description">Draws <code>shape</code> with <code>brush</code> behind the content.</p>
+            <p>在内容后绘制带有 <code>brush</code> 的 <code>shape</code>。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.background( <br />&nbsp;&nbsp;&nbsp;&nbsp;brush:&nbsp;Brush, <br />&nbsp;&nbsp;&nbsp;&nbsp;shape:&nbsp;Shape,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;alpha:&nbsp;@FloatRange(from&nbsp;=&nbsp;0.0,&nbsp;to&nbsp;=&nbsp;1.0) Float <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">clip</p>
+            <p>裁剪</p>
+            <br />
+            <p class="description">Clip the content to <code>shape</code>.</p>
+            <p>将内容裁剪到 <code>shape</code>。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.clip(shape:&nbsp;Shape)</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">clipToBounds</p>
+            <p>裁剪至边界</p>
+            <br />
+            <p class="description">Clip the content to the bounds of a layer defined at this modifier.</p>
+            <p>将内容裁剪到此修改器定义的图层边界内。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.clipToBounds()</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">drawBehind</p>
+            <br />
+            <p class="description">drawBehind</p>
+            <br />
+            <p class="description">Draw into a <code>Canvas</code> behind the modified content.</p>
+            <p>在修改内容后面绘制一个 <code>Canvas</code>。</p>
+          </div>
+          <div class="col codeblock">
+            <code>Modifier.drawBehind(onDraw:&nbsp;DrawScope.() <span>-&gt;</span>Unit)</code>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">drawWithCache</p>
+            <br />
+            <p class="description">drawWithCache</p>
+            <p>
+              Draw into a <code>DrawScope</code> with content that is persisted across draw calls as long as the size of the drawing area is the same or any
+              state objects that are read have not changed.
+            </p>
+            <p>绘制到一个 <code>DrawScope</code> 中，只要绘图区域的大小相同或读取的任何状态对象未发生变化，其内容将在多次绘制调用中保持不变。</p>
+          </div>
+          <div class="col codeblock">
+            <code>Modifier.drawWithCache(onBuildDrawCache:&nbsp;CacheDrawScope.() <span>-&gt;</span>DrawResult)</code>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">drawWithContent</p>
+            <br />
+            <p class="description">drawWithContent</p>
+            <br />
+            <p class="description">Creates a <code>DrawModifier</code> that allows the developer to draw before or after the layout's contents.</p>
+            <p>创建一个 <code>DrawModifier</code>，允许开发者在布局内容之前或之后绘制。</p>
+          </div>
+          <div class="col codeblock">
+            <code>Modifier.drawWithContent(onDraw:&nbsp;ContentDrawScope.() <span>-&gt;</span>Unit)</code>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">indication</p>
+            <p>指示器</p>
+            <br />
+            <p class="description">Draws visual effects for this component when interactions occur.</p>
+            <p>当发生交互时，为此组件绘制视觉效果。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.indication( <br />&nbsp;&nbsp;&nbsp;&nbsp;interactionSource:&nbsp;InteractionSource,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;indication:&nbsp;Indication? <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">paint</p>
+            <p>绘制</p>
+            <br />
+            <p class="description">Paint the content using <code>painter</code>.</p>
+            <p>使用 <code>painter</code> 绘制内容。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.paint( <br />&nbsp;&nbsp;&nbsp;&nbsp;painter:&nbsp;Painter, <br />&nbsp;&nbsp;&nbsp;&nbsp;sizeToIntrinsics:&nbsp;Boolean,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;alignment:&nbsp;Alignment, <br />&nbsp;&nbsp;&nbsp;&nbsp;contentScale:&nbsp;ContentScale,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;alpha:&nbsp;Float, <br />&nbsp;&nbsp;&nbsp;&nbsp;colorFilter:&nbsp;ColorFilter? <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">shadow</p>
+            <p>阴影</p>
+            <br />
+            <p class="description">Creates a <code>graphicsLayer</code> that draws a shadow.</p>
+            <p>创建一个绘制阴影的 <code>graphicsLayer</code>。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.shadow( <br />&nbsp;&nbsp;&nbsp;&nbsp;elevation:&nbsp;Dp, <br />&nbsp;&nbsp;&nbsp;&nbsp;shape:&nbsp;Shape,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;clip:&nbsp;Boolean, <br />&nbsp;&nbsp;&nbsp;&nbsp;ambientColor:&nbsp;Color,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;spotColor:&nbsp;Color <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">safeDrawingPadding</p>
+            <br />
+            <p class="description">safeDrawingPadding</p>
+            <br />
+            <p class="description">Adds padding to accommodate the <code>safe drawing</code> insets.</p>
+            <p>添加填充以适应 <code>safe drawing</code> 内边距。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.safeDrawingPadding()</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">zIndex</p>
+            <br />
+            <p class="description">Z轴顺序</p>
+            <br />
+            <p class="description">Creates a modifier that controls the drawing order for the children of the same layout parent.</p>
+            <p>创建一个修饰符，用于控制同一布局父元素子元素的绘制顺序。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.zIndex(zIndex:&nbsp;Float)</code></div>
+        </div>
+      </div>
+      <h2>Focus</h2>
+      <div class="list">
+        <div class="row">
+          <div class="col">
+            <p class="modifier">onFocusChanged</p>
+            <p>焦点变化监听</p>
+            <br />
+            <p class="description">Add this modifier to a component to observe focus state events.</p>
+            <p>将此修饰符添加到组件以观察焦点状态事件。</p>
+          </div>
+          <div class="col codeblock">
+            <code>Modifier.onFocusChanged(onFocusChanged:&nbsp;(FocusState) <span>-&gt;</span>Unit)</code>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">onFocusEvent</p>
+            <p>焦点事件监听</p>
+            <br />
+            <p class="description">Add this modifier to a component to observe focus state events.</p>
+            <p>将此修饰符添加到组件以观察焦点状态事件。</p>
+          </div>
+          <div class="col codeblock">
+            <code>Modifier.onFocusEvent(onFocusEvent:&nbsp;(FocusState) <span>-&gt;</span>Unit)</code>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">focusTarget</p>
+            <p>焦点目标</p>
+            <br />
+            <p class="description">Add this modifier to a component to make it focusable.</p>
+            <p>将此修饰符添加到组件以使其可聚焦。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.focusTarget()</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">focusProperties</p>
+            <p>焦点属性</p>
+            <p>
+              This modifier allows you to specify properties that are accessible to <code>focusTarget</code> s further down the modifier chain or on child
+              layout nodes.
+            </p>
+            <p>此修饰符允许您指定可供链中后续的 <code>focusTarget</code> 或子布局节点访问的属性。</p>
+          </div>
+          <div class="col codeblock">
+            <code>Modifier.focusProperties(scope:&nbsp;FocusProperties.() <span>-&gt;</span>Unit)</code>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">focusRequester</p>
+            <p>焦点请求器</p>
+            <br />
+            <p class="description">Add this modifier to a component to request changes to focus.</p>
+            <p>将此修饰符添加到组件以请求更改焦点。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.focusRequester(focusRequester:&nbsp;FocusRequester)</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">focusRestorer</p>
+            <p>焦点恢复器</p>
+            <br />
+            <p class="description">This modifier can be used to save and restore focus to a focus group.</p>
+            <p>此修饰符可用于保存和恢复对焦组的焦点。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.focusRestorer(fallback:&nbsp;FocusRequester)</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">focusGroup</p>
+            <p>焦点组</p>
+            <br />
+            <p class="description">Creates a focus group or marks this component as a focus group.</p>
+            <p>创建一个焦点组或将此组件标记为焦点组。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.focusGroup()</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">focusable</p>
+            <p>可获焦点</p>
+            <br />
+            <p class="description">Configure component to be focusable via focus system or accessibility "focus" event.</p>
+            <p>配置组件以通过焦点系统或辅助功能“焦点”事件获得焦点。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.focusable( <br />&nbsp;&nbsp;&nbsp;&nbsp;enabled:&nbsp;Boolean,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;interactionSource:&nbsp;MulistInteractionSource? <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">onFocusedBoundsChanged</p>
+            <p>焦点边界变化监听</p>
+            <br />
+            <p class="description">Calls <code>onPositioned</code> whenever the bounds of the currently-focused area changes.</p>
+            <p>每当当前聚焦区域的边界发生变化时调用 <code>onPositioned</code>。</p>
+          </div>
+          <div class="col codeblock">
+            <code>Modifier.onFocusedBoundsChanged( <br />&nbsp;&nbsp;&nbsp;&nbsp;onPositioned:&nbsp;(LayoutCoordinates?) <span>-&gt;</span>Unit <br />)</code>
+          </div>
+        </div>
+      </div>
+      <h2>Graphics</h2>
+      <div class="list">
+        <div class="row">
+          <div class="col">
+            <p class="modifier">graphicsLayer</p>
+            <p>图形层</p>
+            <br />
+            <p class="description">A <code>Modifier.Node</code> that makes content draw into a draw layer.</p>
+            <p>一个将内容绘制到绘制层的 <code>Modifier.Node</code>。</p>
+          </div>
+          <div class="col codeblock">
+            <code>Modifier.graphicsLayer(block:&nbsp;GraphicsLayerScope.() <span>-&gt;</span>Unit)</code>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">graphicsLayer</p>
+            <p>图形层</p>
+            <br />
+            <p class="description">A <code>Modifier.Element</code> that makes content draw into a draw layer.</p>
+            <p>一个将内容绘制到绘制层的 <code>Modifier.Element</code>。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.graphicsLayer( <br />&nbsp;&nbsp;&nbsp;&nbsp;scaleX:&nbsp;Float, <br />&nbsp;&nbsp;&nbsp;&nbsp;scaleY:&nbsp;Float,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;alpha:&nbsp;Float, <br />&nbsp;&nbsp;&nbsp;&nbsp;translationX:&nbsp;Float,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;translationY:&nbsp;Float, <br />&nbsp;&nbsp;&nbsp;&nbsp;shadowElevation:&nbsp;Float,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;rotationX:&nbsp;Float, <br />&nbsp;&nbsp;&nbsp;&nbsp;rotationY:&nbsp;Float,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;rotationZ:&nbsp;Float, <br />&nbsp;&nbsp;&nbsp;&nbsp;cameraDistance:&nbsp;Float,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;transformOrigin:&nbsp;TransformOrigin, <br />&nbsp;&nbsp;&nbsp;&nbsp;shape:&nbsp;Shape,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;clip:&nbsp;Boolean, <br />&nbsp;&nbsp;&nbsp;&nbsp;renderEffect:&nbsp;RenderEffect?,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;ambientShadowColor:&nbsp;Color, <br />&nbsp;&nbsp;&nbsp;&nbsp;spotShadowColor:&nbsp;Color,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;compositingStrategy:&nbsp;CompositingStrategy <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">toolingGraphicsLayer</p>
+            <p>工具图形层</p>
+            <br />
+            <p class="description">A <code>Modifier.Element</code> that adds a draw layer such that tooling can identify an element in the drawn image.</p>
+            <p>一个 <code>Modifier.Element</code>，它添加了一个绘制层，使工具能够识别绘制图像中的元素。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.toolingGraphicsLayer()</code></div>
+        </div>
+      </div>
+      <h2>Keyboard</h2>
+      <div class="list">
+        <div class="row">
+          <div class="col">
+            <p class="modifier">onKeyEvent</p>
+            <p>按键事件监听</p>
+            <p>
+              Adding this <code>modifier</code> to the <code>modifier</code> parameter of a component will allow it to intercept hardware key events when it (or
+              one of its children) is focused.
+            </p>
+            <p>将此 <code>modifier</code> 添加到组件的 <code>modifier</code> 参数中，将允许其在获得焦点时（或其子组件之一获得焦点时）拦截硬件按键事件。</p>
+          </div>
+          <div class="col codeblock">
+            <code>Modifier.onKeyEvent(onKeyEvent:&nbsp;(KeyEvent) <span>-&gt;</span>Boolean)</code>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">onPreviewKeyEvent</p>
+            <p>预览按键事件监听</p>
+            <p>
+              Adding this <code>modifier</code> to the <code>modifier</code> parameter of a component will allow it to intercept hardware key events when it (or
+              one of its children) is focused.
+            </p>
+            <p>将此 <code>modifier</code> 添加到组件的 <code>modifier</code> 参数中，将允许其在获得焦点时（或其子组件之一获得焦点时）拦截硬件按键事件。</p>
+          </div>
+          <div class="col codeblock">
+            <code>Modifier.onPreviewKeyEvent(onPreviewKeyEvent:&nbsp;(KeyEvent) <span>-&gt;</span>Boolean)</code>
+          </div>
+        </div>
+      </div>
+      <h2>Layout</h2>
+      <div class="list">
+        <div class="row">
+          <div class="col">
+            <p class="modifier">layoutId</p>
+            <p>布局ID</p>
+            <br />
+            <p class="description">Alternative to <code>androidx.compose.ui.layout.layoutId</code> that enables the use of <code>tag</code>.</p>
+            <p><code>androidx.compose.ui.layout.layoutId</code> 的替代方案，支持使用 <code>tag</code>。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.layoutId(layoutId:&nbsp;String,&nbsp;tag:&nbsp;String?)</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">layoutId</p>
+            <p>布局ID</p>
+            <br />
+            <p class="description">Tag the element with <code>layoutId</code> to identify the element within its parent.</p>
+            <p>使用 <code>layoutId</code> 标记元素，以在其父元素中识别该元素。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.layoutId(layoutId:&nbsp;Any)</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">layout</p>
+            <p>布局</p>
+            <br />
+            <p class="description">Creates a <code>LayoutModifier</code> that allows changing how the wrapped element is measured and laid out.</p>
+            <p>创建一个 <code>LayoutModifier</code>，允许更改包装元素的测量和布局方式。</p>
+          </div>
+          <div class="col codeblock">
+            <code>Modifier.layout(measure:&nbsp;MeasureScope.(Measurable, Constraints) <span>-&gt;</span>MeasureResult)</code>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">onGloballyPositioned</p>
+            <p>全局定位监听</p>
+            <p>
+              Invoke <code>onGloballyPositioned</code> with the <code>LayoutCoordinates</code> of the element when the global position of the content may have
+              changed.
+            </p>
+            <p>当内容的全局位置可能已更改时，使用元素的 <code>LayoutCoordinates</code> 调用 <code>onGloballyPositioned</code>。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.onGloballyPositioned( <br />&nbsp;&nbsp;&nbsp;&nbsp;onGloballyPositioned:&nbsp;(LayoutCoordinates) <span>-&gt;</span>Unit <br />)</code
+            >
+          </div>
+        </div>
+      </div>
+      <h2>Padding</h2>
+      <div class="list">
+        <div class="row">
+          <div class="col">
+            <p class="modifier">paddingFrom</p>
+            <p>从...内边距</p>
+            <p>
+              A <code>Modifier</code> that can add padding to position the content according to specified distances from its bounds to an
+              <code>alignment line</code>.
+            </p>
+            <p>一个 <code>Modifier</code>，可以通过在其边界与 <code>alignment line</code> 之间指定的距离添加内边距来定位内容。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.paddingFrom(alignmentLine:&nbsp;AlignmentLine,&nbsp;before:&nbsp;Dp,&nbsp;after:&nbsp;Dp)</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">paddingFrom</p>
+            <p>从...内边距</p>
+            <p>
+              A <code>Modifier</code> that can add padding to position the content according to specified distances from its bounds to an
+              <code>alignment line</code>.
+            </p>
+            <p>一个 <code>Modifier</code>，可以通过在其边界与 <code>alignment line</code> 之间指定的距离添加内边距来定位内容。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.paddingFrom( <br />&nbsp;&nbsp;&nbsp;&nbsp;alignmentLine:&nbsp;AlignmentLine, <br />&nbsp;&nbsp;&nbsp;&nbsp;before:&nbsp;TextUnit,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;after:&nbsp;TextUnit <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">paddingFromBaseline</p>
+            <p>从基线内边距</p>
+            <p>
+              A <code>Modifier</code> that positions the content in a layout such that the distance from the top of the layout to the
+              <code>baseline of the first line of text in the content</code> is <code>top</code>, and the distance from the
+              <code>baseline of the last line of text in the content</code> to the bottom of the layout is <code>bottom</code>.
+            </p>
+            <p>
+              一个 <code>Modifier</code>，将内容定位在布局中，使得从布局顶部到 <code>baseline of the first line of text in the content</code> 的距离为
+              <code>top</code>，从 <code>baseline of the last line of text in the content</code> 到布局底部的距离为 <code>bottom</code>。
+            </p>
+          </div>
+          <div class="col codeblock"><code>Modifier.paddingFromBaseline(top:&nbsp;Dp,&nbsp;bottom:&nbsp;Dp)</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">paddingFromBaseline</p>
+            <p>从基线内边距</p>
+            <p>
+              A <code>Modifier</code> that positions the content in a layout such that the distance from the top of the layout to the
+              <code>baseline of the first line of text in the content</code> is <code>top</code>, and the distance from the
+              <code>baseline of the last line of text in the content</code> to the bottom of the layout is <code>bottom</code>.
+            </p>
+            <p>
+              一个 <code>Modifier</code>，将内容定位在布局中，使得从布局顶部到 <code>baseline of the first line of text in the content</code> 的距离为
+              <code>top</code>，从 <code>baseline of the last line of text in the content</code> 到布局底部的距离为 <code>bottom</code>。
+            </p>
+          </div>
+          <div class="col codeblock"><code>Modifier.paddingFromBaseline(top:&nbsp;TextUnit,&nbsp;bottom:&nbsp;TextUnit)</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">absolutePadding</p>
+            <p>绝对内边距</p>
+            <p>
+              Apply additional space along each edge of the content in <code>Dp</code>: <code>left</code>, <code>top</code>, <code>right</code> and
+              <code>bottom</code>.
+            </p>
+            <p>在内容的每个边缘应用额外的空间，分别为 <code>Dp</code>: <code>left</code>、 <code>top</code>、 <code>right</code> 和 <code>bottom</code>。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.absolutePadding(left:&nbsp;Dp,&nbsp;top:&nbsp;Dp,&nbsp;right:&nbsp;Dp,&nbsp;bottom:&nbsp;Dp)</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">padding</p>
+            <p>内边距</p>
+            <br />
+            <p class="description">Apply <code>all</code> dp of additional space along each edge of the content, left, top, right and bottom.</p>
+            <p>在内容的每个边缘（左、上、右、下）额外应用 <code>all</code> dp 的空间。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.padding(all:&nbsp;Dp)</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">padding</p>
+            <p>内边距</p>
+            <br />
+            <p class="description">
+              Apply <code>PaddingValues</code> to the component as additional space along each edge of the content's left, top, right and bottom.
+            </p>
+            <p>将 <code>PaddingValues</code> 应用于组件，作为内容左、上、右、下各边缘的额外间距。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.padding(paddingValues:&nbsp;PaddingValues)</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">padding</p>
+            <p>内边距</p>
+            <p>
+              Apply <code>horizontal</code> dp space along the left and right edges of the content, and <code>vertical</code> dp space along the top and bottom
+              edges.
+            </p>
+            <p>在内容的左右边缘应用 <code>horizontal</code> dp 的间距，在上下边缘应用 <code>vertical</code> dp 的间距。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.padding(horizontal:&nbsp;Dp,&nbsp;vertical:&nbsp;Dp)</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">padding</p>
+            <p>内边距</p>
+            <p>
+              Apply additional space along each edge of the content in <code>Dp</code>: <code>start</code>, <code>top</code>, <code>end</code> and
+              <code>bottom</code>.
+            </p>
+            <p>在内容的每个边缘应用额外的空间，分别为 <code>Dp</code>: <code>start</code>、 <code>top</code>、 <code>end</code> 和 <code>bottom</code>。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.padding(start:&nbsp;Dp,&nbsp;top:&nbsp;Dp,&nbsp;end:&nbsp;Dp,&nbsp;bottom:&nbsp;Dp)</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">captionBarPadding</p>
+            <p>标题栏内边距</p>
+            <br />
+            <p class="description">Adds padding to accommodate the <code>caption bar</code> insets.</p>
+            <p>添加填充以适应 <code>caption bar</code> 内边距。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.captionBarPadding()</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">displayCutoutPadding</p>
+            <p>刘海屏内边距</p>
+            <br />
+            <p class="description">Adds padding to accommodate the <code>display cutout</code>.</p>
+            <p>添加填充以适应 <code>display cutout</code>。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.displayCutoutPadding()</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">imePadding</p>
+            <p>输入法内边距</p>
+            <br />
+            <p class="description">Adds padding to accommodate the <code>ime</code> insets.</p>
+            <p>添加填充以适应 <code>ime</code> 内边距。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.imePadding()</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">mandatorySystemGesturesPadding</p>
+            <p>强制系统手势内边距</p>
+            <br />
+            <p class="description">Adds padding to accommodate the <code>mandatory system gestures</code> insets.</p>
+            <p>添加填充以适应 <code>mandatory system gestures</code> 内边距。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.mandatorySystemGesturesPadding()</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">navigationBarsPadding</p>
+            <p>导航栏内边距</p>
+            <br />
+            <p class="description">Adds padding to accommodate the <code>navigation bars</code> insets.</p>
+            <p>添加填充以适应 <code>navigation bars</code> 内边距。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.navigationBarsPadding()</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">safeContentPadding</p>
+            <p>安全内容内边距</p>
+            <br />
+            <p class="description">Adds padding to accommodate the <code>safe content</code> insets.</p>
+            <p>添加填充以适应 <code>safe content</code> 内边距。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.safeContentPadding()</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">safeGesturesPadding</p>
+            <p>安全手势内边距</p>
+            <br />
+            <p class="description">Adds padding to accommodate the <code>safe gestures</code> insets.</p>
+            <p>添加填充以适应 <code>safe gestures</code> 内边距。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.safeGesturesPadding()</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">statusBarsPadding</p>
+            <p>状态栏内边距</p>
+            <br />
+            <p class="description">Adds padding to accommodate the <code>status bars</code> insets.</p>
+            <p>添加填充以适应 <code>status bars</code> 内边距。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.statusBarsPadding()</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">systemBarsPadding</p>
+            <p>系统栏内边距</p>
+            <br />
+            <p class="description">Adds padding to accommodate the <code>system bars</code> insets.</p>
+            <p>添加填充以适应 <code>system bars</code> 内边距。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.systemBarsPadding()</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">systemGesturesPadding</p>
+            <p>系统手势内边距</p>
+            <br />
+            <p class="description">Adds padding to accommodate the <code>system gestures</code> insets.</p>
+            <p>添加填充以适应 <code>system gestures</code> 内边距。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.systemGesturesPadding()</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">waterfallPadding</p>
+            <p>瀑布流内边距</p>
+            <br />
+            <p class="description">Adds padding to accommodate the <code>waterfall</code> insets.</p>
+            <p>添加填充以适应 <code>waterfall</code> 内边距。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.waterfallPadding()</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">windowInsetsPadding</p>
+            <p>窗口嵌入内边距</p>
+            <br />
+            <p class="description">Adds padding so that the content doesn't enter <code>insets</code> space.</p>
+            <p>添加内边距，以防内容进入 <code>insets</code> 空间。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.windowInsetsPadding(insets:&nbsp;WindowInsets)</code></div>
+        </div>
+      </div>
+      <h2>Pointer</h2>
+      <div class="list">
+        <div class="row">
+          <div class="col">
+            <p class="modifier">pointerHoverIcon</p>
+            <p>指针悬停图标</p>
+            <br />
+            <p class="description">Modifier that lets a developer define a pointer icon to display when the cursor is hovered over the element.</p>
+            <p>允许开发者定义当光标悬停在元素上时显示的指针图标的修饰符。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.pointerHoverIcon( <br />&nbsp;&nbsp;&nbsp;&nbsp;icon:&nbsp;PointerIcon, <br />&nbsp;&nbsp;&nbsp;&nbsp;overrideDescendants:&nbsp;Boolean
+              <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">pointerInteropFilter</p>
+            <p>指针交互过滤器</p>
+            <br />
+            <p class="description">
+              A special PointerInputModifier that provides access to the underlying <code>MotionEvent</code> s originally dispatched to Compose.
+            </p>
+            <p>一个特殊的 PointerInputModifier，提供对最初分发给 Compose 的底层 <code>MotionEvent</code> 的访问。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.pointerInteropFilter( <br />&nbsp;&nbsp;&nbsp;&nbsp;requestDisallowInterceptTouchEvent:&nbsp;RequestDisallowInterceptTouchEvent?,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;onTouchEvent:&nbsp;(MotionEvent) <span>-&gt;</span>Boolean <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">pointerInput</p>
+            <p>指针输入</p>
+            <br />
+            <p class="description">Create a modifier for processing pointer input within the region of the modified element.</p>
+            <p>创建一个用于处理修改元素区域内指针输入的修饰符。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.pointerInput(key1:&nbsp;Any?,&nbsp;block:&nbsp;PointerInputEventHandler)</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">pointerInput</p>
+            <p>指针输入</p>
+            <br />
+            <p class="description">Create a modifier for processing pointer input within the region of the modified element.</p>
+            <p>创建一个用于处理修改元素区域内指针输入的修饰符。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.pointerInput(vararg&nbsp;keys:&nbsp;Any?,&nbsp;block:&nbsp;PointerInputEventHandler)</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">pointerInput</p>
+            <p>指针输入</p>
+            <br />
+            <p class="description">Create a modifier for processing pointer input within the region of the modified element.</p>
+            <p>创建一个用于处理修改元素区域内指针输入的修饰符。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.pointerInput( <br />&nbsp;&nbsp;&nbsp;&nbsp;key1:&nbsp;Any?, <br />&nbsp;&nbsp;&nbsp;&nbsp;key2:&nbsp;Any?,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;block:&nbsp;PointerInputEventHandler <br />)</code
+            >
+          </div>
+        </div>
+      </div>
+      <h2>Position</h2>
+      <div class="list">
+        <div class="row">
+          <div class="col">
+            <p class="modifier">absoluteOffset</p>
+            <p>绝对偏移</p>
+            <br />
+            <p class="description">Offset the content by <code>offset</code> px.</p>
+            <p>将内容偏移 <code>offset</code> 像素。</p>
+          </div>
+          <div class="col codeblock">
+            <code>Modifier.absoluteOffset(offset:&nbsp;Density.() <span>-&gt;</span>IntOffset)</code>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">absoluteOffset</p>
+            <p>绝对偏移</p>
+            <br />
+            <p class="description">Offset the content by ( <code>x</code> dp, <code>y</code> dp).</p>
+            <p>将内容偏移（ <code>x</code> dp， <code>y</code> dp）。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.absoluteOffset(x:&nbsp;Dp,&nbsp;y:&nbsp;Dp)</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">offset</p>
+            <p>偏移</p>
+            <br />
+            <p class="description">Offset the content by <code>offset</code> px.</p>
+            <p>将内容偏移 <code>offset</code> 像素。</p>
+          </div>
+          <div class="col codeblock">
+            <code>Modifier.offset(offset:&nbsp;Density.() <span>-&gt;</span>IntOffset)</code>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">offset</p>
+            <p>偏移</p>
+            <br />
+            <p class="description">Offset the content by ( <code>x</code> dp, <code>y</code> dp).</p>
+            <p>将内容偏移（ <code>x</code> dp， <code>y</code> dp）。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.offset(x:&nbsp;Dp,&nbsp;y:&nbsp;Dp)</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">tabIndicatorOffset</p>
+            <p>标签指示器偏移</p>
+            <p>
+              <code>Modifier</code> that takes up all the available width inside the <code>TabRow</code>, and then animates the offset of the indicator it is
+              applied to, depending on the <code>currentTabPosition</code>.
+            </p>
+            <p><code>Modifier</code> 占据 <code>TabRow</code> 内所有可用宽度，然后根据 <code>currentTabPosition</code> 动画化应用于其上的指示器的偏移量。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.tabIndicatorOffset(currentTabPosition:&nbsp;TabPosition)</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">tabIndicatorOffset</p>
+            <p>标签指示器偏移</p>
+            <p>
+              <code>Modifier</code> that takes up all the available width inside the <code>TabRow</code>, and then animates the offset of the indicator it is
+              applied to, depending on the <code>currentTabPosition</code>.
+            </p>
+            <p><code>Modifier</code> 占据 <code>TabRow</code> 内所有可用宽度，然后根据 <code>currentTabPosition</code> 动画化应用于其上的指示器的偏移量。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.tabIndicatorOffset(currentTabPosition:&nbsp;TabPosition)</code></div>
+        </div>
+      </div>
+      <h2>Semantics</h2>
+      <div class="list">
+        <div class="row">
+          <div class="col">
+            <p class="modifier">progressSemantics</p>
+            <p>进度语义</p>
+            <br />
+            <p class="description">
+              Contains the <code>semantics</code> required for an indeterminate progress indicator, that represents the fact of the in-progress operation.
+            </p>
+            <p>包含不确定进度指示器所需的 <code>semantics</code>，用于表示正在进行的操作状态。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.progressSemantics()</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">progressSemantics</p>
+            <p>进度语义</p>
+            <p>
+              Contains the <code>semantics</code> required for a determinate progress indicator or the progress part of a slider, that represents progress
+              within <code>valueRange</code>.
+            </p>
+            <p>包含用于确定性进度指示器或滑块进度部分的 <code>semantics</code>，表示 <code>valueRange</code> 内的进度。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.progressSemantics( <br />&nbsp;&nbsp;&nbsp;&nbsp;value:&nbsp;Float,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;valueRange:&nbsp;ClosedFloatingPointRange&lt;Float&gt;,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;steps:&nbsp;@IntRange(from&nbsp;=&nbsp;0) Int <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">rangeSemantics</p>
+            <p>范围语义</p>
+            <br />
+            <p class="description">Modifier to add semantics signifying progress of the Stepper/Slider.</p>
+            <p>用于添加表示 Stepper/Slider 进度语义的修饰符。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.rangeSemantics( <br />&nbsp;&nbsp;&nbsp;&nbsp;value:&nbsp;Float, <br />&nbsp;&nbsp;&nbsp;&nbsp;enabled:&nbsp;Boolean,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;onValueChange:&nbsp;(Float) <span>-&gt;</span>Unit,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;valueRange:&nbsp;ClosedFloatingPointRange&lt;Float&gt;, <br />&nbsp;&nbsp;&nbsp;&nbsp;steps:&nbsp;Int <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">clearAndSetSemantics</p>
+            <p>清除并设置语义</p>
+            <br />
+            <p class="description">Clears the semantics of all the descendant nodes and sets new semantics.</p>
+            <p>清除所有子节点的语义并设置新的语义。</p>
+          </div>
+          <div class="col codeblock">
+            <code>Modifier.clearAndSetSemantics(properties:&nbsp;SemanticsPropertyReceiver.() <span>-&gt;</span>Unit)</code>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">semantics</p>
+            <p>语义</p>
+            <br />
+            <p class="description">Add semantics key/value pairs to the layout node, for use in testing, accessibility, etc.</p>
+            <p>向布局节点添加语义键/值对，用于测试、无障碍等。</p>
+          </div>
+          <div class="col codeblock">
+            <code>Modifier.semantics(mergeDescendants:&nbsp;Boolean,&nbsp;properties:&nbsp;SemanticsPropertyReceiver.() <span>-&gt;</span>Unit)</code>
+          </div>
+        </div>
+      </div>
+      <h2>Scroll</h2>
+      <div class="list">
+        <div class="row">
+          <div class="col">
+            <p class="modifier">clipScrollableContainer</p>
+            <p>裁剪可滚动容器</p>
+            <br />
+            <p class="description">
+              Clips bounds of scrollable container on main axis while leaving space for background effects (like shadows) on cross axis.
+            </p>
+            <p>在主轴上裁剪可滚动容器的边界，同时在交叉轴上为背景效果（如阴影）留出空间。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.clipScrollableContainer(orientation:&nbsp;Orientation)</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">nestedScroll</p>
+            <p>嵌套滚动</p>
+            <br />
+            <p class="description">Modify element to make it participate in the nested scrolling hierarchy.</p>
+            <p>修改元素以使其参与嵌套滚动层级。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.nestedScroll( <br />&nbsp;&nbsp;&nbsp;&nbsp;connection:&nbsp;NestedScrollConnection,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;dispatcher:&nbsp;NestedScrollDispatcher? <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">overscroll</p>
+            <p>过度滚动</p>
+            <br />
+            <p class="description">Renders overscroll from the provided <code>overscrollEffect</code>.</p>
+            <p>渲染来自提供的 <code>overscrollEffect</code> 的过度滚动。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.overscroll(overscrollEffect:&nbsp;OverscrollEffect?)</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">onPreRotaryScrollEvent</p>
+            <p>旋转滚动前事件监听</p>
+            <p>
+              Adding this <code>modifier</code> to the <code>modifier</code> parameter of a component will allow it to intercept
+              <code>RotaryScrollEvent</code> s if it (or one of its children) is focused.
+            </p>
+            <p>
+              将此 <code>modifier</code> 添加到组件的 <code>modifier</code> 参数中，将允许其在自身（或其子组件）获得焦点时拦截 <code>RotaryScrollEvent</code>。
+            </p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.onPreRotaryScrollEvent( <br />&nbsp;&nbsp;&nbsp;&nbsp;onPreRotaryScrollEvent:&nbsp;(RotaryScrollEvent) <span>-&gt;</span>Boolean
+              <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">onRotaryScrollEvent</p>
+            <p>旋转滚动事件监听</p>
+            <p>
+              Adding this <code>modifier</code> to the <code>modifier</code> parameter of a component will allow it to intercept
+              <code>RotaryScrollEvent</code> s if it (or one of its children) is focused.
+            </p>
+            <p>
+              将此 <code>modifier</code> 添加到组件的 <code>modifier</code> 参数中，将允许其在（自身或其子组件）获得焦点时拦截 <code>RotaryScrollEvent</code>。
+            </p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.onRotaryScrollEvent( <br />&nbsp;&nbsp;&nbsp;&nbsp;onRotaryScrollEvent:&nbsp;(RotaryScrollEvent) <span>-&gt;</span>Boolean <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">rotaryScrollable</p>
+            <p>可旋转滚动</p>
+            <br />
+            <p class="description">A modifier which connects rotary events with scrollable containers such as Column, LazyList and others.</p>
+            <p>一个修饰符，用于将旋转事件与可滚动容器（如 Column、LazyList 等）连接起来。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.rotaryScrollable( <br />&nbsp;&nbsp;&nbsp;&nbsp;behavior:&nbsp;RotaryScrollableBehavior,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;focusRequester:&nbsp;FocusRequester, <br />&nbsp;&nbsp;&nbsp;&nbsp;reverseDirection:&nbsp;Boolean <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">scrollAway</p>
+            <p>滚动消失</p>
+            <br />
+            <p class="description">Scroll an item vertically in/out of view based on scroll state provided by a scrolling list.</p>
+            <p>根据滚动列表提供的滚动状态，垂直滚动一个项目以进入或退出视图。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.scrollAway( <br />&nbsp;&nbsp;&nbsp;&nbsp;scrollInfoProvider:&nbsp;ScrollInfoProvider,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;screenStage:&nbsp;() <span>-&gt;</span>ScreenStage <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">scrollAway</p>
+            <p>滚动消失</p>
+            <br />
+            <p class="description">Scroll an item vertically in/out of view based on a <code>ScrollState</code>.</p>
+            <p>根据 <code>ScrollState</code> 垂直滚动项目以显示或隐藏。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.scrollAway(scrollState:&nbsp;ScrollState,&nbsp;offset:&nbsp;Dp)</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">scrollAway</p>
+            <p>滚动消失</p>
+            <br />
+            <p class="description">Scroll an item vertically in/out of view based on a <code>LazyListState</code>.</p>
+            <p>根据 <code>LazyListState</code> 垂直滚动项目以显示或隐藏。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.scrollAway( <br />&nbsp;&nbsp;&nbsp;&nbsp;scrollState:&nbsp;LazyListState, <br />&nbsp;&nbsp;&nbsp;&nbsp;itemIndex:&nbsp;Int,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;offset:&nbsp;Dp <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">scrollAway</p>
+            <p>滚动消失</p>
+            <br />
+            <p class="description">Scroll an item vertically in/out of view based on a <code>ScalingLazyListState</code>.</p>
+            <p>根据 <code>ScalingLazyListState</code> 垂直滚动项目以显示或隐藏。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.scrollAway( <br />&nbsp;&nbsp;&nbsp;&nbsp;scrollState:&nbsp;ScalingLazyListState, <br />&nbsp;&nbsp;&nbsp;&nbsp;itemIndex:&nbsp;Int,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;offset:&nbsp;Dp <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">horizontalScroll</p>
+            <p>水平滚动</p>
+            <br />
+            <p class="description">Modify element to allow to scroll horizontally when width of the content is bigger than max constraints allow.</p>
+            <p>修改元素以允许在内容宽度超过最大限制时水平滚动。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.horizontalScroll( <br />&nbsp;&nbsp;&nbsp;&nbsp;state:&nbsp;ScrollState, <br />&nbsp;&nbsp;&nbsp;&nbsp;enabled:&nbsp;Boolean,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;flingBehavior:&nbsp;FlingBehavior?, <br />&nbsp;&nbsp;&nbsp;&nbsp;reverseScrolling:&nbsp;Boolean <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">horizontalScroll</p>
+            <p>水平滚动</p>
+            <br />
+            <p class="description">Modify element to allow to scroll horizontally when width of the content is bigger than max constraints allow.</p>
+            <p>修改元素以允许在内容宽度超过最大限制时水平滚动。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.horizontalScroll( <br />&nbsp;&nbsp;&nbsp;&nbsp;state:&nbsp;ScrollState,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;overscrollEffect:&nbsp;OverscrollEffect?, <br />&nbsp;&nbsp;&nbsp;&nbsp;enabled:&nbsp;Boolean,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;flingBehavior:&nbsp;FlingBehavior?, <br />&nbsp;&nbsp;&nbsp;&nbsp;reverseScrolling:&nbsp;Boolean <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">verticalScroll</p>
+            <p>垂直滚动</p>
+            <br />
+            <p class="description">Modify element to allow to scroll vertically when height of the content is bigger than max constraints allow.</p>
+            <p>修改元素以允许在内容高度超过最大限制时垂直滚动。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.verticalScroll( <br />&nbsp;&nbsp;&nbsp;&nbsp;state:&nbsp;ScrollState, <br />&nbsp;&nbsp;&nbsp;&nbsp;enabled:&nbsp;Boolean,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;flingBehavior:&nbsp;FlingBehavior?, <br />&nbsp;&nbsp;&nbsp;&nbsp;reverseScrolling:&nbsp;Boolean <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">verticalScroll</p>
+            <p>垂直滚动</p>
+            <br />
+            <p class="description">Modify element to allow to scroll vertically when height of the content is bigger than max constraints allow.</p>
+            <p>修改元素以允许在内容高度超过最大限制时垂直滚动。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.verticalScroll( <br />&nbsp;&nbsp;&nbsp;&nbsp;state:&nbsp;ScrollState,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;overscrollEffect:&nbsp;OverscrollEffect?, <br />&nbsp;&nbsp;&nbsp;&nbsp;enabled:&nbsp;Boolean,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;flingBehavior:&nbsp;FlingBehavior?, <br />&nbsp;&nbsp;&nbsp;&nbsp;reverseScrolling:&nbsp;Boolean <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">scrollTransform</p>
+            <p>滚动转换</p>
+            <br />
+            <p class="description">A modifier that enables Material3 Motion transformations for content within a <code>TransformingLazyColumn</code> item.</p>
+            <p>一个修饰符，启用 <code>TransformingLazyColumn</code> 项目内内容的 Material3 动作变换。</p>
+          </div>
+          <div class="col codeblock">
+            <code>@Composable <br />Modifier.scrollTransform(scope:&nbsp;TransformingLazyColumnItemScope)</code>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">scrollTransform</p>
+            <p>滚动转换</p>
+            <br />
+            <p class="description">A modifier that enables Material3 Motion transformations for content within a <code>TransformingLazyColumn</code> item.</p>
+            <p>一个修饰符，启用 <code>TransformingLazyColumn</code> 项目内内容的 Material3 动作变换。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >@Composable <br />Modifier.scrollTransform( <br />&nbsp;&nbsp;&nbsp;&nbsp;scope:&nbsp;TransformingLazyColumnItemScope,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;backgroundColor:&nbsp;Color, <br />&nbsp;&nbsp;&nbsp;&nbsp;shape:&nbsp;Shape <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">scrollTransform</p>
+            <p>滚动转换</p>
+            <br />
+            <p class="description">A modifier that enables Material3 Motion transformations for content within a <code>TransformingLazyColumn</code> item.</p>
+            <p>一个修饰符，启用 <code>TransformingLazyColumn</code> 项目内内容的 Material3 动作变换。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >@Composable <br />Modifier.scrollTransform( <br />&nbsp;&nbsp;&nbsp;&nbsp;scope:&nbsp;TransformingLazyColumnItemScope,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;shape:&nbsp;Shape, <br />&nbsp;&nbsp;&nbsp;&nbsp;painter:&nbsp;Painter,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;border:&nbsp;BorderStroke? <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">scrollable</p>
+            <p>可滚动</p>
+            <br />
+            <p class="description">Configure touch scrolling and flinging for the UI element in a single <code>Orientation</code>.</p>
+            <p>在单个 <code>Orientation</code> 中为 UI 元素配置触摸滚动和快速滑动。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.scrollable( <br />&nbsp;&nbsp;&nbsp;&nbsp;state:&nbsp;ScrollableState, <br />&nbsp;&nbsp;&nbsp;&nbsp;orientation:&nbsp;Orientation,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;enabled:&nbsp;Boolean, <br />&nbsp;&nbsp;&nbsp;&nbsp;reverseDirection:&nbsp;Boolean,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;flingBehavior:&nbsp;FlingBehavior?, <br />&nbsp;&nbsp;&nbsp;&nbsp;interactionSource:&nbsp;MulistInteractionSource?
+              <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">scrollable</p>
+            <p>可滚动</p>
+            <br />
+            <p class="description">Configure touch scrolling and flinging for the UI element in a single <code>Orientation</code>.</p>
+            <p>在单个 <code>Orientation</code> 中为 UI 元素配置触摸滚动和快速滑动。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.scrollable( <br />&nbsp;&nbsp;&nbsp;&nbsp;state:&nbsp;ScrollableState, <br />&nbsp;&nbsp;&nbsp;&nbsp;orientation:&nbsp;Orientation,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;overscrollEffect:&nbsp;OverscrollEffect?, <br />&nbsp;&nbsp;&nbsp;&nbsp;enabled:&nbsp;Boolean,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;reverseDirection:&nbsp;Boolean, <br />&nbsp;&nbsp;&nbsp;&nbsp;flingBehavior:&nbsp;FlingBehavior?,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;interactionSource:&nbsp;MulistInteractionSource?,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;bringIntoViewSpec:&nbsp;BringIntoViewSpec? <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">imeNestedScroll</p>
+            <p>输入法嵌套滚动</p>
+            <br />
+            <p class="description">Controls the soft keyboard as a nested scrolling on Android <code>R</code> and later.</p>
+            <p>控制 Android<code>R</code> 及更高版本上的软键盘作为嵌套滚动。</p>
+          </div>
+          <div class="col codeblock">
+            <code>@ExperimentalLayoutApi <br />Modifier.imeNestedScroll()</code>
+          </div>
+        </div>
+      </div>
+      <h2>Size</h2>
+      <div class="list">
+        <div class="row">
+          <div class="col">
+            <p class="modifier">animateContentSize</p>
+            <p>动画内容尺寸</p>
+            <br />
+            <p class="description">
+              This modifier animates its own size when its child modifier (or the child composable if it is already at the tail of the chain) changes size.
+            </p>
+            <p>当其子修饰符（或如果它已经处于链的末端，则为子可组合项）改变大小时，此修饰符会对自身大小进行动画处理。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.animateContentSize( <br />&nbsp;&nbsp;&nbsp;&nbsp;animationSpec:&nbsp;FiniteAnimationSpec&lt;IntSize&gt;,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;finishedListener:&nbsp;((initialValue:&nbsp;IntSize, targetValue:&nbsp;IntSize) <span>-&gt;</span>Unit)?
+              <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">animateContentSize</p>
+            <p>动画内容尺寸</p>
+            <br />
+            <p class="description">
+              This modifier animates its own size when its child modifier (or the child composable if it is already at the tail of the chain) changes size.
+            </p>
+            <p>当其子修饰符（或如果它已经处于链的末尾，则为子可组合项）改变大小时，此修饰符会对自身大小进行动画处理。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.animateContentSize( <br />&nbsp;&nbsp;&nbsp;&nbsp;animationSpec:&nbsp;FiniteAnimationSpec&lt;IntSize&gt;,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;alignment:&nbsp;Alignment, <br />&nbsp;&nbsp;&nbsp;&nbsp;finishedListener:&nbsp;((initialValue:&nbsp;IntSize,
+              targetValue:&nbsp;IntSize) <span>-&gt;</span>Unit)? <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">aspectRatio</p>
+            <p>宽高比</p>
+            <p>
+              Attempts to size the content to match a specified aspect ratio by trying to match one of the incoming constraints in the following order:
+              <code>Constraints.maxWidth</code>, <code>Constraints.maxHeight</code>, <code>Constraints.minWidth</code>, <code>Constraints.minHeight</code> if
+              <code>matchHeightConstraintsFirst</code> is <code>false</code>(which is the default), or <code>Constraints.maxHeight</code>,
+              <code>Constraints.maxWidth</code>, <code>Constraints.minHeight</code>, <code>Constraints.minWidth</code> if
+              <code>matchHeightConstraintsFirst</code> is <code>true</code>.
+            </p>
+            <p>
+              尝试通过以下顺序匹配传入约束中的一个来调整内容大小以符合指定的宽高比： <code>Constraints.maxWidth</code>、 <code>Constraints.maxHeight</code>、
+              <code>Constraints.minWidth</code>、 <code>Constraints.minHeight</code>，如果 <code>matchHeightConstraintsFirst</code> 是
+              <code>false</code>（这是默认值）；或者如果 <code>matchHeightConstraintsFirst</code> 是 <code>true</code>，则按
+              <code>Constraints.maxHeight</code>、 <code>Constraints.maxWidth</code>、 <code>Constraints.minHeight</code>、
+              <code>Constraints.minWidth</code> 的顺序。
+            </p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.aspectRatio( <br />&nbsp;&nbsp;&nbsp;&nbsp;ratio:&nbsp;@FloatRange(from&nbsp;=&nbsp;0.0,&nbsp;fromInclusive&nbsp;=&nbsp;false) Float,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;matchHeightConstraintsFirst:&nbsp;Boolean <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">minimumInteractiveComponentSize</p>
+            <p>最小交互组件尺寸</p>
+            <br />
+            <p class="description">Reserves at least 48.dp in size to disambiguate touch interactions if the element would measure smaller.</p>
+            <p>如果元素测量尺寸较小，则至少保留 48.dp 的大小以区分触摸交互。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.minimumInteractiveComponentSize()</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">minimumInteractiveComponentSize</p>
+            <p>最小交互组件尺寸</p>
+            <br />
+            <p class="description">Reserves at least 48.dp in size to disambiguate touch interactions if the element would measure smaller.</p>
+            <p>如果元素测量尺寸较小，则至少保留 48.dp 的大小以区分触摸交互。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.minimumInteractiveComponentSize()</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">minimumInteractiveComponentSize</p>
+            <p>最小交互组件尺寸</p>
+            <br />
+            <p class="description">Reserves at least 48.dp in size to disambiguate touch interactions if the element would measure smaller.</p>
+            <p>如果元素测量尺寸较小，则至少保留 48.dp 的大小以区分触摸交互。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.minimumInteractiveComponentSize()</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">minimumInteractiveComponentSize</p>
+            <p>最小交互组件尺寸</p>
+            <br />
+            <p class="description">Reserves at least 48.dp in size to disambiguate touch interactions if the element would measure smaller.</p>
+            <p>如果元素测量尺寸较小，则至少保留 48.dp 的大小以区分触摸交互。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.minimumInteractiveComponentSize()</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">height</p>
+            <p>高度</p>
+            <br />
+            <p class="description">Declare the preferred height of the content to be the same as the min or max intrinsic height of the content.</p>
+            <p>声明内容的首选高度与内容的最小或最大内在高度相同。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.height(intrinsicSize:&nbsp;IntrinsicSize)</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">requiredHeight</p>
+            <p>必要高度</p>
+            <br />
+            <p class="description">Declare the height of the content to be exactly the same as the min or max intrinsic height of the content.</p>
+            <p>将内容的高度声明为与内容的最小或最大内在高度完全相同。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.requiredHeight(intrinsicSize:&nbsp;IntrinsicSize)</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">requiredWidth</p>
+            <p>必要宽度</p>
+            <br />
+            <p class="description">Declare the width of the content to be exactly the same as the min or max intrinsic width of the content.</p>
+            <p>声明内容的宽度与内容的最小或最大内在宽度完全相同。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.requiredWidth(intrinsicSize:&nbsp;IntrinsicSize)</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">width</p>
+            <p>宽度</p>
+            <br />
+            <p class="description">Declare the preferred width of the content to be the same as the min or max intrinsic width of the content.</p>
+            <p>声明内容的首选宽度与内容的最小或最大内在宽度相同。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.width(intrinsicSize:&nbsp;IntrinsicSize)</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">onSizeChanged</p>
+            <p>尺寸变化监听</p>
+            <br />
+            <p class="description">
+              Invoked with the size of the modified Compose UI element when the element is first measured or when the size of the element changes.
+            </p>
+            <p>在元素首次测量或元素大小发生变化时，调用并传入已修改的 Compose UI 元素的大小。</p>
+          </div>
+          <div class="col codeblock">
+            <code>Modifier.onSizeChanged(onSizeChanged:&nbsp;(IntSize) <span>-&gt;</span>Unit)</code>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">defaultMinSize</p>
+            <p>默认最小尺寸</p>
+            <p>
+              Constrain the size of the wrapped layout only when it would be otherwise unconstrained: the <code>minWidth</code> and
+              <code>minHeight</code> constraints are only applied when the incoming corresponding constraint is <code>0</code>.
+            </p>
+            <p>仅在包装布局本来会不受约束时限制其大小：<code>minWidth</code>和 <code>minHeight</code> 约束仅在传入的相应约束为 <code>0</code> 时应用。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.defaultMinSize(minWidth:&nbsp;Dp,&nbsp;minHeight:&nbsp;Dp)</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">fillMaxHeight</p>
+            <p>填充最大高度</p>
+            <p>
+              Have the content fill (possibly only partially) the <code>Constraints.maxHeight</code> of the incoming measurement constraints, by setting the
+              <code>minimum height</code> and the <code>maximum height</code> to be equal to the <code>maximum height</code> multiplied by
+              <code>fraction</code>.
+            </p>
+            <p>
+              通过将 <code>minimum height</code> 和 <code>maximum height</code> 设置为 <code>maximum height</code> 乘以
+              <code>fraction</code>，使内容填充（可能仅部分填充）传入测量约束的 <code>Constraints.maxHeight</code>。
+            </p>
+          </div>
+          <div class="col codeblock"><code>Modifier.fillMaxHeight(fraction:&nbsp;@FloatRange(from&nbsp;=&nbsp;0.0,&nbsp;to&nbsp;=&nbsp;1.0) Float)</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">fillMaxSize</p>
+            <p>填充最大尺寸</p>
+            <p>
+              Have the content fill (possibly only partially) the <code>Constraints.maxWidth</code> and <code>Constraints.maxHeight</code> of the incoming
+              measurement constraints, by setting the <code>minimum width</code> and the <code>maximum width</code> to be equal to the
+              <code>maximum width</code> multiplied by <code>fraction</code>, as well as the <code>minimum height</code> and the <code>maximum height</code> to
+              be equal to the <code>maximum height</code> multiplied by <code>fraction</code>.
+            </p>
+            <p>
+              通过将 <code>minimum width</code> 和 <code>maximum width</code> 设置为 <code>maximum width</code> 乘以 <code>fraction</code>，以及将
+              <code>minimum height</code> 和 <code>maximum height</code> 设置为 <code>maximum height</code> 乘以
+              <code>fraction</code>，使内容填充（可能仅部分填充）传入测量约束的 <code>Constraints.maxWidth</code> 和 <code>Constraints.maxHeight</code>。
+            </p>
+          </div>
+          <div class="col codeblock"><code>Modifier.fillMaxSize(fraction:&nbsp;@FloatRange(from&nbsp;=&nbsp;0.0,&nbsp;to&nbsp;=&nbsp;1.0) Float)</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">fillMaxWidth</p>
+            <p>填充最大宽度</p>
+            <p>
+              Have the content fill (possibly only partially) the <code>Constraints.maxWidth</code> of the incoming measurement constraints, by setting the
+              <code>minimum width</code> and the <code>maximum width</code> to be equal to the <code>maximum width</code> multiplied by <code>fraction</code>.
+            </p>
+            <p>
+              通过将 <code>minimum width</code> 和 <code>maximum width</code> 设置为 <code>maximum width</code> 乘以
+              <code>fraction</code>，使内容填充（可能仅部分填充）传入测量约束的 <code>Constraints.maxWidth</code>。
+            </p>
+          </div>
+          <div class="col codeblock"><code>Modifier.fillMaxWidth(fraction:&nbsp;@FloatRange(from&nbsp;=&nbsp;0.0,&nbsp;to&nbsp;=&nbsp;1.0) Float)</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">height</p>
+            <p>高度</p>
+            <br />
+            <p class="description">Declare the preferred height of the content to be exactly <code>height</code> dp.</p>
+            <p>声明内容的首选高度为正好 <code>height</code> dp。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.height(height:&nbsp;Dp)</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">heightIn</p>
+            <p>高度范围</p>
+            <p>
+              Constrain the height of the content to be between <code>min</code> dp and <code>max</code> dp as permitted by the incoming measurement
+              <code>Constraints</code>.
+            </p>
+            <p>将内容高度限制在 <code>min</code> dp 和 <code>max</code> dp 之间，前提是符合传入的测量值 <code>Constraints</code>。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.heightIn(min:&nbsp;Dp,&nbsp;max:&nbsp;Dp)</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">requiredHeight</p>
+            <p>必要高度</p>
+            <br />
+            <p class="description">Declare the height of the content to be exactly <code>height</code> dp.</p>
+            <p>将内容的高度声明为恰好 <code>height</code> dp。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.requiredHeight(height:&nbsp;Dp)</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">requiredHeightIn</p>
+            <p>必要高度范围</p>
+            <br />
+            <p class="description">Constrain the height of the content to be between <code>min</code> dp and <code>max</code> dp.</p>
+            <p>将内容高度限制在 <code>min</code> dp 到 <code>max</code> dp 之间。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.requiredHeightIn(min:&nbsp;Dp,&nbsp;max:&nbsp;Dp)</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">requiredSize</p>
+            <p>必要尺寸</p>
+            <br />
+            <p class="description">Declare the size of the content to be exactly <code>size</code> dp width and height.</p>
+            <p>声明内容的大小为宽度和高度均为 <code>size</code> dp。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.requiredSize(size:&nbsp;Dp)</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">requiredSize</p>
+            <p>必要尺寸</p>
+            <br />
+            <p class="description">Declare the size of the content to be exactly <code>size</code>.</p>
+            <p>声明内容的大小为正好 <code>size</code>。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.requiredSize(size:&nbsp;DpSize)</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">requiredSize</p>
+            <p>必要尺寸</p>
+            <br />
+            <p class="description">Declare the size of the content to be exactly <code>width</code> dp and <code>height</code> dp.</p>
+            <p>将内容的大小声明为正好 <code>width</code> dp 和 <code>height</code> dp。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.requiredSize(width:&nbsp;Dp,&nbsp;height:&nbsp;Dp)</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">requiredSizeIn</p>
+            <p>必要尺寸范围</p>
+            <p>
+              Constrain the width of the content to be between <code>minWidth</code> dp and <code>maxWidth</code> dp, and the height of the content to be
+              between <code>minHeight</code> dp and <code>maxHeight</code> dp.
+            </p>
+            <p>
+              将内容的宽度限制在 <code>minWidth</code> dp 到 <code>maxWidth</code> dp 之间，高度限制在 <code>minHeight</code> dp 到 <code>maxHeight</code> dp
+              之间。
+            </p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.requiredSizeIn( <br />&nbsp;&nbsp;&nbsp;&nbsp;minWidth:&nbsp;Dp, <br />&nbsp;&nbsp;&nbsp;&nbsp;minHeight:&nbsp;Dp,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;maxWidth:&nbsp;Dp, <br />&nbsp;&nbsp;&nbsp;&nbsp;maxHeight:&nbsp;Dp <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">requiredWidth</p>
+            <p>必要宽度</p>
+            <br />
+            <p class="description">Declare the width of the content to be exactly <code>width</code> dp.</p>
+            <p>将内容的宽度声明为恰好 <code>width</code> dp。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.requiredWidth(width:&nbsp;Dp)</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">requiredWidthIn</p>
+            <p>必要宽度范围</p>
+            <br />
+            <p class="description">Constrain the width of the content to be between <code>min</code> dp and <code>max</code> dp.</p>
+            <p>将内容宽度限制在 <code>min</code> dp 到 <code>max</code> dp 之间。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.requiredWidthIn(min:&nbsp;Dp,&nbsp;max:&nbsp;Dp)</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">size</p>
+            <p>尺寸</p>
+            <br />
+            <p class="description">Declare the preferred size of the content to be exactly <code>size</code> dp square.</p>
+            <p>声明内容的首选大小为正好 <code>size</code> dp 的正方形。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.size(size:&nbsp;Dp)</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">size</p>
+            <p>尺寸</p>
+            <br />
+            <p class="description">Declare the preferred size of the content to be exactly <code>size</code>.</p>
+            <p>声明内容的首选大小为正好 <code>size</code>。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.size(size:&nbsp;DpSize)</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">size</p>
+            <p>尺寸</p>
+            <br />
+            <p class="description">Declare the preferred size of the content to be exactly <code>width</code> dp by <code>height</code> dp.</p>
+            <p>声明内容的首选大小为正好 <code>width</code> dp 乘以 <code>height</code> dp。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.size(width:&nbsp;Dp,&nbsp;height:&nbsp;Dp)</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">sizeIn</p>
+            <p>在...尺寸内</p>
+            <p>
+              Constrain the width of the content to be between <code>minWidth</code> dp and <code>maxWidth</code> dp and the height of the content to be between
+              <code>minHeight</code> dp and <code>maxHeight</code> dp as permitted by the incoming measurement <code>Constraints</code>.
+            </p>
+            <p>
+              将内容的宽度限制在 <code>minWidth</code> dp 到 <code>maxWidth</code> dp 之间，高度限制在 <code>minHeight</code> dp 到 <code>maxHeight</code> dp
+              之间，前提是符合传入的测量值 <code>Constraints</code>。
+            </p>
+          </div>
+          <div class="col codeblock">
+            <code>Modifier.sizeIn(minWidth:&nbsp;Dp,&nbsp;minHeight:&nbsp;Dp,&nbsp;maxWidth:&nbsp;Dp,&nbsp;maxHeight:&nbsp;Dp)</code>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">width</p>
+            <p>宽度</p>
+            <br />
+            <p class="description">Declare the preferred width of the content to be exactly <code>width</code> dp.</p>
+            <p>声明内容的首选宽度为正好 <code>width</code> dp。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.width(width:&nbsp;Dp)</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">widthIn</p>
+            <p>宽度范围</p>
+            <p>
+              Constrain the width of the content to be between <code>min</code> dp and <code>max</code> dp as permitted by the incoming measurement
+              <code>Constraints</code>.
+            </p>
+            <p>将内容的宽度限制在 <code>min</code> dp 和 <code>max</code> dp 之间，前提是符合传入的测量值 <code>Constraints</code>。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.widthIn(min:&nbsp;Dp,&nbsp;max:&nbsp;Dp)</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">wrapContentHeight</p>
+            <p>包裹内容高度</p>
+            <p>
+              Allow the content to measure at its desired height without regard for the incoming measurement <code>minimum height constraint</code>, and, if
+              <code>unbounded</code> is true, also without regard for the incoming measurement <code>maximum height constraint</code>.
+            </p>
+            <p>
+              允许内容按照其期望高度进行测量，而不考虑传入的测量值 <code>minimum height constraint</code>，并且如果
+              <code>unbounded</code> 为真，也不考虑传入的测量值 <code>maximum height constraint</code>。
+            </p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.wrapContentHeight( <br />&nbsp;&nbsp;&nbsp;&nbsp;align:&nbsp;Alignment.Vertical, <br />&nbsp;&nbsp;&nbsp;&nbsp;unbounded:&nbsp;Boolean
+              <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">wrapContentSize</p>
+            <p>包裹内容尺寸</p>
+            <p>
+              Allow the content to measure at its desired size without regard for the incoming measurement <code>minimum width</code> or
+              <code>minimum height</code> constraints, and, if <code>unbounded</code> is true, also without regard for the incoming maximum constraints.
+            </p>
+            <p>
+              允许内容按照其期望的大小进行测量，而不考虑传入的测量 <code>minimum width</code> 或 <code>minimum height</code> 限制，并且如果
+              <code>unbounded</code> 为真，也不考虑传入的最大限制。
+            </p>
+          </div>
+          <div class="col codeblock"><code>Modifier.wrapContentSize(align:&nbsp;Alignment,&nbsp;unbounded:&nbsp;Boolean)</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">wrapContentWidth</p>
+            <p>包裹内容宽度</p>
+            <p>
+              Allow the content to measure at its desired width without regard for the incoming measurement <code>minimum width constraint</code>, and, if
+              <code>unbounded</code> is true, also without regard for the incoming measurement <code>maximum width constraint</code>.
+            </p>
+            <p>
+              允许内容按照其期望宽度进行测量，而不考虑传入的测量值 <code>minimum width constraint</code>，并且如果
+              <code>unbounded</code> 为真，也不考虑传入的测量值 <code>maximum width constraint</code>。
+            </p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.wrapContentWidth( <br />&nbsp;&nbsp;&nbsp;&nbsp;align:&nbsp;Alignment.Horizontal, <br />&nbsp;&nbsp;&nbsp;&nbsp;unbounded:&nbsp;Boolean
+              <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">targetMorphingHeight</p>
+            <p>目标形变高度</p>
+            <p>
+              This modifier provides the height of the target composable to the <code>scrollTransform</code> during a morph transition and represents minimum
+              height of the item when morphed.
+            </p>
+            <p>此修饰符在变形过渡期间向 <code>scrollTransform</code> 提供目标可组合项的高度，并表示变形后项目的最小高度。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.targetMorphingHeight(scope:&nbsp;TransformingLazyColumnItemScope)</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">touchTargetAwareSize</p>
+            <p>触摸目标感知尺寸</p>
+            <br />
+            <p class="description">Modifier to set both the size and recommended touch target for <code>IconButton</code> and TextButton.</p>
+            <p>用于设置 <code>IconButton</code> 和 TextButton 的大小及推荐触控目标的修饰符。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.touchTargetAwareSize(size:&nbsp;Dp)</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">windowInsetsBottomHeight</p>
+            <p>窗口嵌入底部高度</p>
+            <br />
+            <p class="description">Sets the height to that of <code>insets</code> at the <code>bottom</code> of the screen.</p>
+            <p>将高度设置为屏幕 <code>bottom</code> 处的 <code>insets</code> 高度。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.windowInsetsBottomHeight(insets:&nbsp;WindowInsets)</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">windowInsetsEndWidth</p>
+            <p>窗口嵌入末端宽度</p>
+            <p>
+              Sets the width to that of <code>insets</code> at the <code>end</code> of the screen, using either <code>left</code> or <code>right</code>,
+              depending on the <code>LayoutDirection</code>.
+            </p>
+            <p>
+              将宽度设置为屏幕 <code>end</code> 处的 <code>insets</code> 宽度，使用 <code>left</code> 或 <code>right</code>，具体取决于
+              <code>LayoutDirection</code>。
+            </p>
+          </div>
+          <div class="col codeblock"><code>Modifier.windowInsetsEndWidth(insets:&nbsp;WindowInsets)</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">windowInsetsStartWidth</p>
+            <p>窗口嵌入起始宽度</p>
+            <p>
+              Sets the width to that of <code>insets</code> at the <code>start</code> of the screen, using either <code>left</code> or <code>right</code>,
+              depending on the <code>LayoutDirection</code>.
+            </p>
+            <p>
+              将宽度设置为屏幕 <code>start</code> 处的 <code>insets</code> 宽度，使用 <code>left</code> 或 <code>right</code>，具体取决于
+              <code>LayoutDirection</code>。
+            </p>
+          </div>
+          <div class="col codeblock"><code>Modifier.windowInsetsStartWidth(insets:&nbsp;WindowInsets)</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">windowInsetsTopHeight</p>
+            <p>窗口嵌入顶部高度</p>
+            <br />
+            <p class="description">Sets the height to that of <code>insets</code> at the <code>top</code> of the screen.</p>
+            <p>将高度设置为屏幕 <code>top</code> 处的 <code>insets</code> 高度。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.windowInsetsTopHeight(insets:&nbsp;WindowInsets)</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">weight</p>
+            <p>权重</p>
+            <br />
+            <p class="description">
+              Size the element's width proportional to its <code>weight</code> relative to other weighted sibling elements in the <code>Row</code>.
+            </p>
+            <p>根据该元素在 <code>Row</code> 中相对于其他加权兄弟元素的 <code>weight</code> 按比例调整元素的宽度。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.weight( <br />&nbsp;&nbsp;&nbsp;&nbsp;weight:&nbsp;@FloatRange(from&nbsp;=&nbsp;0.0,&nbsp;fromInclusive&nbsp;=&nbsp;false) Float,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;fill:&nbsp;Boolean <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">weight</p>
+            <p>权重</p>
+            <br />
+            <p class="description">
+              Size the element's height proportional to its <code>weight</code> relative to other weighted sibling elements in the <code>Column</code>.
+            </p>
+            <p>根据元素在 <code>Column</code> 中相对于其他加权兄弟元素的 <code>weight</code> 按比例调整元素的高度。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.weight( <br />&nbsp;&nbsp;&nbsp;&nbsp;weight:&nbsp;@FloatRange(from&nbsp;=&nbsp;0.0,&nbsp;fromInclusive&nbsp;=&nbsp;false) Float,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;fill:&nbsp;Boolean <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">fillMaxRowHeight</p>
+            <p>填充最大行高</p>
+            <br />
+            <p class="description">
+              Have the item fill (possibly only partially) the max height of the tallest item in the row it was placed in, within the <code>FlowRow</code>.
+            </p>
+            <p>使该项目填充（可能仅部分填充）其所在行中最高项目的最大高度，位于 <code>FlowRow</code> 内。</p>
+          </div>
+          <div class="col codeblock">
+            <code>@ExperimentalLayoutApi <br />Modifier.fillMaxRowHeight(fraction:&nbsp;@FloatRange(from&nbsp;=&nbsp;0.0,&nbsp;to&nbsp;=&nbsp;1.0) Float)</code>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">fillMaxColumnWidth</p>
+            <p>填充最大列宽</p>
+            <p>
+              Have the item fill (possibly only partially) the max width of the widest item in the column it was placed in, within the <code>FlowColumn</code>.
+            </p>
+            <p>使该项填充其所在列中最宽项的最大宽度（可能仅部分填充），位于 <code>FlowColumn</code> 内。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >@ExperimentalLayoutApi <br />Modifier.fillMaxColumnWidth(
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;fraction:&nbsp;@FloatRange(from&nbsp;=&nbsp;0.0,&nbsp;to&nbsp;=&nbsp;1.0) Float <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">matchParentSize</p>
+            <p>匹配父级尺寸</p>
+            <br />
+            <p class="description">Size the element to match the size of the <code>Box</code> after all other content elements have been measured.</p>
+            <p>在测量所有其他内容元素后，将该元素的大小调整为与 <code>Box</code> 的大小匹配。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.matchParentSize()</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">fillParentMaxHeight</p>
+            <p>填充父级最大高度</p>
+            <p>
+              Have the content fill the <code>Constraints.maxHeight</code> of the incoming measurement constraints by setting the <code>minimum height</code> to
+              be equal to the <code>maximum height</code> multiplied by <code>fraction</code>.
+            </p>
+            <p>
+              通过将 <code>minimum height</code> 设置为 <code>maximum height</code> 乘以 <code>fraction</code>，使内容填充传入测量约束的
+              <code>Constraints.maxHeight</code>。
+            </p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.fillParentMaxHeight( <br />&nbsp;&nbsp;&nbsp;&nbsp;fraction:&nbsp;@FloatRange(from&nbsp;=&nbsp;0.0,&nbsp;to&nbsp;=&nbsp;1.0) Float
+              <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">fillParentMaxSize</p>
+            <p>填充父级最大尺寸</p>
+            <p>
+              Have the content fill the <code>Constraints.maxWidth</code> and <code>Constraints.maxHeight</code> of the parent measurement constraints by
+              setting the <code>minimum width</code> to be equal to the <code>maximum width</code> multiplied by <code>fraction</code> and the
+              <code>minimum height</code> to be equal to the <code>maximum height</code> multiplied by <code>fraction</code>.
+            </p>
+            <p>
+              通过将 <code>minimum width</code> 设置为 <code>maximum width</code> 乘以 <code>fraction</code>，并将 <code>minimum height</code> 设置为
+              <code>maximum height</code> 乘以 <code>fraction</code>，使内容填充父测量约束的 <code>Constraints.maxWidth</code> 和
+              <code>Constraints.maxHeight</code>。
+            </p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.fillParentMaxSize( <br />&nbsp;&nbsp;&nbsp;&nbsp;fraction:&nbsp;@FloatRange(from&nbsp;=&nbsp;0.0,&nbsp;to&nbsp;=&nbsp;1.0) Float
+              <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">fillParentMaxWidth</p>
+            <p>填充父级最大宽度</p>
+            <p>
+              Have the content fill the <code>Constraints.maxWidth</code> of the parent measurement constraints by setting the <code>minimum width</code> to be
+              equal to the <code>maximum width</code> multiplied by <code>fraction</code>.
+            </p>
+            <p>
+              通过将 <code>minimum width</code> 设置为 <code>maximum width</code> 乘以 <code>fraction</code>，使内容填充父级测量约束的
+              <code>Constraints.maxWidth</code>。
+            </p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.fillParentMaxWidth( <br />&nbsp;&nbsp;&nbsp;&nbsp;fraction:&nbsp;@FloatRange(from&nbsp;=&nbsp;0.0,&nbsp;to&nbsp;=&nbsp;1.0) Float
+              <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">exposedDropdownSize</p>
+            <p>下拉菜单展开尺寸</p>
+            <br />
+            <p class="description">Modifier which should be applied to an <code>ExposedDropdownMenu</code> placed inside the scope.</p>
+            <p>应应用于放置在作用域内的 <code>ExposedDropdownMenu</code> 的修饰符。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.exposedDropdownSize(matchTextFieldWidth:&nbsp;Boolean)</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">exposedDropdownSize</p>
+            <p>下拉菜单展开尺寸</p>
+            <br />
+            <p class="description">Modifier which should be applied to a menu placed inside the <code>ExposedDropdownMenuBoxScope</code>.</p>
+            <p>应应用于放置在 <code>ExposedDropdownMenuBoxScope</code> 内的菜单的修饰符。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.exposedDropdownSize(matchAnchorWidth:&nbsp;Boolean)</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">preferredWidth</p>
+            <p>首选宽度</p>
+            <p>
+              This modifier specifies the preferred width for a pane, and the pane scaffold implementation will try its best to respect this width when the
+              associated pane is rendered as a fixed pane, i.e., a pane that are not stretching to fill the remaining spaces.
+            </p>
+            <p>此修饰符指定窗格的首选宽度，当关联的窗格作为固定窗格渲染时（即不拉伸以填充剩余空间的窗格），窗格脚手架实现将尽力遵守此宽度。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.preferredWidth(width:&nbsp;Dp)</code></div>
+        </div>
+      </div>
+      <h2>Testing</h2>
+      <div class="list">
+        <div class="row">
+          <div class="col">
+            <p class="modifier">testTag</p>
+            <p>测试标签</p>
+            <br />
+            <p class="description">Applies a tag to allow modified element to be found in tests.</p>
+            <p>应用标签以便在测试中找到被修改的元素。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.testTag(tag:&nbsp;String)</code></div>
+        </div>
+      </div>
+      <h2>Transformations</h2>
+      <div class="list">
+        <div class="row">
+          <div class="col">
+            <p class="modifier">rotate</p>
+            <p>旋转</p>
+            <br />
+            <p class="description">Sets the degrees the view is rotated around the center of the composable.</p>
+            <p>设置视图围绕可组合项中心旋转的角度。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.rotate(degrees:&nbsp;Float)</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">scale</p>
+            <p>缩放</p>
+            <br />
+            <p class="description">Scale the contents of both the horizontal and vertical axis uniformly by the same scale factor.</p>
+            <p>将水平轴和垂直轴的内容按相同的缩放因子均匀缩放。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.scale(scale:&nbsp;Float)</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">scale</p>
+            <p>缩放</p>
+            <br />
+            <p class="description">Scale the contents of the composable by the following scale factors along the horizontal and vertical axis respectively.</p>
+            <p>按以下水平和垂直轴的缩放因子分别缩放可组合项的内容。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.scale(scaleX:&nbsp;Float,&nbsp;scaleY:&nbsp;Float)</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">transformable</p>
+            <p>可变形</p>
+            <br />
+            <p class="description">Enable transformation gestures of the modified UI element.</p>
+            <p>启用已修改 UI 元素的变换手势。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.transformable( <br />&nbsp;&nbsp;&nbsp;&nbsp;state:&nbsp;TransformableState,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;lockRotationOnZoomPan:&nbsp;Boolean, <br />&nbsp;&nbsp;&nbsp;&nbsp;enabled:&nbsp;Boolean <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">transformable</p>
+            <p>可变形</p>
+            <br />
+            <p class="description">Enable transformation gestures of the modified UI element.</p>
+            <p>启用已修改 UI 元素的变换手势。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.transformable( <br />&nbsp;&nbsp;&nbsp;&nbsp;state:&nbsp;TransformableState, <br />&nbsp;&nbsp;&nbsp;&nbsp;canPan:&nbsp;(Offset)
+              <span>-&gt;</span>Boolean, <br />&nbsp;&nbsp;&nbsp;&nbsp;lockRotationOnZoomPan:&nbsp;Boolean, <br />&nbsp;&nbsp;&nbsp;&nbsp;enabled:&nbsp;Boolean
+              <br />)</code
+            >
+          </div>
+        </div>
+      </div>
+      <h2>Other</h2>
+      <div class="list">
+        <div class="row">
+          <div class="col">
+            <p class="modifier">basicMarquee</p>
+            <p>基本跑马灯</p>
+            <br />
+            <p class="description">Applies an animated marquee effect to the modified content if it's too wide to fit in the available space.</p>
+            <p>如果修改后的内容过宽而无法适应可用空间，则应用动画跑马灯效果。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.basicMarquee( <br />&nbsp;&nbsp;&nbsp;&nbsp;iterations:&nbsp;Int,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;animationMode:&nbsp;MarqueeAnimationMode, <br />&nbsp;&nbsp;&nbsp;&nbsp;repeatDelayMillis:&nbsp;Int,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;initialDelayMillis:&nbsp;Int, <br />&nbsp;&nbsp;&nbsp;&nbsp;spacing:&nbsp;MarqueeSpacing,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;velocity:&nbsp;Dp <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">edgeSwipeToDismiss</p>
+            <p>边缘滑动关闭</p>
+            <br />
+            <p class="description">Limits swipe to dismiss to be active from the edge of the viewport only.</p>
+            <p>将滑动关闭限制为仅在视口边缘激活。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.edgeSwipeToDismiss( <br />&nbsp;&nbsp;&nbsp;&nbsp;swipeToDismissBoxState:&nbsp;SwipeToDismissBoxState,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;edgeWidth:&nbsp;Dp <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">blur</p>
+            <p>模糊</p>
+            <br />
+            <p class="description">Draw content blurred with the specified radii.</p>
+            <p>使用指定半径绘制模糊内容。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.blur(radius:&nbsp;Dp,&nbsp;edgeTreatment:&nbsp;BlurredEdgeTreatment)</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">blur</p>
+            <p>模糊</p>
+            <br />
+            <p class="description">Draw content blurred with the specified radii.</p>
+            <p>使用指定半径绘制模糊内容。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.blur( <br />&nbsp;&nbsp;&nbsp;&nbsp;radiusX:&nbsp;Dp, <br />&nbsp;&nbsp;&nbsp;&nbsp;radiusY:&nbsp;Dp,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;edgeTreatment:&nbsp;BlurredEdgeTreatment <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">bringIntoViewRequester</p>
+            <p>请求进入视图</p>
+            <br />
+            <p class="description">Modifier that can be used to send <code>bringIntoView</code> requests.</p>
+            <p>可用于发送 <code>bringIntoView</code> 个请求的修饰符。</p>
+          </div>
+          <div class="col codeblock">
+            <code>Modifier.bringIntoViewRequester( <br />&nbsp;&nbsp;&nbsp;&nbsp;bringIntoViewRequester:&nbsp;BringIntoViewRequester <br />)</code>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">composed</p>
+            <p>组合</p>
+            <br />
+            <p class="description">Declare a just-in-time composition of a <code>Modifier</code> that will be composed for each element it modifies.</p>
+            <p>声明一个即时组合的 <code>Modifier</code>，该组合将为它修改的每个元素进行组合。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.composed( <br />&nbsp;&nbsp;&nbsp;&nbsp;inspectorInfo:&nbsp;InspectorInfo.() <span>-&gt;</span>Unit,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;factory:&nbsp;@Composable Modifier.() <span>-&gt;</span>Modifier <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">composed</p>
+            <p>组合</p>
+            <br />
+            <p class="description">Declare a just-in-time composition of a <code>Modifier</code> that will be composed for each element it modifies.</p>
+            <p>声明一个即时组合的 <code>Modifier</code>，该组合将为它修改的每个元素进行组合。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.composed( <br />&nbsp;&nbsp;&nbsp;&nbsp;fullyQualifiedName:&nbsp;String, <br />&nbsp;&nbsp;&nbsp;&nbsp;key1:&nbsp;Any?,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;inspectorInfo:&nbsp;InspectorInfo.() <span>-&gt;</span>Unit, <br />&nbsp;&nbsp;&nbsp;&nbsp;factory:&nbsp;@Composable
+              Modifier.() <span>-&gt;</span>Modifier <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">composed</p>
+            <p>组合</p>
+            <br />
+            <p class="description">Declare a just-in-time composition of a <code>Modifier</code> that will be composed for each element it modifies.</p>
+            <p>声明一个即时组合的 <code>Modifier</code>，该组合将为它修改的每个元素进行组合。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.composed( <br />&nbsp;&nbsp;&nbsp;&nbsp;fullyQualifiedName:&nbsp;String, <br />&nbsp;&nbsp;&nbsp;&nbsp;vararg&nbsp;keys:&nbsp;Any?,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;inspectorInfo:&nbsp;InspectorInfo.() <span>-&gt;</span>Unit, <br />&nbsp;&nbsp;&nbsp;&nbsp;factory:&nbsp;@Composable
+              Modifier.() <span>-&gt;</span>Modifier <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">composed</p>
+            <p>组合</p>
+            <br />
+            <p class="description">Declare a just-in-time composition of a <code>Modifier</code> that will be composed for each element it modifies.</p>
+            <p>声明一个即时组合的 <code>Modifier</code>，该组合将为它修改的每个元素进行组合。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.composed( <br />&nbsp;&nbsp;&nbsp;&nbsp;fullyQualifiedName:&nbsp;String, <br />&nbsp;&nbsp;&nbsp;&nbsp;key1:&nbsp;Any?,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;key2:&nbsp;Any?, <br />&nbsp;&nbsp;&nbsp;&nbsp;inspectorInfo:&nbsp;InspectorInfo.() <span>-&gt;</span>Unit,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;factory:&nbsp;@Composable Modifier.() <span>-&gt;</span>Modifier <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">composed</p>
+            <p>组合</p>
+            <br />
+            <p class="description">Declare a just-in-time composition of a <code>Modifier</code> that will be composed for each element it modifies.</p>
+            <p>声明一个即时组合的 <code>Modifier</code>，该组合将为它修改的每个元素进行组合。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.composed( <br />&nbsp;&nbsp;&nbsp;&nbsp;fullyQualifiedName:&nbsp;String, <br />&nbsp;&nbsp;&nbsp;&nbsp;key1:&nbsp;Any?,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;key2:&nbsp;Any?, <br />&nbsp;&nbsp;&nbsp;&nbsp;key3:&nbsp;Any?,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;inspectorInfo:&nbsp;InspectorInfo.() <span>-&gt;</span>Unit, <br />&nbsp;&nbsp;&nbsp;&nbsp;factory:&nbsp;@Composable
+              Modifier.() <span>-&gt;</span>Modifier <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">dragAndDropSource</p>
+            <p>拖放源</p>
+            <br />
+            <p class="description">A <code>Modifier</code> that allows an element it is applied to be treated like a source for drag and drop operations.</p>
+            <p>一个 <code>Modifier</code>，允许其应用的元素被视为拖放操作的源。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.dragAndDropSource( <br />&nbsp;&nbsp;&nbsp;&nbsp;transferData:&nbsp;(Offset) <span>-&gt;</span>DragAndDropTransferData? <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">dragAndDropSource</p>
+            <p>拖放源</p>
+            <br />
+            <p class="description">A <code>Modifier</code> that allows an element it is applied to be treated like a source for drag and drop operations.</p>
+            <p>一个 <code>Modifier</code>，允许将其应用的元素作为拖放操作的源。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.dragAndDropSource( <br />&nbsp;&nbsp;&nbsp;&nbsp;drawDragDecoration:&nbsp;DrawScope.() <span>-&gt;</span>Unit,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;transferData:&nbsp;(Offset) <span>-&gt;</span>DragAndDropTransferData? <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">dragAndDropTarget</p>
+            <p>拖放目标</p>
+            <br />
+            <p class="description">A modifier that allows for receiving from a drag and drop gesture.</p>
+            <p>一个允许接收拖放手势的修饰符。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.dragAndDropTarget( <br />&nbsp;&nbsp;&nbsp;&nbsp;shouldStartDragAndDrop:&nbsp;(startEvent:&nbsp;DragAndDropEvent)
+              <span>-&gt;</span>Boolean, <br />&nbsp;&nbsp;&nbsp;&nbsp;target:&nbsp;DragAndDropTarget <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">handwritingDetector</p>
+            <p>手写检测器</p>
+            <p>
+              Configures an element to act as a handwriting detector which detects stylus handwriting and delegates handling of the recognised text to another
+              element.
+            </p>
+            <p>配置一个元素作为手写检测器，用于检测手写笔书写，并将识别的文本处理委托给另一个元素。</p>
+          </div>
+          <div class="col codeblock">
+            <code>Modifier.handwritingDetector(callback:&nbsp;() <span>-&gt;</span>Unit)</code>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">handwritingHandler</p>
+            <p>手写处理器</p>
+            <p>
+              Configures an element to act as a stylus handwriting handler which can handle text input from a handwriting session which was triggered by stylus
+              handwriting on a handwriting detector.
+            </p>
+            <p>将元素配置为触控笔手写处理程序，能够处理由手写检测器上的触控笔手写触发的手写会话中的文本输入。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.handwritingHandler()</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">hoverable</p>
+            <p>可悬停</p>
+            <br />
+            <p class="description">Configure component to be hoverable via pointer enter/exit events.</p>
+            <p>通过指针进入/退出事件配置组件为可悬停。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.hoverable( <br />&nbsp;&nbsp;&nbsp;&nbsp;interactionSource:&nbsp;MulistInteractionSource,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;enabled:&nbsp;Boolean <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">approachLayout</p>
+            <p>逼近布局</p>
+            <br />
+            <p class="description">Creates an approach layout intended to help gradually approach the destination layout calculated in the lookahead pass.</p>
+            <p>创建一种布局方法，旨在帮助逐步接近在前瞻阶段计算出的目标布局。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.approachLayout( <br />&nbsp;&nbsp;&nbsp;&nbsp;isMeasurementApproachInProgress:&nbsp;(lookaheadSize:&nbsp;IntSize)
+              <span>-&gt;</span>Boolean,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;isPlacementApproachInProgress:&nbsp;Placeable.PlacementScope.(lookaheadCoordinates:&nbsp;LayoutCoordinates)
+              <span>-&gt;</span>Boolean, <br />&nbsp;&nbsp;&nbsp;&nbsp;approachMeasure:&nbsp;ApproachMeasureScope.(measurable:&nbsp;Measurable,
+              constraints:&nbsp;Constraints) <span>-&gt;</span>MeasureResult <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">magnifier</p>
+            <p>放大镜</p>
+            <p>
+              Shows a <code>Magnifier</code> widget that shows an enlarged version of the content at <code>sourceCenter</code> relative to the current layout
+              node.
+            </p>
+            <p>显示一个 <code>Magnifier</code> 小部件，该小部件显示相对于当前布局节点在 <code>sourceCenter</code> 处内容的放大版本。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.magnifier( <br />&nbsp;&nbsp;&nbsp;&nbsp;sourceCenter:&nbsp;Density.() <span>-&gt;</span>Offset,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;magnifierCenter:&nbsp;(Density.() <span>-&gt;</span>Offset)?,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;onSizeChanged:&nbsp;((DpSize) <span>-&gt;</span>Unit)?, <br />&nbsp;&nbsp;&nbsp;&nbsp;zoom:&nbsp;Float,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;size:&nbsp;DpSize, <br />&nbsp;&nbsp;&nbsp;&nbsp;cornerRadius:&nbsp;Dp,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;elevation:&nbsp;Dp, <br />&nbsp;&nbsp;&nbsp;&nbsp;clip:&nbsp;Boolean <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">modifierLocalConsumer</p>
+            <p>修饰符本地消费者</p>
+            <p>
+              A Modifier that can be used to consume <code>ModifierLocal</code> s that were provided by other modifiers to the left of this modifier, or above
+              this modifier in the layout tree.
+            </p>
+            <p>一个修饰符，可用于消耗由该修饰符左侧或布局树中该修饰符上方的其他修饰符提供的 <code>ModifierLocal</code> s。</p>
+          </div>
+          <div class="col codeblock">
+            <code>Modifier.modifierLocalConsumer(consumer:&nbsp;ModifierLocalReadScope.() <span>-&gt;</span>Unit)</code>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">modifierLocalProvider</p>
+            <p>修饰符本地提供者</p>
+            <p>
+              A Modifier that can be used to provide <code>ModifierLocal</code> s that can be read by other modifiers to the right of this modifier, or
+              modifiers that are children of the layout node that this modifier is attached to.
+            </p>
+            <p>
+              一个修饰符，可用于提供 <code>ModifierLocal</code>，这些
+              <code>ModifierLocal</code> 可以被位于此修饰符右侧的其他修饰符读取，或被附加到此修饰符所在布局节点的子修饰符读取。
+            </p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >&lt;T&nbsp;:&nbsp;Any?&gt; Modifier.modifierLocalProvider( <br />&nbsp;&nbsp;&nbsp;&nbsp;key:&nbsp;ProvidableModifierLocal&lt;T&gt;,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;value:&nbsp;() <span>-&gt;</span>T <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">onLayoutRectChanged</p>
+            <p>布局矩形变化监听</p>
+            <p>
+              Invokes <code>callback</code> with the position of this layout node relative to the coordinate system of the root of the composition, as well as
+              in screen coordinates and window coordinates.
+            </p>
+            <p>调用 <code>callback</code>，传入此布局节点相对于组合根坐标系统的位置，以及屏幕坐标和窗口坐标。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.onLayoutRectChanged( <br />&nbsp;&nbsp;&nbsp;&nbsp;throttleMillis:&nbsp;Long, <br />&nbsp;&nbsp;&nbsp;&nbsp;debounceMillis:&nbsp;Long,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;callback:&nbsp;(RelativeLayoutBounds) <span>-&gt;</span>Unit <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">onPlaced</p>
+            <p>放置监听</p>
+            <p>
+              Invoke <code>onPlaced</code> after the parent <code>LayoutModifier</code> and parent layout has been placed and before child
+              <code>LayoutModifier</code> is placed.
+            </p>
+            <p>在父级 <code>LayoutModifier</code> 和父级布局放置后，子级 <code>LayoutModifier</code> 放置之前调用 <code>onPlaced</code>。</p>
+          </div>
+          <div class="col codeblock">
+            <code>Modifier.onPlaced(onPlaced:&nbsp;(LayoutCoordinates) <span>-&gt;</span>Unit)</code>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">placeholder</p>
+            <p>占位符</p>
+            <br />
+            <p class="description">Draws a placeholder shape over the top of a composable and animates a wipe off effect to remove the placeholder.</p>
+            <p>在可组合项顶部绘制一个占位符形状，并通过动画擦除效果移除该占位符。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >@ExperimentalWearMaterialApi <br />@Composable <br />Modifier.placeholder( <br />&nbsp;&nbsp;&nbsp;&nbsp;placeholderState:&nbsp;PlaceholderState,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;shape:&nbsp;Shape, <br />&nbsp;&nbsp;&nbsp;&nbsp;color:&nbsp;Color <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">placeholder</p>
+            <p>占位符</p>
+            <br />
+            <p class="description">Draws a placeholder shape over the top of a composable and animates a wipe off effect to remove the placeholder.</p>
+            <p>在可组合项顶部绘制一个占位符形状，并通过动画擦除效果移除该占位符。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >@Composable <br />Modifier.placeholder( <br />&nbsp;&nbsp;&nbsp;&nbsp;placeholderState:&nbsp;PlaceholderState,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;shape:&nbsp;Shape, <br />&nbsp;&nbsp;&nbsp;&nbsp;color:&nbsp;Color <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">placeholderShimmer</p>
+            <p>占位符闪光</p>
+            <br />
+            <p class="description">Modifier to draw a placeholder shimmer over a component.</p>
+            <p>用于在组件上绘制占位符闪光效果的修饰符。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >@ExperimentalWearMaterialApi <br />@Composable <br />Modifier.placeholderShimmer(
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;placeholderState:&nbsp;PlaceholderState, <br />&nbsp;&nbsp;&nbsp;&nbsp;shape:&nbsp;Shape,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;color:&nbsp;Color <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">placeholderShimmer</p>
+            <p>占位符闪光</p>
+            <br />
+            <p class="description">Modifier to draw a placeholder shimmer over a component.</p>
+            <p>用于在组件上绘制占位符闪光效果的修饰符。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >@Composable <br />Modifier.placeholderShimmer( <br />&nbsp;&nbsp;&nbsp;&nbsp;placeholderState:&nbsp;PlaceholderState,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;shape:&nbsp;Shape, <br />&nbsp;&nbsp;&nbsp;&nbsp;color:&nbsp;Color <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">stylusHoverIcon</p>
+            <p>手写笔悬停图标</p>
+            <br />
+            <p class="description">Modifier that lets a developer define a pointer icon to display when a stylus is hovered over the element.</p>
+            <p>允许开发者定义当触控笔悬停在元素上时显示的指针图标的修饰符。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.stylusHoverIcon( <br />&nbsp;&nbsp;&nbsp;&nbsp;icon:&nbsp;PointerIcon, <br />&nbsp;&nbsp;&nbsp;&nbsp;overrideDescendants:&nbsp;Boolean,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;touchBoundsExpansion:&nbsp;DpTouchBoundsExpansion? <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">motionEventSpy</p>
+            <p>运动事件侦测</p>
+            <br />
+            <p class="description">
+              Calls <code>watcher</code> with each <code>MotionEvent</code> that the layout area or any child <code>pointerInput</code> receives.
+            </p>
+            <p>使用每个布局区域或任何子 <code>pointerInput</code> 接收到的每个 <code>MotionEvent</code> 调用 <code>watcher</code>。</p>
+          </div>
+          <div class="col codeblock">
+            <code>Modifier.motionEventSpy(watcher:&nbsp;(motionEvent:&nbsp;MotionEvent) <span>-&gt;</span>Unit)</code>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">preferKeepClear</p>
+            <p>偏好保持清晰</p>
+            <br />
+            <p class="description">Mark the layout rectangle as preferring to stay clear of floating windows.</p>
+            <p>将布局矩形标记为优先避免与浮动窗口重叠。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.preferKeepClear()</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">preferKeepClear</p>
+            <p>偏好保持清晰</p>
+            <br />
+            <p class="description">Mark a rectangle within the local layout coordinates preferring to stay clear of floating windows.</p>
+            <p>在本地布局坐标内标记一个矩形，优先避免与浮动窗口重叠。</p>
+          </div>
+          <div class="col codeblock">
+            <code>Modifier.preferKeepClear(rectProvider:&nbsp;(LayoutCoordinates) <span>-&gt;</span>Rect)</code>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">pullRefreshIndicatorTransform</p>
+            <p>下拉刷新指示器变换</p>
+            <br />
+            <p class="description">
+              A modifier for translating the position and scaling the size of a pull-to-refresh indicator based on the given <code>PullRefreshState</code>.
+            </p>
+            <p>一个用于根据给定的 <code>PullRefreshState</code> 平移位置和缩放下拉刷新指示器大小的修饰符。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >@ExperimentalMaterialApi <br />Modifier.pullRefreshIndicatorTransform( <br />&nbsp;&nbsp;&nbsp;&nbsp;state:&nbsp;PullRefreshState,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;scale:&nbsp;Boolean <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">pullRefresh</p>
+            <p>下拉刷新</p>
+            <br />
+            <p class="description">A nested scroll modifier that provides scroll events to <code>state</code>.</p>
+            <p>一个嵌套滚动修饰符，向 <code>state</code> 提供滚动事件。</p>
+          </div>
+          <div class="col codeblock">
+            <code>@ExperimentalMaterialApi <br />Modifier.pullRefresh(state:&nbsp;PullRefreshState,&nbsp;enabled:&nbsp;Boolean)</code>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">pullRefresh</p>
+            <p>下拉刷新</p>
+            <p>
+              A nested scroll modifier that provides <code>onPull</code> and <code>onRelease</code> callbacks to aid building custom pull refresh components.
+            </p>
+            <p>一个嵌套滚动修饰符，提供 <code>onPull</code> 和 <code>onRelease</code> 回调，以帮助构建自定义下拉刷新组件。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >@ExperimentalMaterialApi <br />Modifier.pullRefresh( <br />&nbsp;&nbsp;&nbsp;&nbsp;onPull:&nbsp;(pullDelta:&nbsp;Float) <span>-&gt;</span>Float,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;onRelease:&nbsp;suspend&nbsp;(flingVelocity:&nbsp;Float) <span>-&gt;</span>Float,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;enabled:&nbsp;Boolean <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">pullToRefresh</p>
+            <p>下拉以刷新</p>
+            <br />
+            <p class="description">A Modifier that adds nested scroll to a container to support a pull-to-refresh gesture.</p>
+            <p>一个 Modifier，向容器添加嵌套滚动以支持下拉刷新手势。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >@ExperimentalMaterial3Api <br />Modifier.pullToRefresh( <br />&nbsp;&nbsp;&nbsp;&nbsp;isRefreshing:&nbsp;Boolean,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;state:&nbsp;PullToRefreshState, <br />&nbsp;&nbsp;&nbsp;&nbsp;enabled:&nbsp;Boolean,
+              <br />&nbsp;&nbsp;&nbsp;&nbsp;threshold:&nbsp;Dp, <br />&nbsp;&nbsp;&nbsp;&nbsp;onRefresh:&nbsp;() <span>-&gt;</span>Unit <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">contentReceiver</p>
+            <p>内容接收器</p>
+            <br />
+            <p class="description">Configures the current node and any children nodes as a Content Receiver.</p>
+            <p>将当前节点及其所有子节点配置为内容接收器。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >@ExperimentalFoundationApi <br />Modifier.contentReceiver( <br />&nbsp;&nbsp;&nbsp;&nbsp;receiveContentListener:&nbsp;ReceiveContentListener
+              <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">sensitiveContent</p>
+            <p>敏感内容</p>
+            <p>
+              This modifier hints that the composable renders sensitive content (i.e. username, password, credit card etc) on the screen, and the content should
+              be protected during screen share in supported environments.
+            </p>
+            <p>此修饰符提示该可组合项在屏幕上呈现敏感内容（例如用户名、密码、信用卡等），并且在支持的环境中共享屏幕时应保护该内容。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.sensitiveContent(isContentSensitive:&nbsp;Boolean)</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">onInterceptKeyBeforeSoftKeyboard</p>
+            <p>软键盘前按键拦截监听</p>
+            <p>
+              Adding this <code>modifier</code> to the <code>modifier</code> parameter of a component will allow it to intercept hardware key events before they
+              are sent to the software keyboard.
+            </p>
+            <p>将此 <code>modifier</code> 添加到组件的 <code>modifier</code> 参数中，将允许其在硬件按键事件发送到软件键盘之前拦截这些事件。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.onInterceptKeyBeforeSoftKeyboard( <br />&nbsp;&nbsp;&nbsp;&nbsp;onInterceptKeyBeforeSoftKeyboard:&nbsp;(KeyEvent)
+              <span>-&gt;</span>Boolean <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">onPreInterceptKeyBeforeSoftKeyboard</p>
+            <p>软键盘前预览按键拦截监听</p>
+            <p>
+              Adding this <code>modifier</code> to the <code>modifier</code> parameter of a component will allow it to intercept hardware key events before they
+              are sent to the software keyboard.
+            </p>
+            <p>将此 <code>modifier</code> 添加到组件的 <code>modifier</code> 参数中，将允许其在硬件按键事件发送到软件键盘之前拦截这些事件。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.onPreInterceptKeyBeforeSoftKeyboard( <br />&nbsp;&nbsp;&nbsp;&nbsp;onPreInterceptKeyBeforeSoftKeyboard:&nbsp;(KeyEvent)
+              <span>-&gt;</span>Boolean <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">systemGestureExclusion</p>
+            <p>系统手势排除</p>
+            <br />
+            <p class="description">Excludes the layout rectangle from the system gesture.</p>
+            <p>将布局矩形排除在系统手势之外。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.systemGestureExclusion()</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">systemGestureExclusion</p>
+            <p>系统手势排除</p>
+            <br />
+            <p class="description">Excludes a rectangle within the local layout coordinates from the system gesture.</p>
+            <p>从系统手势中排除本地布局坐标内的矩形区域。</p>
+          </div>
+          <div class="col codeblock">
+            <code>Modifier.systemGestureExclusion(exclusion:&nbsp;(LayoutCoordinates) <span>-&gt;</span>Rect)</code>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">consumeWindowInsets</p>
+            <p>消费窗口嵌入</p>
+            <p>
+              Consume insets that haven't been consumed yet by other insets Modifiers similar to <code>windowInsetsPadding</code> without adding any padding.
+            </p>
+            <p>使用尚未被其他 Insets Modifiers 消费的 Insets，类似于 <code>windowInsetsPadding</code>，但不添加任何内边距。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.consumeWindowInsets(insets:&nbsp;WindowInsets)</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">consumeWindowInsets</p>
+            <p>消费窗口嵌入</p>
+            <br />
+            <p class="description">Consume <code>paddingValues</code> as insets as if the padding was added irrespective of insets.</p>
+            <p>将 <code>paddingValues</code> 作为内边距使用，就好像内边距已被添加一样，无论内边距实际如何。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.consumeWindowInsets(paddingValues:&nbsp;PaddingValues)</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">onConsumedWindowInsetsChanged</p>
+            <p>已消费窗口嵌入变化监听</p>
+            <p>
+              Calls <code>block</code> with the <code>WindowInsets</code> that have been consumed, either by <code>consumeWindowInsets</code> or one of the
+              padding Modifiers, such as <code>imePadding</code>.
+            </p>
+            <p>
+              使用已被 <code>consumeWindowInsets</code> 或填充修饰符（如 <code>imePadding</code>）消耗的 <code>WindowInsets</code> 调用 <code>block</code>。
+            </p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.onConsumedWindowInsetsChanged( <br />&nbsp;&nbsp;&nbsp;&nbsp;block:&nbsp;(consumedWindowInsets:&nbsp;WindowInsets)
+              <span>-&gt;</span>Unit <br />)</code
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">recalculateWindowInsets</p>
+            <p>重新计算窗口嵌入</p>
+            <br />
+            <p class="description">This recalculates the <code>WindowInsets</code> based on the size and position.</p>
+            <p>这会根据大小和位置重新计算 <code>WindowInsets</code>。</p>
+          </div>
+          <div class="col codeblock"><code>Modifier.recalculateWindowInsets()</code></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="modifier">menuAnchor</p>
+            <p>菜单锚点</p>
+            <p>
+              Modifier which should be applied to an element inside the <code>ExposedDropdownMenuBoxScope</code>, typically a text field or an icon within the
+              text field.
+            </p>
+            <p>应应用于 <code>ExposedDropdownMenuBoxScope</code> 内元素的修饰符，通常是文本字段或文本字段内的图标。</p>
+          </div>
+          <div class="col codeblock">
+            <code
+              >Modifier.menuAnchor( <br />&nbsp;&nbsp;&nbsp;&nbsp;type:&nbsp;ExposedDropdownMenuAnchorType, <br />&nbsp;&nbsp;&nbsp;&nbsp;enabled:&nbsp;Boolean
+              <br />)</code
+            >
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
