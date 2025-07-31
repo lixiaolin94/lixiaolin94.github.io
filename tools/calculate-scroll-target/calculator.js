@@ -28,11 +28,11 @@ function calculateAndroidDecayTarget(initialVelocity, frictionMultiplier = 1, ab
   const friction = ExponentialDecayFriction * Math.max(0.0001, frictionMultiplier);
 
   function getTargetValue(initialValue, initialVelocity) {
-    if (abs(initialVelocity) <= _absVelocityThreshold) {
+    if (Math.abs(initialVelocity) <= _absVelocityThreshold) {
       return initialValue;
     }
-    const duration = (ln(abs(_absVelocityThreshold / initialVelocity)) / friction) * 1000;
-    return initialValue - initialVelocity / friction + (initialVelocity / friction) * exp((friction * duration) / 1000);
+    const duration = (Math.log(Math.abs(_absVelocityThreshold / initialVelocity)) / friction) * 1000;
+    return initialValue - initialVelocity / friction + (initialVelocity / friction) * Math.exp((friction * duration) / 1000);
   }
 
   return getTargetValue(0, initialVelocity);

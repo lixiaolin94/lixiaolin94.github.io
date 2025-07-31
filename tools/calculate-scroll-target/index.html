@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculate Scroll Target</title>
+</head>
+<body>
+    <h1>滚动目标计算工具</h1>
+    
+    <div>
+        <label for="velocity">初始速度 (px/s):</label>
+        <input type="number" id="velocity" value="3000" step="100">
+    </div>
+    
+    <h2>Android Spline (OverScroller)</h2>
+    <div>
+        <label for="density">Density:</label>
+        <input type="number" id="density" value="3.5" step="0.1">
+        <button onclick="calculateAndroidSpline()">计算</button>
+        <div id="androidSplineResult">结果: </div>
+    </div>
+    
+    <h2>Android Decay (FlingAnimation)</h2>
+    <div>
+        <label for="frictionMultiplier">Friction Multiplier:</label>
+        <input type="number" id="frictionMultiplier" value="1" step="0.1">
+        <label for="absVelocityThreshold">Abs Velocity Threshold:</label>
+        <input type="number" id="absVelocityThreshold" value="0.1" step="0.01">
+        <button onclick="calculateAndroidDecay()">计算</button>
+        <div id="androidDecayResult">结果: </div>
+    </div>
+    
+    <h2>Apple ScrollView</h2>
+    <div>
+        <label for="decelerationRate">Deceleration Rate:</label>
+        <input type="number" id="decelerationRate" value="0.998" step="0.001">
+        <button onclick="calculateAppleScroll()">计算</button>
+        <div id="appleScrollResult">结果: </div>
+    </div>
+    
+    <script src="calculator.js"></script>
+    <script>
+        function calculateAndroidSpline() {
+            const velocity = parseFloat(document.getElementById('velocity').value);
+            const density = parseFloat(document.getElementById('density').value);
+            const result = calculateAndroidSplineTarget(velocity, density);
+            document.getElementById('androidSplineResult').textContent = `结果: ${result.toFixed(2)} px`;
+        }
+        
+        function calculateAndroidDecay() {
+            const velocity = parseFloat(document.getElementById('velocity').value);
+            const frictionMultiplier = parseFloat(document.getElementById('frictionMultiplier').value);
+            const absVelocityThreshold = parseFloat(document.getElementById('absVelocityThreshold').value);
+            const result = calculateAndroidDecayTarget(velocity, frictionMultiplier, absVelocityThreshold);
+            document.getElementById('androidDecayResult').textContent = `结果: ${result.toFixed(2)} px`;
+        }
+        
+        function calculateAppleScroll() {
+            const velocity = parseFloat(document.getElementById('velocity').value);
+            const decelerationRate = parseFloat(document.getElementById('decelerationRate').value);
+            const result = calculateAppleScrollTarget(velocity, decelerationRate);
+            document.getElementById('appleScrollResult').textContent = `结果: ${result.toFixed(2)} px`;
+        }
+    </script>
+</body>
+</html>
