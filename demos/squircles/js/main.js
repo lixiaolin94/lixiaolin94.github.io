@@ -9,7 +9,7 @@ const view = {
 
 const config = {
   drawRoundRect: true,
-  roundRectColor: "#000000",
+  roundRectColor: "#ec6b2e",
   drawQuadSmoothRoundRect: false,
   quadColor: "#7b61ff",
   drawSmoothRoundRect: true,
@@ -128,7 +128,6 @@ pane.addInput(view, "top");
 pane.addInput(view, "right");
 pane.addInput(view, "bottom");
 pane.addInput(view, "radius", { min: 0 });
-pane.addInput(config, "smoothness", { min: 0, max: 1 });
 pane.addSeparator();
 pane.addInput(config, "drawRoundRect");
 pane.addInput(config, "roundRectColor");
@@ -137,6 +136,8 @@ pane.addInput(config, "drawQuadSmoothRoundRect");
 pane.addInput(config, "quadColor");
 pane.addSeparator();
 pane.addInput(config, "drawSmoothRoundRect");
+pane.addInput(config, "smoothness", { min: 0, max: 1 });
+
 pane.addInput(config, "smoothCornersColor");
 pane.addSeparator();
 pane.addInput(config, "alpha", { min: 0, max: 1 });
