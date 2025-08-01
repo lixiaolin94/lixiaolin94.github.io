@@ -12,17 +12,12 @@ const config = {
   roundRectColor: "#000000",
   drawQuadSmoothCorners: false,
   quadColor: "#7b61ff",
-  drawSketchSmoothCorners: false,
-  sketchColor: "#FF5C00",
-  drawFigmaSmoothCorners: false,
-  figmaColor: "#18A0FB",
-  drawAndroidSmoothCorners: true,
-  androidColor: "#1bc47d",
+  drawSmoothCorners: true,
+  smoothCornersColor: "#1bc47d",
   smoothness: 0.6,
   alpha: 0.8,
   outline: false,
   lineWidth: 1,
-  debug: false,
 };
 
 let referenceImage = null;
@@ -33,30 +28,15 @@ function hex2rgba(hex, alpha = 1) {
   return `rgba(${r},${g},${b},${alpha})`;
 };
 
-function drawDebugPoints(points, context, color = "red") {
-  context.save();
-
-  points.forEach((point) => {
-    context.beginPath();
-    context.arc(point.x, point.y, 2, 0, Math.PI * 2);
-    context.fillStyle = color;
-    context.fill();
-  });
-
-  context.restore();
-}
 
 function drawShape(context, drawMethod, color, params) {
-  const points = drawMethod(context, ...params);
+  drawMethod(context, ...params);
   if (config.outline) {
     context.strokeStyle = hex2rgba(color, config.alpha);
     context.stroke();
   } else {
     context.fillStyle = hex2rgba(color, config.alpha);
     context.fill();
-  }
-  if (config.debug) {
-    drawDebugPoints(points, context, color);
   }
 }
 
@@ -89,21 +69,9 @@ function draw() {
       extraParams: [],
     },
     {
-      enabled: config.drawSketchSmoothCorners,
-      method: drawSketchSmoothCorners,
-      color: config.sketchColor,
-      extraParams: [],
-    },
-    {
-      enabled: config.drawFigmaSmoothCorners,
-      method: drawFigmaSmoothCorners,
-      color: config.figmaColor,
-      extraParams: [config.smoothness],
-    },
-    {
-      enabled: config.drawAndroidSmoothCorners,
+      enabled: config.drawSmoothCorners,
       method: drawSmoothCorners,
-      color: config.androidColor,
+      color: config.smoothCornersColor,
       extraParams: [config.smoothness],
     }
   ].map((shape) => ({
@@ -129,7 +97,7 @@ function handleResize() {
   draw();
 }
 
-function handleImageUpload(e) {
+function handleImageUpload() {
   const input = document.createElement("input");
   input.type = "file";
   input.accept = "image/*";
@@ -168,19 +136,12 @@ pane.addSeparator();
 pane.addInput(config, "drawQuadSmoothCorners");
 pane.addInput(config, "quadColor");
 pane.addSeparator();
-pane.addInput(config, "drawSketchSmoothCorners");
-pane.addInput(config, "sketchColor");
-pane.addSeparator();
-pane.addInput(config, "drawFigmaSmoothCorners");
-pane.addInput(config, "figmaColor");
-pane.addSeparator();
-pane.addInput(config, "drawAndroidSmoothCorners");
-pane.addInput(config, "androidColor");
+pane.addInput(config, "drawSmoothCorners");
+pane.addInput(config, "smoothCornersColor");
 pane.addSeparator();
 pane.addInput(config, "alpha", { min: 0, max: 1 });
 pane.addInput(config, "outline");
 pane.addInput(config, "lineWidth", { min: 0 });
-pane.addInput(config, "debug");
 pane.addButton({
     title: "Upload Reference Image",
   })
