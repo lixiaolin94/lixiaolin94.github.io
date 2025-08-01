@@ -10,9 +10,9 @@ const view = {
 const config = {
   drawRoundRect: true,
   roundRectColor: "#000000",
-  drawQuadSmoothCorners: false,
+  drawQuadSmoothRoundRect: false,
   quadColor: "#7b61ff",
-  drawSmoothCorners: true,
+  drawSmoothRoundRect: true,
   smoothCornersColor: "#1bc47d",
   smoothness: 0.6,
   alpha: 0.8,
@@ -63,14 +63,14 @@ function draw() {
       extraParams: [],
     },
     {
-      enabled: config.drawQuadSmoothCorners,
-      method: drawQuadSmoothCorners,
+      enabled: config.drawQuadSmoothRoundRect,
+      method: drawQuadSmoothRoundRect,
       color: config.quadColor,
       extraParams: [],
     },
     {
-      enabled: config.drawSmoothCorners,
-      method: drawSmoothCorners,
+      enabled: config.drawSmoothRoundRect,
+      method: drawSmoothRoundRect,
       color: config.smoothCornersColor,
       extraParams: [config.smoothness],
     }
@@ -133,10 +133,10 @@ pane.addSeparator();
 pane.addInput(config, "drawRoundRect");
 pane.addInput(config, "roundRectColor");
 pane.addSeparator();
-pane.addInput(config, "drawQuadSmoothCorners");
+pane.addInput(config, "drawQuadSmoothRoundRect");
 pane.addInput(config, "quadColor");
 pane.addSeparator();
-pane.addInput(config, "drawSmoothCorners");
+pane.addInput(config, "drawSmoothRoundRect");
 pane.addInput(config, "smoothCornersColor");
 pane.addSeparator();
 pane.addInput(config, "alpha", { min: 0, max: 1 });

@@ -25,7 +25,7 @@ function drawRoundRect(paint, left, top, right, bottom, radius) {
  * @param {number} bottom - Bottom coordinate
  * @param {number} radius - Corner radius
  */
-function drawQuadSmoothCorners(paint, left, top, right, bottom, radius) {
+function drawQuadSmoothRoundRect(paint, left, top, right, bottom, radius) {
   const CORNER_CORRECTION_FACTOR = 1.175; // Correction factor to make corners more accurate
 
   // Basic dimension calculations
@@ -63,7 +63,6 @@ function drawQuadSmoothCorners(paint, left, top, right, bottom, radius) {
   paint.quadraticCurveTo(right, top, right, top + cornerSize);
 
   paint.closePath();
-
 }
 
 /**
@@ -76,7 +75,7 @@ function drawQuadSmoothCorners(paint, left, top, right, bottom, radius) {
  * @param {number} radius - Corner radius (applied to all corners)
  * @param {number} smoothness - Corner smoothness (0-1)
  */
-function drawSmoothCorners(paint, left, top, right, bottom, radius, smoothness = 0.6) {
+function drawSmoothRoundRect(paint, left, top, right, bottom, radius, smoothness = 0.6) {
   // Bezier constants for smooth corners
   const BEZIER_RADIANS = Math.PI / 4;
   const SIN_VALUE = Math.sin(BEZIER_RADIANS);
