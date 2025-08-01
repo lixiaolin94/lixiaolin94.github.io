@@ -26,7 +26,8 @@ function drawRoundRect(paint, left, top, right, bottom, radius) {
  * @param {number} radius - Corner radius
  */
 function drawQuadSmoothRoundRect(paint, left, top, right, bottom, radius) {
-  const CORNER_CORRECTION_FACTOR = 1.175; // Correction factor to make corners more accurate
+  const KAPPA_QUAD = 1.17157; // 4 * (1 - sqrt(2) / 2)
+  const THRESHOLD = 0.4;
 
   // Basic dimension calculations
   const width = right - left;
@@ -34,14 +35,14 @@ function drawQuadSmoothRoundRect(paint, left, top, right, bottom, radius) {
   const minDimension = Math.min(width, height);
 
   // Special case: when no radius or radius is too large, fallback to regular rounded rect
-  if (radius === 0 || radius >= 0.375 * minDimension) {
+  if (radius === 0 || radius >= minDimension * THRESHOLD) {
     drawRoundRect(paint, left, top, right, bottom, radius);
     return;
   }
 
   // Ensure radius is within valid range
   const maxCornerSize = minDimension / 2;
-  const cornerSize = Math.min(maxCornerSize, radius * CORNER_CORRECTION_FACTOR);
+  const cornerSize = Math.min(maxCornerSize, radius * KAPPA_QUAD);
 
   paint.beginPath();
   paint.moveTo(right, top + cornerSize);
