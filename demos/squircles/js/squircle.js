@@ -14,19 +14,6 @@ function drawRoundRect(paint, left, top, right, bottom, radius) {
   paint.beginPath();
   paint.roundRect(left, top, width, height, radius);
   paint.closePath();
-
-  const debugPoints = [
-    { x: left + radius, y: top },
-    { x: right - radius, y: top },
-    { x: right, y: top + radius },
-    { x: right, y: bottom - radius },
-    { x: right - radius, y: bottom },
-    { x: left + radius, y: bottom },
-    { x: left, y: bottom - radius },
-    { x: left, y: top + radius },
-  ];
-
-  return debugPoints;
 }
 
 /**
