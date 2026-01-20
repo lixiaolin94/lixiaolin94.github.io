@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Path Interpolator Converter</title>
+  <style>
+    textarea {
+      width: 600px;
+      height: 240px;
+    }
+    
+  </style>
+</head>
+<body>
+  <div class="page">
+    
+      <div class="controls">
+        <div class="field">
+          <label for="scaleInput">Scale Factor</label>
+          <input id="scaleInput" type="number" step="0.01" value="1.0" />
+        </div>
+        <div class="actions">
+          <button id="convertBtn">Convert</button>
+          <button id="copyBtn" class="secondary">Copy Output</button>
+        </div>
+        <div class="status" id="status">Waiting for input…</div>
+      </div>
+    
+
+    <div class="panels">
+      <div class="panel">
+        <h3>Input</h3>
+        <textarea id="input" placeholder="Paste Android pathInterpolator XML, SVG XML, or a raw path string (d attribute)"></textarea>
+      </div>
+      <div class="panel">
+        <h3>Output</h3>
+        <textarea id="output" readonly placeholder="Converted output appears here"></textarea>
+      </div>
+    </div>
+
+    <div class="preview-card">  
+      <div>Preview</div>
+      <div class="preview-box">
+        <svg id="preview" viewBox="0 0 1 1" xmlns="http://www.w3.org/2000/svg">
+          <path id="previewPath" d="" stroke="blue" fill="none" />
+        </svg>
+      </div>
+      <div id="errorMsg" class="error" hidden>Invalid Path Data</div>
+    </div>
+  </div>
+
+  <script>
+    const inputEl = document.getElementById("input");
+    const outputEl = document.getElementById("output");
+    const scaleEl = document.getElementById("scaleInput");
+    const statusEl = document.getElementById("status");
+    const previewPath = document.getElementById("previewPath");
+    const previewSvg = document.getElementById("preview");
+    const errorMsg = document.getElementById("errorMsg");
+    const convertBtn = document.getElementById("convertBtn");
+    const copyBtn = document.getElementById("copyBtn");
+
+    const TOKEN_REGEX = /[a-zA-Z]|[-+]?(?:\d*\.\d+|\d+\.?\d*)(?:[eE][-+]?\d+)?/g;
+    const COMMAND_PARAM_COUNT = { M: 2, L: 2, H: 1, V: 1, C: 6, S: 4, Q: 4, T: 2, A: 7, Z: 0 };
+
+    function isCommand(token) {
+      return /^[a-zA-Z]$/.test(token);
+    }
+
+    function detectInputType(text) {
+      if (/\s*<\s*pathInterpolator/i.test(text)) return "android";
+      if (/<\s*svg|<\s*path/i.test(text)) return "svg";
+      return "path";
+    }
+
+    function extractPathData(text, type) {
+      if (type === "android") {
+        const match = text.match(/android:pathData\s*=\s*"([^"]+)"/i);
+        return match ? match[1] : null;
+      }
+      if (type === "svg") {
+        const pathMatch = text.match(/\sd\s*=\s*"([^"]+)"/i);
+        if (pathMatch) return pathMatch[1];
+        const simpleMatch = text.match(/<\s*path[^>]+>/i);
+        if (!simpleMatch) return null;
+      }
+      return text.trim() || null;
+    }
+
+    function tokenizePath(d) {
+      const tokens = d.match(TOKEN_REGEX);
+      return tokens || [];
+    }
+
+    function parsePath(d) {
+      const tokens = tokenizePath(d);
+      const segments = [];
+      let index = 0;
+      let currentCommand = null;
+
+      const popNumber = () => {
+        if (index >= tokens.length) return null;
+        const token = tokens[index];
+        if (isCommand(token)) return null;
+        index += 1;
+        return parseFloat(token);
+      };
+
+      while (index < tokens.length) {
+        const token = tokens[index];
+        if (isCommand(token)) {
+          currentCommand = token;
+          index += 1;
+          if (COMMAND_PARAM_COUNT[token.toUpperCase()] === 0) {
+            segments.push({ cmd: token, values: [] });
+            currentCommand = null;
+          }
+          continue;
+        }
+        if (!currentCommand) return [];
+
+        const upper = currentCommand.toUpperCase();
+        const needed = COMMAND_PARAM_COUNT[upper];
+        const values = [];
+        while (values.length < needed) {
+          const nextVal = popNumber();
+          if (nextVal === null) break;
+          values.push(nextVal);
+        }
+        if (values.length < needed) break;
+        segments.push({ cmd: currentCommand, values });
+
+        if (currentCommand === "M") currentCommand = "L";
+        if (currentCommand === "m") currentCommand = "l";
+      }
+
+      return segments;
+    }
+
+    function scaleSegments(segments, factor) {
+      if (!segments.length || factor === 1) return segments.map((s) => ({ cmd: s.cmd, values: s.values.slice() }));
+      return segments.map((segment) => {
+        const cmd = segment.cmd;
+        const upper = cmd.toUpperCase();
+        const scaled = segment.values.map((v) => v);
+        if (upper === "A") {
+          [0, 1, 5, 6].forEach((idx) => {
+            if (idx < scaled.length) scaled[idx] = scaled[idx] * factor;
+          });
+        } else if (upper === "H" || upper === "V") {
+          if (scaled.length) scaled[0] = scaled[0] * factor;
+        } else if (upper !== "Z") {
+          for (let i = 0; i < scaled.length; i += 1) {
+            scaled[i] = scaled[i] * factor;
+          }
+        }
+        return { cmd, values: scaled };
+      });
+    }
+
+    function formatNumber(n) {
+      const fixed = Number(n.toFixed(6));
+      return Number.isInteger(fixed) ? fixed.toString() : fixed.toString();
+    }
+
+    function buildPathString(segments) {
+      return segments
+        .map((seg) => {
+          if (!seg.values.length) return seg.cmd;
+          return `${seg.cmd} ${seg.values.map(formatNumber).join(" ")}`;
+        })
+        .join(" ");
+    }
+
+    function computeBounds(segments) {
+      if (!segments.length) return null;
+      let minX = Infinity;
+      let maxX = -Infinity;
+      let minY = Infinity;
+      let maxY = -Infinity;
+      let cx = 0;
+      let cy = 0;
+      let startX = 0;
+      let startY = 0;
+
+      const record = (x, y) => {
+        if (Number.isFinite(x) && Number.isFinite(y)) {
+          minX = Math.min(minX, x);
+          maxX = Math.max(maxX, x);
+          minY = Math.min(minY, y);
+          maxY = Math.max(maxY, y);
+        }
+      };
+
+      for (const seg of segments) {
+        const upper = seg.cmd.toUpperCase();
+        const rel = seg.cmd !== upper;
+        const v = seg.values;
+
+        if (upper === "M" || upper === "L" || upper === "T") {
+          const [xRaw, yRaw] = v;
+          const x = rel ? cx + xRaw : xRaw;
+          const y = rel ? cy + yRaw : yRaw;
+          record(x, y);
+          cx = x;
+          cy = y;
+          if (upper === "M") {
+            startX = x;
+            startY = y;
+          }
+        } else if (upper === "H") {
+          const x = rel ? cx + v[0] : v[0];
+          record(x, cy);
+          cx = x;
+        } else if (upper === "V") {
+          const y = rel ? cy + v[0] : v[0];
+          record(cx, y);
+          cy = y;
+        } else if (upper === "C") {
+          const points = [
+            [v[0], v[1]],
+            [v[2], v[3]],
+            [v[4], v[5]],
+          ];
+          points.forEach(([px, py], idx) => {
+            const x = rel ? cx + px : px;
+            const y = rel ? cy + py : py;
+            record(x, y);
+            if (idx === points.length - 1) {
+              cx = x;
+              cy = y;
+            }
+          });
+        } else if (upper === "S" || upper === "Q") {
+          const points = upper === "S" ? [[v[0], v[1]], [v[2], v[3]]] : [[v[0], v[1]], [v[2], v[3]]];
+          points.forEach(([px, py], idx) => {
+            const x = rel ? cx + px : px;
+            const y = rel ? cy + py : py;
+            record(x, y);
+            if (idx === points.length - 1) {
+              cx = x;
+              cy = y;
+            }
+          });
+        } else if (upper === "A") {
+          const rx = Math.abs(v[0]);
+          const ry = Math.abs(v[1]);
+          const x = rel ? cx + v[5] : v[5];
+          const y = rel ? cy + v[6] : v[6];
+          record(cx + rx, cy + ry);
+          record(cx - rx, cy - ry);
+          record(x, y);
+          cx = x;
+          cy = y;
+        } else if (upper === "Z") {
+          cx = startX;
+          cy = startY;
+        }
+      }
+
+      if (minX === Infinity) return null;
+      return { minX, maxX, minY, maxY };
+    }
+
+    function buildViewBox(bounds) {
+      const widthRaw = bounds ? bounds.maxX - bounds.minX : 1;
+      const heightRaw = bounds ? bounds.maxY - bounds.minY : 1;
+      const width = widthRaw === 0 ? 1 : widthRaw;
+      const height = heightRaw === 0 ? 1 : heightRaw;
+      const minX = bounds ? bounds.minX : 0;
+      const minY = bounds ? bounds.minY : 0;
+      return {
+        minX,
+        minY,
+        width,
+        height,
+      };
+    }
+
+    function renderPreview(path, bounds) {
+      if (!path) {
+        previewPath.setAttribute("d", "");
+        return;
+      }
+      previewPath.setAttribute("d", path);
+      const viewBox = buildViewBox(bounds);
+      previewSvg.setAttribute("viewBox", `${viewBox.minX} ${viewBox.minY} ${viewBox.width} ${viewBox.height}`);
+      const scale = Math.max(viewBox.width, viewBox.height);
+      previewPath.setAttribute("stroke-width", Math.max(0.003, scale * 0.01));
+    }
+
+    function androidTemplate(path, viewBox) {
+      return `<svg viewBox="${formatNumber(viewBox.minX)} ${formatNumber(viewBox.minY)} ${formatNumber(viewBox.width)} ${formatNumber(viewBox.height)}" xmlns="http://www.w3.org/2000/svg"><path d="${path}" /></svg>`;
+    }
+
+    function svgTemplate(path) {
+      return [
+        '<?xml version="1.0" encoding="utf-8"?>',
+        '<pathInterpolator xmlns:android="http://schemas.android.com/apk/res/android"',
+        `    android:pathData="${path}" />`,
+      ].join("\n");
+    }
+
+    function setStatus(message, level = "info") {
+      statusEl.textContent = message;
+      if (level === "error") statusEl.style.color = "red";
+      else if (level === "warn") statusEl.style.color = "orange";
+      else statusEl.style.color = "";
+    }
+
+    function process() {
+      const raw = inputEl.value || "";
+      if (!raw.trim()) {
+        setStatus("Waiting for input…");
+        outputEl.value = "";
+        renderPreview("", null);
+        errorMsg.hidden = true;
+        return;
+      }
+
+      const type = detectInputType(raw);
+      const pathData = extractPathData(raw, type);
+      if (!pathData) {
+        setStatus("Could not find path data in the input.", "error");
+        errorMsg.hidden = false;
+        errorMsg.textContent = "Invalid Path Data";
+        return;
+      }
+
+      const parsedSegments = parsePath(pathData);
+      if (!parsedSegments.length) {
+        setStatus("Path data could not be parsed.", "error");
+        errorMsg.hidden = false;
+        errorMsg.textContent = "Invalid Path Data";
+        return;
+      }
+
+      const scaleFactor = Number.parseFloat(scaleEl.value) || 1;
+      let segments = scaleSegments(parsedSegments, scaleFactor);
+      let bounds = computeBounds(segments);
+      if (!bounds) {
+        setStatus("Path bounds could not be determined.", "error");
+        errorMsg.hidden = false;
+        errorMsg.textContent = "Invalid Path Data";
+        return;
+      }
+
+      const finalPath = buildPathString(segments);
+      const viewBox = buildViewBox(bounds);
+
+      let output = "";
+      if (type === "android") {
+        output = androidTemplate(finalPath, viewBox);
+        setStatus(`Detected Android XML → SVG | Scale ${formatNumber(scaleFactor)}`);
+      } else {
+        output = svgTemplate(finalPath);
+        setStatus(`Detected ${type === "svg" ? "SVG" : "Path string"} → Android | Scale ${formatNumber(scaleFactor)}`);
+      }
+
+      outputEl.value = output;
+      errorMsg.hidden = true;
+      renderPreview(finalPath, bounds);
+    }
+
+    function copyOutput() {
+      const text = outputEl.value;
+      if (!text) return;
+      navigator.clipboard.writeText(text).then(() => {
+        copyBtn.textContent = "Copied!";
+        setTimeout(() => (copyBtn.textContent = "Copy Output"), 1000);
+      });
+    }
+
+    let debounceTimer = null;
+    function scheduleProcess() {
+      if (debounceTimer) clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(process, 200);
+    }
+
+    convertBtn.addEventListener("click", process);
+    copyBtn.addEventListener("click", copyOutput);
+    inputEl.addEventListener("input", scheduleProcess);
+    scaleEl.addEventListener("input", scheduleProcess);
+
+    // Kick things off if there is preloaded content.
+    process();
+  </script>
+</body>
+</html>
